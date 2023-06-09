@@ -1,5 +1,5 @@
 % DDE solver that can process parameterised functions
-function sol = param_solver(p, tr)
+function sol = immuno_solver(p, tr)
     % [input] p -> parameters for the system of DDEs (struct)
     % [input] tr -> treatment to be simulated (struct)
     % [output] sol -> results of the simulation (struct)
@@ -12,15 +12,9 @@ function sol = param_solver(p, tr)
     sol = dde23(@ddefun, lag, @history, tspan);
 
     function dydt = ddefun(t, y, Z)
-        % d_CBD
-        d_cbd = treatment_doser();
-
-        % d_12
-        if (tr.t_in12 + p.t_delay12) < t && t < (tr.t_in12 + p.t_delay12 + p.t_last12) && tr.active_il12
-            d_12 = 1;
-        else
-            d_12 = 0;
-        end
+        % d_CBD and d_12
+        d_cbd = treatment_doser(t, tr.t_in, p, tr.active_cbd);
+        d_12 = treatment_doser(t, tr.t_in12, p, tr.active_il12);
 
         % d_CPT
         if (tr.t_inCPI) < t && tr.active_cpi

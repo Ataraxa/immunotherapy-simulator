@@ -1,9 +1,12 @@
 % Solves the current model (modular parameters loading)
 clc; clear; close all;
-load("Parameters\struct_christian.mat");
-treatment = treatment_factory.il_12();
 
-sol = param_solver(params, treatment);
+%% Settings
+load("Parameters\struct_christian.mat"); % Select parameter set here
+treatment = treatment_factory.cbd_9_14(); % Select treatment here
+
+%% Solve and plot
+sol = immuno_solver(params, treatment);
 
 % Plotting results of the simulation
 figure(1); hold on;
