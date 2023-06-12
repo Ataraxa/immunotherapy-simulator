@@ -1,6 +1,3 @@
-% to test random crap
-clc; clear; close all;
-treatments = ["treat1", "treat2"];
-for tr = treatments
-    params.(tr{1}) = 'test';
+function error = quick_testing(input_struct)
+    error = abs(input_struct.v1 - input_struct.v2 + 10);
 end

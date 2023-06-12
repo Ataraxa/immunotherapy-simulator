@@ -5,7 +5,8 @@ function sol = immuno_solver(p, tr)
     % [output] sol -> results of the simulation (struct)
     
     % Settings of the dde23 solver
-    lag = p.td;
+    lag = abs(p.td); % TODO: verify that
+    disp(lag)
     tspan = [0 27];
     v_max = 600;
 
