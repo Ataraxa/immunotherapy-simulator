@@ -1,12 +1,20 @@
 % DDE solver that can process parameterised functions
-function sol = immuno_solver(p, tr)
-    % [input] p -> parameters for the system of DDEs (struct)
-    % [input] tr -> treatment to be simulated (struct)
+function sol = immuno_solver(p, tr, plot)
+    % [input] p -> parameters for the system of DDEs&
+    % [input] tr -> treatment to be simulated
     % [output] sol -> results of the simulation (struct)
+    
+    % This is so OP, thanks matlab
+    arguments
+        p {struct}
+        tr {struct}
+        plot.flag {boolean} = false
+        plot.subplot_id {int8}
+        plot.treatment_name {string}
+    end
     
     % Settings of the dde23 solver
     lag = abs(p.td); % TODO: verify that
-    disp(lag)
     tspan = [0 27];
     v_max = 600;
 
@@ -33,6 +41,16 @@ function sol = immuno_solver(p, tr)
           p.k6*(1-(y(4)+y(5))/v_max)*y(4) - (p.d5 + (p.d6*y(2)/(1+p.s1*y(3)*(1-d_cpi)) + p.d7*y(1))/(1+p.s2*(y(4)+y(5))))*y(4); % dv_l/dt
           (p.d5 + (p.d6*y(2)/(1+p.s1*y(3)*(1-d_cpi)) + p.d7*y(1))/(1+p.s2*(y(4)+y(5))))*y(4) - p.d8*y(5);
         ];
+    end
+
+    if plot_flag
+        load Data\preprocessed_data.mat data
+        figure(1); hold on; % subplot, one for each treatment
+        plot(sol.x,(sol.y(4,:)+sol.y(5,:)),'-','LineWidth',1)
+        plot(data.valid_days, data.vector_avg)
+        xlabel('Day since tumour inoculation', 'Interpreter','latex');
+        ylabel('Tumour Volume ($mm^3$)', 'Interpreter','latex');
+        legend('Total Tumour','Location','NorthWest');
     end
 end
 

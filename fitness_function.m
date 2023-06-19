@@ -1,5 +1,4 @@
 function error = fitness_function(params_array)
-    fprintf("I was called\n")
     % 21 parameters
     params_list = ["td", "t_delay", "t_last", "t_delay12", "t_last12", ...
         "k1", "k2", "k3", "k4", "k5", "k6", ...
@@ -27,7 +26,6 @@ function error = fitness_function(params_array)
             in_silico = sol.y(sol_index);
 %             error = error + (in_silico - in_vivo)^2;
             error_per_treatment(end+1) = (in_silico - in_vivo)^2;
-
             i = i + 1;
         end
     end
