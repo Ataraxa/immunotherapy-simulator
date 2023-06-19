@@ -6,30 +6,45 @@ function error = fitness_function(params_array)
         "s1", "s2"];
 
     load Data\preprocessed_data.mat data
-    % Boring part. Thanks matlab. surely there's a better way to do that
+
     for i = 1:numel(params_list)
         p.(params_list(i)) = params_array(i);
     end
     error = 0;
     treatments_available = methods(treatment_factory);
-    error_per_treatment = 0;
+    treatment_processed = 1;
     % Iterate over all treatments
+%     disp(p) % To control passing of parameters
+    error_per_treatment = [];
     for treatment = treatments_available(1:end-1).' % Need to remove last method bc it's not a real methods (it's a callback)
         treatment_spec = treatment_factory.(treatment{1})();
-        sol = immuno_solver(p, treatment_spec);
+        plot_info.flag = true; plot_info.treatment_name = treatment{1};
+        plot_info.subplot_id = treatment_processed;
+        sol = immuno_solver(p, treatment_spec, plot_info);
 
-        % Calculate MSE between experiment data and solution
+        fprintf("Error Array for %s \n ", treatment{1})
+        % Calculate MSE between experiment data and solution for each
+        % treatment and rake average of average for overall error
         i = 1;
+        error_per_day = [];
         for day = data.(treatment{1}).valid_days
             in_vivo = data.(treatment{1}).vector_avg(i);
             [~, sol_index] = min(abs(day .* ones(1, numel(sol.x)) - sol.x));
-            in_silico = sol.y(sol_index);
-%             error = error + (in_silico - in_vivo)^2;
-            error_per_treatment(end+1) = (in_silico - in_vivo)^2;
+            disp(sol_index)
+            figure(1); subplot(2, 3, treatment_processed); hold on
+            total_tumour_vol = sol.y(4,:) + sol.y(5,:);
+            scatter(sol.x(sol_index), total_tumour_vol(sol_index), "green", "HandleVisibility","off")
+            in_silico = total_tumour_vol(sol_index);
+            error_per_day(end+1) = (in_silico - in_vivo)^2;
             i = i + 1;
         end
+
+    disp(error_per_day)
+    fprintf("END OF TREATMENT ANALYSIS \n ")
+    error_per_treatment(treatment_processed) = mean(error_per_day);
+    treatment_processed = treatment_processed + 1;
     end
-    error = mean(error_per_treatment);
-    disp(error)
+error = mean(error_per_treatment);
+disp(error)
 end
 

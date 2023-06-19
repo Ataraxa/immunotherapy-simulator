@@ -6,7 +6,8 @@ load("Parameters\struct_christian.mat"); % Select parameter set here
 treatment = treatment_factory.CBD_IL_12_and_CPI_Day_9_14; % Select treatment here
 
 %% Solve and plot
-sol = immuno_solver(params, treatment);
+plot_info.flag = false;
+sol = immuno_solver(params, treatment, plot_info);
 
 % Plotting results of the simulation
 figure(1); hold on;

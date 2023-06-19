@@ -1,9 +1,8 @@
 % test
-clc
+clc; clear
 
 params.td = 1.47;
 
-params.t_in = 7;
 params.t_delay = 0.38;
 params.t_last = 5.41;
 
@@ -28,6 +27,5 @@ params.d8 = 0.61;
 
 params.s1 = 16;
 params.s2 = 0.35;
-disp(params.td)
 save('Parameters/struct_christian.mat', 'params')
 fprintf("Successfully saved new settings!\n")
