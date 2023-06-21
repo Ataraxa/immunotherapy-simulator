@@ -1,6 +1,7 @@
 clear; close all;
 
-load Parameters\struct_ga.mat params;
+load Parameters\struct_christian.mat params;
+
 vectorised_params = cell2mat(struct2cell(params));
 tic;
 fitness_function(vectorised_params);

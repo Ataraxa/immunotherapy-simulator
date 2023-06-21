@@ -40,8 +40,18 @@ function sol = immuno_solver(p, tr, plot_info)
           (p.d5 + (p.d6*y(2)/(1+p.s1*y(3)*(1-d_cpi)) + p.d7*y(1))/(1+p.s2*(y(4)+y(5))))*y(4) - p.d8*y(5);
         ];
     end
+    
+    function s = history(t)
+        s = [
+            p.ig0; % Amount of IFNg
+            p.c0; % Amount of CD8+
+            p.p0; % Amount of PD-1
+            p.vl0; % Volume of injected living tumour
+            0; % Initial volume of dead tumour
+        ];
+    end
 
-    if true
+    if plot_info.flag
         load Data\preprocessed_data.mat data
         figure(1); hold on; % subplot, one for each treatment
 

@@ -1,5 +1,5 @@
 % Initial conditions for the model
-function s = history(t)
+function s = legacy_history(t)
     % Need to to ask Dr. Tanaka what are baseline biological levels
     s = [
         0.025; % Amount of IFNg

@@ -19,5 +19,11 @@ params.d7 = 51.94;
 params.d8 = 0.61;
 params.s1 = 16;
 params.s2 = 0.35;
+
+params.ig0 = 0.015;
+params.c0 = 12;
+params.p0 = 4.4;
+params.vl0 = 7.06;
+
 save('Parameters/struct_christian.mat', 'params')
 fprintf("Successfully saved new settings!\n")

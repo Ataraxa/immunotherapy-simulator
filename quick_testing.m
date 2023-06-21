@@ -1,6 +1,4 @@
-my_list = [];
-
-for i = 1:10
-    my_list(end+1) = i;
-end
-disp(my_list)
+clc;
+my_list = [1 -3 1 6 2 10 10];
+d_a = diff(my_list)
+sum(d_a < 0)
