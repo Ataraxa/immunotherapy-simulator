@@ -41,7 +41,7 @@ function sol = immuno_solver(p, tr, plot_info)
         ];
     end
 
-    if plot_info.flag
+    if true
         load Data\preprocessed_data.mat data
         figure(1); hold on; % subplot, one for each treatment
 
