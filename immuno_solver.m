@@ -62,7 +62,7 @@ function sol = immuno_solver(p, tr, plot_info)
         ylabel('Tumour Volume ($mm^3$)', 'Interpreter','latex');
         ylim([0 inf])
         title(regexprep(sprintf('%s', plot_info.treatment_name), '_', ' '), Interpreter="none")
-        legend('Simulated', 'Experimental','Location','NorthEast');
+        legend('Simulated', 'Experimental','Location','SouthEast');
     end
 end
 

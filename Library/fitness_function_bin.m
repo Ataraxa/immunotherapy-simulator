@@ -49,14 +49,14 @@ function error = fitness_function_bin(params_array)
             error_per_day(end+1) = ((in_silico - in_vivo)^2)/1000;
             i = i + 1;
         end
-    fprintf("Error per day array for %s", treatment{1})
-    disp(error_per_day)
+%     fprintf("Error per day array for %s", treatment{1})
+%     disp(error_per_day)
     error_per_treatment(treatment_processed) = mean(error_per_day);
     treatment_processed = treatment_processed + 1;
     end
 
 % Combine error from all 5 treatments    
-error = sum(error_per_treatment);
+error = mean(error_per_treatment.^2);
 disp(error)
 end
 
