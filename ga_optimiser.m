@@ -2,7 +2,7 @@
 % Just needs the fitness function
 clc;
 options = optimoptions('ga','UseParallel',true);
-opt_params = ga(@fitness_function, 25,...
+opt_params = ga(@fitness_function_bin, 25,...
     [], [], [], [],...
     [0.1,0.1,0.1,0.1,0.1, 0.01,0.1,20,500,0.1,0.1, 1,5,0.01,0.1,0.1,0.1,0.1,0.1, 0.1,0.1, 0.001,1,1,5], ...  % lower bound
     [], ...
@@ -14,14 +14,14 @@ params_list = ["td", "t_delay", "t_last", "t_delay12", "t_last12", ...
         "ig0", "c0", "p0", "vl0"];
 
 i = 1;
-params = struct;
+params = struct;    
 for parameter = opt_params
     params.(params_list(i)) = parameter;
     i = i + 1;
 end
 disp(params)
 
-save ("Parameters/struct_ga_hpc.mat", "params")
+save ("Parameters/struct_ga.mat", "params")
 fprintf("Successfully saved new settings!\n")
 % disp("starting top optimse")
 % paramws = ga(@quick_testing, 21)

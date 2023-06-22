@@ -1,4 +1,4 @@
-function error = fitness_function(params_array)
+function error = fitness_function_bin(params_array)
     % 25 parameters
     params_list = ["td", "t_delay", "t_last", "t_delay12", "t_last12", ...
         "k1", "k2", "k3", "k4", "k5", "k6", ...
@@ -28,7 +28,12 @@ function error = fitness_function(params_array)
         total_tumour_vol = sol.y(4,:) + sol.y(5,:);
 
         [~, sol_index] = min(abs(7 .* ones(1, numel(sol.x)) - sol.x));
-        diff_array = diff(sol.y(1:sol_index));
+        if ~issorted(total_tumour_vol(1:sol_index))
+            figure(1); subplot(2, 3, treatment_processed); hold on
+%             scatter(sol.x(sol_index), total_tumour_vol(sol_index))
+            error_per_treatment(treatment_processed) = inf;
+            break
+        end
 
         % Calculate MSE between experiment data and solution for each
         % treatment and take average of average for overall error
@@ -41,15 +46,17 @@ function error = fitness_function(params_array)
             figure(1); subplot(2, 3, treatment_processed); hold on
             scatter(sol.x(sol_index), total_tumour_vol(sol_index), "b", "HandleVisibility","off")
             in_silico = total_tumour_vol(sol_index);
-            error_per_day(end+1) = ((in_silico - in_vivo)^2)/100 * (-sum(diff_array(diff_array < 0)) + 1);
+            error_per_day(end+1) = ((in_silico - in_vivo)^2)/1000;
             i = i + 1;
         end
+    fprintf("Error per day array for %s", treatment{1})
+    disp(error_per_day)
     error_per_treatment(treatment_processed) = mean(error_per_day);
     treatment_processed = treatment_processed + 1;
     end
 
 % Combine error from all 5 treatments    
-error = mean(error_per_treatment);
+error = sum(error_per_treatment);
 disp(error)
 end
 

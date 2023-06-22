@@ -20,8 +20,8 @@ function sol = immuno_solver(p, tr, plot_info)
 
     function dydt = ddefun(t, y, Z)
         % d_CBD and d_12
-        d_cbd = treatment_doser(t, tr.t_in, p, tr.active_cbd);
-        d_12 = treatment_doser(t, tr.t_in12, p, tr.active_il12);
+        d_cbd = treatment_doser(t, tr.t_in, p.t_delay, p.t_last, tr.active_cbd);
+        d_12 = treatment_doser(t, tr.t_in12,p.t_delay12, p.t_last12, tr.active_il12);
 
         % d_CPT
         if (tr.t_inCPI) < t && tr.active_cpi
