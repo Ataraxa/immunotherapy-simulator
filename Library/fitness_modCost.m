@@ -1,5 +1,5 @@
-function error = fitness_function_neutral(params_array)
-    debug_flag = false;
+function error = fitness_modCost(params_array)
+    debug_flag = true;
 
     % 25 parameters
     params_list = ["td", "t_delay", "t_last", "t_delay12", "t_last12", ...
@@ -57,11 +57,10 @@ function error = fitness_function_neutral(params_array)
     end
 
 % Combine error from all 5 treatments  
-% error = mean(error_per_treatment.^2);
-% error = error_per_treatment(1);
-% error = -sum(error_vector);
-error = sum(error_per_treatment(1:3)) - sum(error_per_treatment(4:6));
+error = 0;
+for i = 1:numel(error_per_treatment)
+    error = error + (error_per_treatment(i) * numel(error_per_treatment));
+end
 disp(error)
-% disp(error_per_treatment)
 end
 

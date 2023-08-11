@@ -1,4 +1,4 @@
-clc;
-my_list = [1 -3 1 6 2 10 10];
-d_a = diff(my_list)
-sum(d_a < 0)
+clc; clear; close all
+
+myarray = [1, 2, 3, 4, 5, 6];
+test = sum(myarray(1:3)) - sum(myarray(4:6));
