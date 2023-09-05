@@ -1,6 +1,6 @@
 using Pkg
 Pkg.status()
-Pkg.add("DelimitedFiles")
+Pkg.add("StatsBase")
 
 p1 = [1, 2, 3]
 p2 = [4, 5, 6]

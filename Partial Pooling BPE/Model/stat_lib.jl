@@ -6,9 +6,10 @@ using Distributions
 """
 Julia implementation of the binormal distribution.
 """
-function binorm(alpha=0.5, µ1=5, µ2=10, s1=1, s2=1,n =1)
+function binorm(alpha=0.5, µ1=5, µ2=10, s1=1, s2=1, n=1)
     # Output placeholder
-    sampled_numbers = Array{Float64}
+    # sampled_numbers = zeros(n)
+    local res::Float64
 
     # Declartion of the Distribution objects
     norm1 = Normal(µ1, s1)
@@ -16,13 +17,14 @@ function binorm(alpha=0.5, µ1=5, µ2=10, s1=1, s2=1,n =1)
     
     for (id, outcome) in enumerate(rand(n))
         if outcome <= alpha 
-            sampled_numbers[id] = rand(norm1, 1)
+            res = rand(norm1, 1)[1]
         else
-            sampled_numbers[id] = rand(norm2, 1)
+            res = rand(norm2, 1)[1]
         end
     end
 
-    return sampled_numbers
+    return res
 end
+
 
 
