@@ -1,9 +1,10 @@
 # File containing the necessary objects to simulate the immune response.
 
-"""
-Short function to check is a treament (characterised by the params)is active at
-time t.
-"""
+# """
+# Short function to check is a treament (characterised by the params)is active at
+# time t.
+# """
+
 function check_active(t::Float64, t_in_vector::Array, delay::Float64, last::Float64, is_injected::Bool)
     is_active = false
     for t_in = t_in_vector
@@ -27,8 +28,7 @@ function immune_response(du, u, h, p, t)
     v_max=600
 
     # Current state.
-    # print(u)
-    g, c, p, vl, vd = u
+    g, c, pd1, vl, vd = u
 
     # Check if treatments are active at time t
     d_cbd = check_active(t, [7], t_delay, t_last, true)
@@ -38,9 +38,9 @@ function immune_response(du, u, h, p, t)
     # Evaluate differential equations.
     du[1] = k1 + k2 * d_cbd - d1 * g
     du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
-    du[3] = k5 - (d3+d4*g)*p 
-    du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*p*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
-    du[5] = (d5 + (d6*c/(1+s1*p*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
+    du[3] = k5 - (d3+d4*g)*pd1 
+    du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
+    du[5] = (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
 
     return nothing
 end

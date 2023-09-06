@@ -42,9 +42,12 @@ for traj in 1:num_traj
     end
     
     # Save trajectories to .csv file
-    writedlm("Data/trajectories-$traj.csv", sol_dde, ',')
+    matrix_sol = reshape(reduce(hcat, sol_dde), 5, 301)
+    writedlm("Data/trajectories-$traj.csv", [sol_dde.t'; matrix_sol], ',')
     
     # Save sensitive params to .csv file 
     to_csv = [p[2][6], p[3][1], p[4][2]]
     writedlm("Data/params-$traj.csv", to_csv, ',')
 end
+
+0
