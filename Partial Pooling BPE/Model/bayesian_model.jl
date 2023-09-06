@@ -9,7 +9,7 @@ include("binormal.jl")
     # Prior distributions
     # k6
     mu1_k6 ~ Normal(0.2, 0.1)
-    mu1_k6 ~ Normal(0.8, 0.1)
+    mu2_k6 ~ Normal(0.8, 0.1)
     s1_k6 ~ truncated(Normal(0, 0.1); lower=0)
     s2_k6 ~ truncated(Normal(0, 0.1); lower=0)
     a_k6 ~ Beta(1, 1)
@@ -20,6 +20,7 @@ include("binormal.jl")
     mu2_d1 ~ Normal(0.8, 0.1)
     s1_d1 ~ truncated(Normal(0, 0.1); lower=0)
     s2_d1 ~ truncated(Normal(0, 0.1); lower=0)
+    a_d1 ~ Beta(1, 1)
     d1 ~ BiNormal{Float64}(mu1_d1, mu1_d1, s1_d1, s2_d1, a_d1)
     
     # s2
@@ -27,6 +28,7 @@ include("binormal.jl")
     mu2_s2 ~ Normal(0.8, 0.1)
     s1_s2 ~ truncated(Normal(0, 0.1); lower=0)
     s2_s2 ~ truncated(Normal(0, 0.1); lower=0)
+    a_s2 ~ Beta(1, 1)
     s2 ~ BiNormal{Float64}(mu1_s2, mu1_s2, s1_s2, s2_s2, a_s2)
 
     # Experimental error
@@ -39,9 +41,12 @@ include("binormal.jl")
     p[4][2] = s2
     predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
     tumour_vol_prediction = predictions[4] + predictions[5]
+    
+    # Experimental error (σ_err)
+    σ_err = 0.1 
 
     # Observations.
-    for i in 1:length(predicted)
-        data[:, i] ~ Normal(tumour_vol_prediction[i], σ^2 * I)
+    for i in eachindex(tumour_vol_prediction)
+        data[i] ~ Normal(tumour_vol_prediction[i], σ_err^2)
     end
 end
