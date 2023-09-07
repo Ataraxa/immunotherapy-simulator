@@ -6,6 +6,10 @@ include("ode_model.jl")
 include("binormal.jl")
 
 @model function fit_immune_resp(data, problem)
+    if data === missing 
+        data = Vector{Float64}(undef, 15)
+    end
+
     # Prior distributions
     # k6
     mu1_k6 ~ Normal(0.2, 0.1)
@@ -30,9 +34,6 @@ include("binormal.jl")
     s2_s2 ~ truncated(Normal(0, 0.1); lower=0)
     a_s2 ~ Beta(1, 1)
     s2 ~ BiNormal{Float64}(mu1_s2, mu1_s2, s1_s2, s2_s2, a_s2)
-
-    # Experimental error
-    s_err ~ truncated(Normal(0, 10); lower=0)
     
     # Simulate immune response
     _, p = get_default_values()
@@ -41,7 +42,9 @@ include("binormal.jl")
     p[4][2] = s2
     predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
     tumour_vol_prediction = predictions[4] + predictions[5]
+    # display(plot(tumour_vol_prediction))
     
+
     # Experimental error (σ_err)
     σ_err = 0.1 
 
@@ -49,4 +52,6 @@ include("binormal.jl")
     for i in eachindex(tumour_vol_prediction)
         data[i] ~ Normal(tumour_vol_prediction[i], σ_err^2)
     end
+
+    return "helo"
 end

@@ -2,6 +2,12 @@
 File where all the analysis on posterior distributions is condicted
 """
 
-using Serialization
+using HDF5
+using MCMCChainsStorage
+using StatsPlots: plot
 
-chain = deserialize("Res/chain_dde_file.jls")
+chain = h5open("Res/validation_chain.h5", "r") do f
+    read(f, Chains)
+end
+
+plot(chain)
