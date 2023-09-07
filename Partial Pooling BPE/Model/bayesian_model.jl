@@ -7,7 +7,7 @@ include("binormal.jl")
 
 @model function fit_immune_resp(data, problem)
     if data === missing 
-        data = Vector{Float64}(undef, 15)
+        data = Vector{Float64}(undef, 271)
     end
 
     # Prior distributions
@@ -41,7 +41,7 @@ include("binormal.jl")
     p[3][1] = d1 
     p[4][2] = s2
     predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
-    tumour_vol_prediction = predictions[4] + predictions[5]
+    tumour_vol_prediction = predictions[4,:] + predictions[5,:]
     # display(plot(tumour_vol_prediction))
     
 
@@ -53,5 +53,4 @@ include("binormal.jl")
         data[i] ~ Normal(tumour_vol_prediction[i], σ_err^2)
     end
 
-    return "helo"
 end

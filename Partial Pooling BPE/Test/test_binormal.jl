@@ -10,9 +10,6 @@ using StatsBase: sample
 
 # Custom libraries
 include("../Model/binormal.jl")
-include("../Model/template_distrib.jl")
-include("../Model/binormal.jl")
-
 """
 Plots the pdf of target distribution simply by sampling random numbers from 
 it
@@ -38,16 +35,26 @@ function coin_flip_check(distrib::Distribution)
         θ ~ distrib 
     end
 
-    chain = sample(coinFlip(), SMC(), 1000)
+    chain = sample(coinFlip(), NUTS(0.7), MCMCSerial(), 1000, 3)
+    return(chain)
+end
+
+function hyper_coin_check()
+    @model function hyperCoinFip()
+        µ ~ Normal{Float64}(10.0, 1.0)
+        θ ~ BiNormal{Float64}(5.0, µ, 0.1, 0.1, 0.5)
+    end
+
+    chain = sample(hyperCoinFip(), NUTS(0.7), MCMCSerial(), 1000, 3)
     return(chain)
 end
 
 # Define distributions to test or act as positiv control
-binormal = BiNormal3{Float64}(3.0, 10.2, 1.0, 1.0, 0.5)
-norm1 = Normal(5, 1)
-bet23 = Beta(2, 2)
-# dummy = Kuma3{Int64}(10, 2, 3, 1, 1)
+# binormal = BiNormal{Float64}(0.2, 0.8, 0.1, 0.1, 0.5)
+normal = Normal(5, 1)
+beta_uniform = Beta(2, 2)
 
 # Perform check 
-res = coin_flip_check(binormal)
+# res = coin_flip_check(binormal)
+res = hyper_coin_check()
 plot(res)

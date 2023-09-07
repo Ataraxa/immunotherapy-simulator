@@ -19,7 +19,7 @@ is_local_machine = true
 
 # 1 - Create a problem object
 u0, p = get_default_values()
-t_span = (0.0, 30.0)
+t_span = (0.0, 27.0)
 h(p, t; idxs::Int) = 0.0
 prob_immune_resp = DDEProblem(immune_response, u0, h, t_span, p)
 
@@ -37,7 +37,7 @@ approx_sol = Array(tracked_tumour_vol) + 10.0 * randn(size(tracked_tumour_vol)[1
 model_dde = fit_immune_resp(approx_sol, prob_immune_resp)
 
 if !is_local_machine
-    chain_dde = Turing.sample(model_dde, SMC(), MCMCSerial(), 3000, 3; progress=false)
+    chain_dde = sample(model_dde, NUTS(0.65), MCMCSerial(), 1000, 3; progress=false)
 
     h5open("Res/validation_chain.h5", "w") do f 
         write(f, chain_dde)

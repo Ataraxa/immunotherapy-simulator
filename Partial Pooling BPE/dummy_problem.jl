@@ -48,6 +48,7 @@ ddedata = Array(sol_dde) + 0.5 * randn(size(sol_dde))
 
 # Statistical model
 @model function fitlv_dde(data, prob)
+
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
     α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
@@ -69,7 +70,8 @@ end
 model_dde = fitlv_dde(ddedata, prob_dde)
 
 # Sample 3 independent chains
-chain_dde = sample(model_dde, NUTS(0.65), MCMCSerial(), 300, 3; progress=false)
+chain_dde_nuts = sample(model_dde, NUTS(0.65), 100; progress=false)
+chain_dde_asmc = sample(model_dde, SMC(), 100; progress=false)
 
-plot(chain_dde)
+# plot(chain_dde)
 

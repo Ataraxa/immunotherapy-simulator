@@ -2,24 +2,26 @@
 using Distributions
 
 struct BiNormal{T<:Real} <: Distribution{Univariate,Continuous}
-    a::T  ## first parameter of Kumaraswamy Distribution
-    b::T  ## second parameter of Kumraswamy Distribution
-    c::T
-    d::T 
-    e::Float64
+    a
+    # b::Turing.ForwardDiff.Dual{Turing.ForwardDiff.Tag{Turing.TuringTag, Float64}, Float64} 
+    b
+    c
+    d 
+    e::T
 
-    # inner constructor function to instantiate new BiNormal objects
-    function BiNormal{T}(a::T, b::T, c::T, d::T, e::Float64; check_args = true) where {T<:Real}
-        check_args && Distributions.@check_args(BiNormal, c>0 && d>0)
+            # inner constructor function to instantiate new BiNormal objects
+    function BiNormal{T}(a, b, c, d, e::T; check_args = true) where {T<:Real}
+            check_args && Distributions.@check_args(BiNormal, c>0 && d>0)
         return new{T}(a,b,c,d,e)
     end
 end
 
 # constructor functions for implicitly supplied type
 # constructor for no type and params Float64
-function BiNormal(a::Float64,b::Float64,c::Float64,d::Float64,e::Float64; check_args = true)
+        function BiNormal(a::Float64,b::Float64,c::Float64,d::Float64,e::Float64; check_args = true)
     return BiNormal{Float64}(a,b,c,d,e,check_args = check_args)
 end
+
 
 # constructor for real params - use promote to make aprams the same type
 BiNormal(a::Real, b::Real, c::Real, d::Real, e::Real) = BiNormal(promote(a,b,c,d,e)...)
