@@ -1,11 +1,14 @@
 """
-Main file where the Bayesian analysis is conducted, according to the proposal
+Main file where the Bayesian analysis is conducted, according to the proposal.
+This file should only be run on the HPC, as it is very heavy.
 """
 
 import Turing: sample
 using DifferentialEquations
 using DelimitedFiles
 using StatsPlots
+using HDF5
+using MCMCChainsStorage
 
 include("Model/bayesian_model.jl")
 include("Model/ode_model.jl")
@@ -29,4 +32,6 @@ model_dde = fit_immune_resp(tracked_tumour_vol, prob_immune_resp)
 
 chain_dde = sample(model_dde, SMC(), MCMCSerial(), 3000, 3; progress=false)
 
-# plot(chain_dde)
+h5open("Res/validation_chain.h5", 'w') do f 
+    write(f, chain_dde)
+end
