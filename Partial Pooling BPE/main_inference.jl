@@ -34,9 +34,16 @@ approx_sol = Array(tracked_tumour_vol) + 10.0 * randn(size(tracked_tumour_vol)[1
 model_dde = fit_immune_resp(approx_sol, prob_immune_resp)
 
 if !is_local_machine
-    chain_dde = sample(model_dde, NUTS(0.65),1000; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(0.65),1000; progress=false)
+    
+    i = 0
+    filename = "validation_chain-$i.h5"
+    while isfile(filename)
+        i+=1
+    end
 
-    h5open("Res/validation_chain.h5", "w") do f 
+
+    h5open("Res/$filename", "w") do f 
         write(f, chain_dde)
     end
 end
