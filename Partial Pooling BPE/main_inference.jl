@@ -8,6 +8,7 @@ using DifferentialEquations
 using DelimitedFiles
 using StatsPlots: plot, scatter!
 using HDF5
+using MCMCChains
 using MCMCChainsStorage
 
 include("Model/bayesian_model.jl")
@@ -35,7 +36,7 @@ model_dde = fit_immune_resp(approx_sol, prob_immune_resp)
 
 # This is where the heavy computations come in - so reserved for HPC
 if !is_local_machine
-    chain_dde = Turing.sample(model_dde, NUTS(0.65),1000; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCDistributed(), 1000, 2; progress=false)
     
     # Create new filename
     i = 0
