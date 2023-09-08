@@ -33,16 +33,18 @@ approx_sol = Array(tracked_tumour_vol) + 10.0 * randn(size(tracked_tumour_vol)[1
 # 3 - Fit model to data 
 model_dde = fit_immune_resp(approx_sol, prob_immune_resp)
 
+# This is where the heavy computations come in - so reserved for HPC
 if !is_local_machine
     chain_dde = Turing.sample(model_dde, NUTS(0.65),1000; progress=false)
     
+    # Create new filename
     i = 0
     filename = "validation_chain-$i.h5"
     while isfile(filename)
         i+=1
     end
-
-
+    
+    # Save MCMC chain
     h5open("Res/$filename", "w") do f 
         write(f, chain_dde)
     end
