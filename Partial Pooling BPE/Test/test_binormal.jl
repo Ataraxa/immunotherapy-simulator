@@ -41,8 +41,11 @@ end
 
 function hyper_coin_check()
     @model function hyperCoinFip()
-        µ ~ Normal{Float64}(10.0, 1.0)
-        θ ~ BiNormal{Float64}(5.0, µ, 0.1, 0.1, 0.5)
+        µ1 ~ Normal{Float64}(7.0, 1.0)
+        µ2 ~ Normal{Float64}(2.0, 1.0)
+        a ~ Beta(1,1)
+        s ~ truncated(Normal(0, 1); lower=1)
+        θ ~ BiNormal{Float64}(µ2, µ1, s, s, a)
     end
 
     chain = sample(hyperCoinFip(), NUTS(0.7), MCMCSerial(), 1000, 3)

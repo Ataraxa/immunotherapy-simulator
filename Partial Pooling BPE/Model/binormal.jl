@@ -7,10 +7,10 @@ struct BiNormal{T<:Real} <: Distribution{Univariate,Continuous}
     b
     c
     d 
-    e::T
+    e
 
-            # inner constructor function to instantiate new BiNormal objects
-    function BiNormal{T}(a, b, c, d, e::T; check_args = true) where {T<:Real}
+    # inner constructor function to instantiate new BiNormal objects
+    function BiNormal{T}(a, b, c, d, e; check_args = true) where {T<:Real}
             check_args && Distributions.@check_args(BiNormal, c>0 && d>0)
         return new{T}(a,b,c,d,e)
     end

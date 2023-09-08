@@ -36,10 +36,7 @@ include("binormal.jl")
     s2 ~ BiNormal{Float64}(mu1_s2, mu1_s2, s1_s2, s2_s2, a_s2)
     
     # Simulate immune response
-    _, p = get_default_values()
-    p[2][6] = k6
-    p[3][1] = d1 
-    p[4][2] = s2
+    p=[k6, d1, s2]
     predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
     tumour_vol_prediction = predictions[4,:] + predictions[5,:]
     # display(plot(tumour_vol_prediction))

@@ -11,17 +11,14 @@ using HDF5
 using MCMCChainsStorage
 
 include("Model/bayesian_model.jl")
-include("Model/ode_model.jl")
+include("Model/dde_problem.jl")
 
 # Settings for inference
 traj2fit = "Data/trajectories-average.csv"
-is_local_machine = true
+is_local_machine = false
 
 # 1 - Create a problem object
-u0, p = get_default_values()
-t_span = (0.0, 27.0)
-h(p, t; idxs::Int) = 0.0
-prob_immune_resp = DDEProblem(immune_response, u0, h, t_span, p)
+prob_immune_resp = create_dde_problem()
 
 # 2 - Extract data from pre-generated files
 data = readdlm(traj2fit, ',')
@@ -37,7 +34,7 @@ approx_sol = Array(tracked_tumour_vol) + 10.0 * randn(size(tracked_tumour_vol)[1
 model_dde = fit_immune_resp(approx_sol, prob_immune_resp)
 
 if !is_local_machine
-    chain_dde = sample(model_dde, NUTS(0.65), MCMCSerial(), 1000, 3; progress=false)
+    chain_dde = sample(model_dde, NUTS(0.65),1000; progress=false)
 
     h5open("Res/validation_chain.h5", "w") do f 
         write(f, chain_dde)
