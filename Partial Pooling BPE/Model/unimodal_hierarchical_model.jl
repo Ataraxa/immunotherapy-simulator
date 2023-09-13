@@ -3,7 +3,8 @@ using Distributions
 include("ode_model.jl")
 include("binormal.jl")
 
-@model function fit_hierarchical(data, problem, num_experiments)
+"Dummy statistical hierachical model"
+@model function fit_dummy_hierarchical(data, problem, num_experiments, s, selected_days)
     # Initialise the parameter arrays
     k6 = Vector{Float64}(undef, num_experiments)
     d1 = Vector{Float64}(undef, num_experiments)
@@ -34,9 +35,10 @@ include("binormal.jl")
         p = [k6[exp], d1[exp], s2[exp]]
         predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
         pred_vol = predictions[4,:] + predictions[5,:]
+        sliced_pred = pred_vol[selected_days*1/s .+ 1]
 
-        for i in eachindex(pred_vol)
-            data[exp, i] ~ Normal(pred_vol[i], σ_err^2)
+        for i in eachindex(sliced_pred)
+            data[exp, i] ~ Normal(sliced_pred[i], σ_err^2)
         end
     end
 end
