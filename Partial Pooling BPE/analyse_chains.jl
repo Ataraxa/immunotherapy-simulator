@@ -11,4 +11,4 @@ chain = h5open("Res/validation_chain4.h5", "r") do f
     read(f, Chains)
 end
 
-plot(chain[2]])
+plot(chain)

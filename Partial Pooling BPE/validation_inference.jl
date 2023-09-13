@@ -1,6 +1,6 @@
 """
-Main file where the Bayesian analysis is conducted, according to the proposal.
-This file should only be run on the HPC, as it is very heavy.
+Script to run a validation protocol on the hierachical Bayesian model
+It first creates a matrix of data, and fits it to the desired model.
 """
 
 import Turing
@@ -15,14 +15,13 @@ include("Model/bayesian_base_model.jl")
 include("Model/dde_problem.jl")
 
 # Settings for inference
-traj2fit = "Data/trajectories-average.csv"
-is_local_machine = true
 do_plot = true
 
 # 1 - Create a problem object
 prob_immune_resp = create_dde_problem()
 
 # 2 - Extract validation data, select days and add random noise
+data_matrix
 data = readdlm(traj2fit, ',')
 exact_vol = data[5, :] + data[6, :]
 approx_vol = Array(exact_vol) + 10.0 * randn(size(exact_vol)[1])
