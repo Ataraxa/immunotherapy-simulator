@@ -7,8 +7,8 @@ using MCMCChains
 using MCMCChainsStorage
 using StatsPlots: plot
 
-chain = h5open("Res/validation_chain3.h5", "r") do f
+chain = h5open("Res/validation_chain4.h5", "r") do f
     read(f, Chains)
 end
 
-plot(chain)
+plot(chain[2]])

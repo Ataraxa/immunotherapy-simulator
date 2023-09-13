@@ -10,10 +10,10 @@ function create_dde_problem()
     u0, _ = get_default_values()
     p = [0.6, 11, 0.4]
     t_span = (0.0, 27.0)
-    h(p, t; idxs::Int) = 1.0
+    h(p, t; idxs::Int) = 0.0
     
     prob_dde = DDEProblem(bayesian_immune_response, u0, h, t_span, p)
-    
+
     return prob_dde
 end
 
