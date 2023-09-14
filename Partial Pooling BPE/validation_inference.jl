@@ -19,7 +19,7 @@ DotEnv.config() # Loads content from .env file
 # Settings for inference
 do_plot = true
 step_size = parse(Float64, ENV["STEP_SIZE"])
-print(ENV["IS_REMOTE"])
+println(ENV["IS_REMOTE"])
 
 # 1 - Create a problem object
 prob_immune_resp = create_dde_problem()
@@ -42,13 +42,13 @@ model_dde = fit_dummy_hierarchical(data_matrix, prob_immune_resp, num_experiment
 
     # This is where the heavy computations come in - so reserved for HPC
 if ENV["IS_REMOTE"] == "true"
-    print("Going into the remote computing branch")
+    println("Going into the remote computing branch")
     chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCDistributed(), 1000, 3; progress=false)
 
     # Create new filename
     file_i = 0
     filename = "new_validation_chain-$file_i.h5"
-    while isfile(filename)
+    while isfile("Res/$filename")
         file_i+=1
     end
     
@@ -57,24 +57,24 @@ if ENV["IS_REMOTE"] == "true"
         write(f, chain_dde)
     end
 
-    print("File saved successfully!")
+    println("File saved successfully!")
 else
-    print("Going into the local computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(0.65), 10; progress=false)    print("finished creating the parallel mcmc chains")
+    println("Going into the local computing branch")
+    chain_dde = Turing.sample(model_dde, SMC(), 3; progress=false)
 
     # Create new filename
     file_i = 0
     filename = "local_validation_chain-$file_i.h5"
-    while isfile(filename)
+    while isfile("Res/$filename")
         file_i+=1
     end
-    
+
     # Save MCMC chain
     h5open("Res/$filename", "w") do f 
         write(f, chain_dde)
     end
 
-    print("File saved successfully!")
+    println("File saved successfully!")
 end
 
 return 0
