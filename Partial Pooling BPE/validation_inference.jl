@@ -7,12 +7,10 @@ import Turing
 using DotEnv
 using DifferentialEquations
 using DelimitedFiles
-using StatsPlots: plot, scatter!
 using HDF5
 using MCMCChains
 using MCMCChainsStorage
 
-include("Model/bayesian_base_model.jl")
 include("Model/unimodal_hierarchical_model.jl")
 include("Model/dde_problem.jl")
 
@@ -43,13 +41,14 @@ model_dde = fit_dummy_hierarchical(data_matrix, prob_immune_resp, num_experiment
 
 # This is where the heavy computations come in - so reserved for HPC
 if ENV["IS_REMOTE"] == "true"
-    chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCDistributed(), 1000, 2; progress=false)
-    
+    chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCDistributed(), 1000, 3; progress=false)
+    print("finished creating the parallel mcmc chains")
+
     # Create new filename
-    i = 0
-    filename = "new_validation_chain-$i.h5"
+    file_i = 0
+    filename = "new_validation_chain-$file_i.h5"
     while isfile(filename)
-        i+=1
+        file_i+=1
     end
     
     # Save MCMC chain

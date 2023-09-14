@@ -12,6 +12,7 @@ using Turing
 using DifferentialEquations
 using StatsPlots: plot
 using LinearAlgebra
+import HDF5
 
 # Set a seed for reproducibility
 using Random
@@ -75,3 +76,6 @@ chain_dde_asmc = sample(model_dde, SMC(), 100; progress=false)
 
 # plot(chain_dde)
 
+h5open("Res/save_dummy.h5", "w") do f 
+    write(f, chain_dde_nuts)
+end

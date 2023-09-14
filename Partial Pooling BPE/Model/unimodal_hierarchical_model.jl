@@ -1,9 +1,9 @@
 using Turing 
 using Distributions
+using LinearAlgebra
 include("ode_model.jl")
-include("binormal.jl")
 
-"Dummy statistical hierachical model"
+"Dummy statistical hierachical model: population prior is unimodal"
 @model function fit_dummy_hierarchical(data, problem, num_experiments, s, selected_days)
     # Initialise the parameter arrays
     k6 = Vector{Float64}(undef, num_experiments)
@@ -21,7 +21,7 @@ include("binormal.jl")
     σ_s2 ~ truncated(Normal(0, 0.2); lower=0)
     
     # Regular priors
-    for exp in data
+    for exp in 1:size(data)[1]
         k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0)
         d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=0)
         s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0)    
@@ -31,7 +31,7 @@ include("binormal.jl")
     σ_err = 0.1 
 
     # Likelihood 
-    for exp in data 
+    for exp in 1:size(data)[1]
         p = [k6[exp], d1[exp], s2[exp]]
         predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
         pred_vol = predictions[4,:] + predictions[5,:]
