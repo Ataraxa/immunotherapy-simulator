@@ -1,3 +1,5 @@
+using DifferentialEquations
+
 """
 File that generates a DDE Problem, to be solved within the Bayesian model.
 This is necessary as the model requires a specific type of DDE model 

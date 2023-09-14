@@ -11,20 +11,20 @@ include("binormal.jl")
     s2 = Vector{Float64}(undef, num_experiments)
 
     # Hyperprior distributions
-    µ_k6 ~ Normal()
-    σ_k6 ~ truncated(Normal())
+    µ_k6 ~ Normal(0.5, 0.2)
+    σ_k6 ~ truncated(Normal(0, 0.3); lower=0)
 
-    µ_d1 ~ Normal()
-    σ_d1 ~ truncated(Normal())
+    µ_d1 ~ Normal(11, 2)
+    σ_d1 ~ truncated(Normal(0, 3); lower=0)
 
-    µ_s2 ~ Normal()
-    σ_s2 ~ truncated(Normal())
+    µ_s2 ~ Normal(0.3, 0.2)
+    σ_s2 ~ truncated(Normal(0, 0.2); lower=0)
     
     # Regular priors
     for exp in data
-        k6[exp] ~ Normal(µ_k6, σ_k6)
-        d1[exp] ~ Normal(µ_d1, σ_d1)
-        s2[exp] ~ Normal(µ_s2, σ_s2)    
+        k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0)
+        d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=0)
+        s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0)    
     end
 
     # Experimental error (σ_err)
