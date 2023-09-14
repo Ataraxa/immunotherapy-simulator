@@ -35,7 +35,7 @@ include("binormal.jl")
         p = [k6[exp], d1[exp], s2[exp]]
         predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
         pred_vol = predictions[4,:] + predictions[5,:]
-        sliced_pred = pred_vol[selected_days*1/s .+ 1]
+        sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
         for i in eachindex(sliced_pred)
             data[exp, i] ~ Normal(sliced_pred[i], σ_err^2)
