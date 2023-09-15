@@ -5,6 +5,10 @@ include("ode_model.jl")
 
 "Dummy statistical hierachical model: population prior is unimodal"
 @model function fit_dummy_hierarchical(data, problem, num_experiments, s, selected_days)
+    if data === missing 
+        data = Array{Float64}(undef, num_experiments, length(selected_days))
+    end
+    
     # Initialise the parameter arrays
     k6 = Vector{Float64}(undef, num_experiments)
     d1 = Vector{Float64}(undef, num_experiments)

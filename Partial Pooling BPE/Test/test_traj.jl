@@ -1,17 +1,11 @@
 #=
-File to visualise the trajectory files and test their formatting options.
+File to test if data is correctly extracted before being fitted to the Bayesian
+model.
 =#
-import CSV, DelimitedFiles
-using Plots: plot, plot!
 
-function visualise_traj(filename)
-    data = readdlm(filename,',')
-    t = data[1,:]
+using Plots: plot
 
-    # plot(t, data[2,:])
-    # plot!(t, data[3,:])
-    # plot!(t, data[4,:])
-    plot(t, data[5,:]+data[6,:])
-end
+include("../Tools/data_extractor.jl")
 
-visualise_traj("Data/trajectories-average.csv")
+data_matrix = read_data([0,7,8,9,11,14,17,20], 10, 0.1)
+plot(data_matrix') # with plot(), each *column* is a line

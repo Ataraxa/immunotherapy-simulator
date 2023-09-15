@@ -9,7 +9,7 @@ using HDF5
 using MCMCChainsStorage
 using DelimitedFiles
 
-include("../Model/bayesian_model.jl")
+include("../Model/bayesian_base_model.jl")
 include("../Model/ode_model.jl")
 
 u0, p = get_default_values()
