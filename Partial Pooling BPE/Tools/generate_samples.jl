@@ -5,15 +5,19 @@ using DelimitedFiles
 using StatsPlots: plot, scatter!
 using LinearAlgebra
 using Random
+using Distributions
+using DotEnv
 
 # Import custom libraries
-include("Model/ode_model.jl")
-include("Model/stat_lib.jl")
+include("../Model/ode_model.jl")
+include("../Model/stat_lib.jl")
 
 # Settings of the sample generator
+DotEnv.config()
 Random.seed!(14);
 num_traj = 10
 do_print = true
+val_set = ENV["VALIDATION_SET"]
 
 # Load default values
 u0, p = get_default_values()
@@ -22,9 +26,13 @@ tspan = (0.0, 30.0)
 for traj in 1:num_traj
 
     # Overwrite sensitive parameters
-    p[2][6] = binorm(0.5, 0.2, 0.8, 0.1, 0.1) # k6 
-    p[3][1] = binorm(0.5, 8, 14, 2, 2) # d1
-    p[4][2] = binorm(0.5, 0.1, 0.5, 0.1, 0.1) # s2 
+    # p[2][6] = binorm(0.5, 0.2, 0.8, 0.1, 0.1) # k6 
+    # p[3][1] = binorm(0.5, 8, 14, 2, 2) # d1
+    # p[4][2] = binorm(0.5, 0.1, 0.5, 0.1, 0.1) # s2 
+
+    p[2][6] = rand(truncated(Normal(0.5, 0.3); lower=0)) # k6 
+    p[3][1] = rand(truncated(Normal(11, 3); lower=0)) # d1
+    p[4][2] = rand(truncated(Normal(0.3, 0.2); lower=0)) # s2 
 
     h(p, t; idxs::Int) = 1.0 
 
@@ -43,11 +51,9 @@ for traj in 1:num_traj
     
     # Save trajectories to .csv file
     matrix_sol = reshape(reduce(hcat, sol_dde), 5, 301)
-    writedlm("Data/trajectories-$traj.csv", [sol_dde.t'; matrix_sol], ',')
+    writedlm("Data/$val_set/trajectories-$traj.csv", [sol_dde.t'; matrix_sol], ',')
     
     # Save sensitive params to .csv file 
     to_csv = [p[2][6], p[3][1], p[4][2]]
-    writedlm("Data/params-$traj.csv", to_csv, ',')
+    writedlm("Data/$val_set/params-$traj.csv", to_csv, ',')
 end
-
-0
