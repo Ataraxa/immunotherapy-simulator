@@ -3,8 +3,13 @@ using Distributions
 using LinearAlgebra
 include("ode_model.jl")
 
-"Dummy statistical hierachical model: population prior is unimodal"
-@model function fit_dummy_hierarchical(data, problem, num_experiments, s, selected_days)
+"""
+Statistical hierachical model: population prior is unimodal (with 2 hyperparameters)
+
+Important: the `num_experiments` parameter can be used to slice down the data matrix,
+so that only the first _n_ rows are used.
+"""
+@model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
     if data === missing 
         data = Array{Float64}(undef, num_experiments, length(selected_days))
     end
@@ -25,7 +30,7 @@ include("ode_model.jl")
     σ_s2 ~ truncated(Normal(0, 0.2); lower=0)
     
     # Regular priors
-    for exp in 1:size(data)[1]
+    for exp in 1:num_experiments
         k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0)
         d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=0)
         s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0)    
@@ -35,7 +40,7 @@ include("ode_model.jl")
     σ_err = 0.1 
 
     # Likelihood 
-    for exp in 1:size(data)[1]
+    for exp in 1:num_experiments
         p = [k6[exp], d1[exp], s2[exp]]
         predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
         pred_vol = predictions[4,:] + predictions[5,:]
