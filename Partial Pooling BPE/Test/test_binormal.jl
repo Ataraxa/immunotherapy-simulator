@@ -31,7 +31,7 @@ function coin_flip_check(distrib::Distribution)
         θ ~ distrib 
     end
 
-    chain = sample(coinFlip(), NUTS(0.7), MCMCSerial(), 1000, 3)
+    chain = sample(coinFlip(), NUTS(0.7), MCMCDistributed(), 100, 1)
     return(chain)
 end
 
@@ -55,6 +55,6 @@ normal = Normal(5, 1)
 beta_uniform = Beta(2, 2)
 
 # Perform check 
-res = coin_flip_check(binormal)
+res = coin_flip_check(normal)
 # res = hyper_coin_check()
 plot(res)

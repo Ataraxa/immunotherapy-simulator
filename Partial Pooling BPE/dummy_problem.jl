@@ -72,10 +72,10 @@ model_dde = fitlv_dde(ddedata, prob_dde)
 
 # Sample 3 independent chains
 chain_dde_nuts = sample(model_dde, NUTS(0.65), 100; progress=false)
-chain_dde_asmc = sample(model_dde, SMC(), 100; progress=false)
+# chain_dde_asmc = sample(model_dde, SMC(), 100; progress=false)
 
-# plot(chain_dde)
+plot(chain_dde_nuts)
 
-h5open("Res/save_dummy.h5", "w") do f 
-    write(f, chain_dde_nuts)
-end
+# h5open("Res/save_dummy.h5", "w") do f 
+#     write(f, chain_dde_nuts)
+# end
