@@ -3,6 +3,7 @@ using DifferentialEquations
 using StatsPlots: plot
 using LinearAlgebra
 using Random
+using HDF5
 Random.seed!(14);
 
 # DDE Model
@@ -115,4 +116,8 @@ function parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
     return chain_dde_nuts 
 end
 
-parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps, )
+chain = parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
+
+h5open("Res/val.h5", "w") do f 
+    write(f, chain)
+end
