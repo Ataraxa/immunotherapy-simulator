@@ -7,6 +7,7 @@ using Turing
 using Distributions
 using StatsPlots: plot, scatter
 using StatsBase: sample
+using HDF5
 
 include("../Model/binormal.jl")
 
@@ -31,7 +32,7 @@ function coin_flip_check(distrib::Distribution)
         θ ~ distrib 
     end
 
-    chain = sample(coinFlip(), NUTS(0.7), MCMCDistributed(), 100, 1)
+    chain = sample(coinFlip(), NUTS(0.7), 100)
     return(chain)
 end
 
@@ -57,4 +58,8 @@ beta_uniform = Beta(2, 2)
 # Perform check 
 res = coin_flip_check(normal)
 # res = hyper_coin_check()
-plot(res)
+# plot(res)
+
+h5open("test.h5", "w") do f 
+    write(f, res)
+end

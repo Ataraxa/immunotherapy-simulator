@@ -4,6 +4,10 @@ using StatsPlots: plot
 using LinearAlgebra
 using Random
 using HDF5
+using MCMCChains
+using MCMCChainsStorage
+
+include("Tools/data_extractor.jl")
 Random.seed!(14);
 
 # DDE Model
@@ -105,18 +109,19 @@ function parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
             for i in eachindex(sliced_pred)
                 data[exp, i] ~ Normal(sliced_pred[i], σ_err^2)
             end
-            println("Successfully sampled from model!")
+            # println("Successfully sampled from model!")
         end
     end
 
     # Test sampling
-    chain_dde_nuts = sample(fit_unimodal_hierarchical(dde_data, prob_dde, num_experiments, 0.1, selected_days), NUTS(0.65), MCMCDistributed(),
+    chain_dde_nuts = Turing.sample(fit_unimodal_hierarchical(dde_data, prob_dde, num_experiments, 0.1, selected_days), NUTS(0.65), MCMCDistributed(),
         100, 1; progress=false)
     
     return chain_dde_nuts 
 end
 
 chain = parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
+# plot(chain)
 
 h5open("Res/val.h5", "w") do f 
     write(f, chain)
