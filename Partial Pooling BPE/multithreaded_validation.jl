@@ -71,6 +71,7 @@ function parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
 
         return sliced_pred
     end
+
     @model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
         if data === missing 
             data = Array{Float64}(undef, num_experiments, length(selected_days))
@@ -109,7 +110,7 @@ function parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
             for i in eachindex(sliced_pred)
                 data[exp, i] ~ Normal(sliced_pred[i], σ_err^2)
             end
-            # println("Successfully sampled from model!")
+            println("Successfully sampled from model!")
         end
     end
 

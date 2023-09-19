@@ -1,14 +1,16 @@
 using DifferentialEquations
 
 """
-File that generates a DDE Problem, to be solved within the Bayesian model.
-This is necessary as the model requires a specific type of DDE model 
+Adapts the base DDE model for Bayesian fitting by reducing the parameter space.
+Parameters of interest (given by sensitivity analysis) are free parameters,
+the remaining ones are set to the average value determined by GA optimisation
 """
 
-
+# Import the full model
 include("ode_model.jl")
 
-function create_dde_problem()
+# Adapts the model and packs it into a DDE problem
+function adapt_dde_space()
     u0, _ = get_default_values()
     p = [0.6, 11, 0.4]
     t_span = (0.0, 27.0)

@@ -16,7 +16,7 @@ using LinearAlgebra
 include("ode_model.jl")
 include("binormal.jl")
 
-@model function fit_immune_resp(data, problem)
+@model function fit_base_model(data, problem)
     if data === missing 
         data = Vector{Float64}(undef, 271)
     end

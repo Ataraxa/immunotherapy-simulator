@@ -17,14 +17,15 @@ end
 
 
 """
-DDE model as a ODEProblem object.
+Full immune response, simulated via a delay-differential equations model
+Version: 1.0 (Takuya's model)
 """
-function immune_response(du, u, h, p, t)
+function full_immune_response(du, u, h, p, t)
     # Model parameters.
-    t_d, t_delay, t_last, t_delay12, t_last1  = p[1]
-    k1, k2, k3, k4, k5, k6 = p[2]
-    d1, d2, d3, d4, d5, d6, d7, d8 = p[3]
-    s1, s2 = p[4]
+    t_d, t_delay, t_last, t_delay12, t_last1, # 5 params
+    k1, k2, k3, k4, k5, k6,
+    d1, d2, d3, d4, d5, d6, d7, d8,
+    s1, s2 = p
     v_max=600
 
     # Current state.
@@ -45,6 +46,37 @@ function immune_response(du, u, h, p, t)
     return nothing
 end
 
+"""
+Full immune response, simulated via a deay-differential equations model
+Version: 1.1 (Adding the positive feedback loop)
+"""
+function full_with_feedback(du, u, h, p, t)
+    # Model parameters.
+    t_d, t_delay, t_last, t_delay12, t_last1,
+    k1, k2, k3, k4, k5, k6,
+    d1, d2, d3, d4, d5, d6, d7, d8,
+    s1, s2,
+    b1 = p
+    v_max=600
+
+    # Current state.
+    g, c, pd1, vl, vd = u
+
+    # Check if treatments are active at time t
+    d_cbd = check_active(t, [7], t_delay, t_last, true)
+    d_12 = false
+    d_cpi = false
+
+    # Evaluate differential equations.
+    du[1] = k1 + k2 * d_cbd + (b1 - d1) * g
+    du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
+    du[3] = k5 - (d3+d4*g)*pd1 
+    du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
+    du[5] = (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
+
+    return nothing
+end
+
 """Default values getter"""
 function get_default_values()
     # Define initial-value problem.
@@ -54,7 +86,7 @@ function get_default_values()
     pk = [0.1942, 6.04, 79.56, 1054, 5.54, 0.49]
     pd = [11.31, 9.72, 1.25, 4.85, 0.017, 0.0381, 51.37, 0.56]
     ps = [14.53, 0.3434]
-    p=[pt, pk, pd, ps]
+    p=[pt; pk; pd; ps] # Combine all in a single vector
 
     return u0, p
 end

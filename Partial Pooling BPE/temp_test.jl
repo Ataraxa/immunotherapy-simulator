@@ -1,3 +1,7 @@
+a, b, c,
+d, e, f = [1, 2,3, 4,5, 6]
+
+
 # using DifferentialEquations
 # using Distributions
 # include("Model/dde_problem.jl")
@@ -15,13 +19,12 @@
 # sample(testmodel(), SMC(), 10)
 
 
-using HDF5
-using MCMCChains
-using MCMCChainsStorage
-using StatsPlots: plot
+# using HDF5
+# using MCMCChains
+# using MCMCChainsStorage
+# using StatsPlots: plot
 
-chain = h5open("Res/yet_a_test.h5", "r") do f
-    read(f, Chains)
-end
+# chain = h5open("Res/yet_a_test.h5", "r") do f
+#     read(f, Chains)
+# end
 
-plot(chain)

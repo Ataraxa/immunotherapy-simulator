@@ -59,7 +59,7 @@ ddedata = Array(sol_dde) + 0.5 * randn(size(sol_dde))
 
     # Simulate Lotka-Volterra model.
     p = [α, β, γ, δ]
-    predicted = solve(prob, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
+    predicted = solve(prob; p=p, saveat=0.1)
 
     # Observations.
     for i in eachindex(predicted)
