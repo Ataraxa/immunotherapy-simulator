@@ -1,3 +1,9 @@
+#=
+This is an old file and should not be used!
+It is only kept because it serves as a template to write
+parallelised sampling algorithms
+=#
+
 using Turing
 using DifferentialEquations
 using StatsPlots: plot
@@ -7,7 +13,7 @@ using HDF5
 using MCMCChains
 using MCMCChainsStorage
 
-include("Tools/data_extractor.jl")
+include("../Tools/data_extractor.jl")
 Random.seed!(14);
 
 # DDE Model
@@ -73,9 +79,6 @@ function parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
     end
 
     @model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
-        if data === missing 
-            data = Array{Float64}(undef, num_experiments, length(selected_days))
-        end
         
         # Initialise the parameter arrays
         k6 = Vector{Float64}(undef, num_experiments)
@@ -94,9 +97,9 @@ function parallel_wrapper(Normal, truncated, Tsit5, solve, MethodOfSteps)
         
         # Regular priors
         for exp in 1:num_experiments
-            k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0, upper=10)
+            k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0, upper=5)
             d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=0, upper=20)
-            s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0, upper=2)    
+            s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0, upper=5)    
         end
     
         # Experimental error (σ_err)

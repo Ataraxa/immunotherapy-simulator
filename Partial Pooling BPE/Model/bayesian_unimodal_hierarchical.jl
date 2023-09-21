@@ -10,9 +10,6 @@ Important: the `num_experiments` parameter can be used to slice down the data ma
 so that only the first _n_ rows are used.
 """
 @model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
-    if data === missing 
-        data = Array{Float64}(undef, num_experiments, length(selected_days))
-    end
     
     # Initialise the parameter arrays
     k6 = Vector{Float64}(undef, num_experiments)

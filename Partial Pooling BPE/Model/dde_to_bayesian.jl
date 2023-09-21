@@ -10,7 +10,7 @@ the remaining ones are set to the average value determined by GA optimisation
 include("ode_model.jl")
 
 # Adapts the model and packs it into a DDE problem
-function adapt_dde_space()
+function restricted_dde_space()
     u0, _ = get_default_values()
     p = [0.6, 11, 0.4]
     t_span = (0.0, 27.0)
@@ -26,12 +26,12 @@ function bayesian_immune_response(du, u, h, p, t)
     k6, d1, s2 = p 
 
     # Fixed parameters
-    _, def_params = get_default_values()
+    _, default_params = get_default_values()
 
-    t_d, t_delay, t_last, t_delay12, t_last1  = def_params[1]
-    k1, k2, k3, k4, k5, _ = def_params[2]
-    _, d2, d3, d4, d5, d6, d7, d8 = def_params[3]
-    s1, _ = def_params[4]
+    t_d, t_delay, t_last, t_delay12, t_last1,
+    k1, k2, k3, k4, k5, _,
+    _, d2, d3, d4, d5, d6, d7, d8,
+    s1, _ = default_params
     v_max=600
 
     # Current state.
