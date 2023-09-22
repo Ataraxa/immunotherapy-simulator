@@ -10,7 +10,8 @@ Important: the `num_experiments` parameter can be used to slice down the data ma
 so that only the first _n_ rows are used.
 """
 @model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
-    
+    println("Starting evaluation of the model")
+
     # Initialise the parameter arrays
     k6 = Vector{Float64}(undef, num_experiments)
     d1 = Vector{Float64}(undef, num_experiments)
@@ -37,6 +38,7 @@ so that only the first _n_ rows are used.
     σ_err = 0.1 
 
     # Likelihood 
+    println("Gonna go into likelihoods")
     for exp in 1:num_experiments
         p = [k6[exp], d1[exp], s2[exp]]
         predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
@@ -44,7 +46,10 @@ so that only the first _n_ rows are used.
         sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
         for i in eachindex(sliced_pred)
+            println("One timestep...")
             data[exp, i] ~ Normal(sliced_pred[i], σ_err^2)
         end
     end
+
+    println("Finished evaluation")
 end

@@ -36,7 +36,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
     chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCThreads(), 1000, 3; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCThreads(), 10, 1; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(0.65), 5; progress=false)
 end
 
 # Create new filename
