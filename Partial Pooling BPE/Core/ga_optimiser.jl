@@ -17,6 +17,7 @@ params = Evolutionary.optimize(
     BoxConstraints(lower, upper)
     ones(25),
     GA(),
+    Evolutionary.Options(parallelization=:thread)
 )
 
 function fitness(params)
