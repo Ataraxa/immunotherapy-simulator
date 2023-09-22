@@ -3,7 +3,7 @@ using DifferentialEquations
 using Distributions
 using Plots
 
-include("../Model/dde_problem.jl")
+include("../Model/ode_model.jl")
 
 # Settings
 np = 23 # umber of parameters to be analysed

@@ -71,7 +71,7 @@ end
 model_dde = fitlv_dde(ddedata, prob_dde)
 
 # Sample 3 independent chains
-chain_dde_nuts = sample(model_dde, NUTS(0.65), MCMCThreads(), 10, 2; progress=false)
+chain_dde_nuts = sample(model_dde, NUTS(0.65), MCMCThreads(), 100, 2; progress=false)
 # chain_dde_asmc = sample(model_dde, SMC(), 100; progress=false)
 
 plot(chain_dde_nuts)

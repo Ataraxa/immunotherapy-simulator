@@ -10,7 +10,7 @@ using MCMCChains
 using MCMCChainsStorage
 
 include("../Model/dde_to_bayesian.jl")
-include("../Tools/data_extractor.jl")
+include("../Library/data_extractor.jl")
 include("../Model/bayesian_unimodal_hierarchical.jl")
 
 
