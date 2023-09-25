@@ -1,7 +1,9 @@
+using DifferentialEquations
+
 include("../Model/ode_model.jl")
 
-function solve_vector(params)
-    p = params[1:21]
+function solve_for_treatment(params, treatment_spec)
+    p = [params[1:21]; treatment_spec]
     u0 = params[22:end]
     t_span = (0.0, 27.0)
     h(p, t; idxs::Int) = 0.0
@@ -10,6 +12,36 @@ function solve_vector(params)
     sol = solve(problem; saveat=0.1)
 
     return(sol)
+end
+
+function fitness(params)
+    error_per_treatment = zeros(6)
+    j = 1
+    for treatment in treatments_available
+        params = [params; 0]
+        sol = solve_for_treatment(params, treatment)
+        tumour_vol = sol[4,:] + sol[5,:]
+
+        i = 1
+        error_per_day = zeros(length(treatment["active_days"]))
+        for day = treatment["active_days"]
+            _, sol_index = findmin(broadcast(abs, day .* ones(length(sol.t)) - sol.t))
+            in_silico = tumour_vol[sol_index]
+            in_vivo = treatment["mean"][i]
+            error_per_day[i] = ((in_silico - in_vivo)^2)/1000;
+            i += 1
+        end
+
+        error_per_treatment[j] = sum(error_per_day)
+        j+=1
+    end
+
+    error = 0 
+    for i in eachindex(error_per_treatment)
+        error += error_per_treatment[i]
+    end
+
+    return(error)
 end
 
 placebo = Dict(
@@ -78,10 +110,12 @@ combo_therapy = Dict(
     "mean" => [77.3493,207.7220,174.8117,142.1405,102.3850,83.0346,60.0445,47.6723,49.3991]
 )
 
-treatments_available = Dict(
-    "placebo" => placebo,
-    "cbd_7" => cbd_il_12,
-    "cbd_914" => cbd_il_9_14,
-    "il_7" => il_12_7,
-    "cpi" => cpi_9_14,
-    "combo" => combo_therapy)
+# treatments_available = Dict(
+#     "placebo" => placebo,
+#     "cbd_7" => cbd_il_12,
+#     "cbd_914" => cbd_il_9_14,
+#     "il_7" => il_12_7,
+#     "cpi" => cpi_9_14,
+#     "combo" => combo_therapy)
+
+treatments_available = [placebo, cbd_il_12,cbd_il_9_14,il_12_7,cpi_9_14,combo_therapy]

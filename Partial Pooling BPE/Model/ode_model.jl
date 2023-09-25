@@ -5,7 +5,7 @@
 # time t.
 # """
 
-function check_active(t::Float64, t_in_vector::Array, delay::Float64, last::Float64, is_injected::Bool)
+function check_active(t::Float64, t_in_vector, delay::Float64, last::Float64, is_injected::Bool)
     is_active = false
     for t_in = t_in_vector
         if (t_in + delay) < t && t < (t_in + delay + last) && is_injected
@@ -21,6 +21,9 @@ Full immune response, simulated via a delay-differential equations model
 Version: 1.0 (Takuya's model)
 """
 function full_immune_response(du, u, h, p, t)
+    tr = p[end]
+    p = p[1:21]
+
     # Model parameters.
     t_d, t_delay, t_last, t_delay12, t_last1, # 5 params
     k1, k2, k3, k4, k5, k6,
@@ -32,12 +35,14 @@ function full_immune_response(du, u, h, p, t)
     g, c, pd1, vl, vd = u
 
     # Check if treatments are active at time t
-    d_cbd = check_active(t, [7], t_delay, t_last, true)
-    d_12 = false
-    d_cpi = false
+    d_cbd = check_active(t, tr["t_in"], t_delay, t_last, tr["active_cbd"])
+    d_12 = check_active(t, tr["t_in12"], t_delay, t_last, tr["active_il12"])
+    
+    # d_cpi = ((tr["t_inCPI"]) < t && tr["active_cpi"])
+    d_cpi = 0 
 
     # Evaluate differential equations.
-    du[1] = k1 + k2 * d_cbd - d1 * g
+    du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g
     du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
     du[3] = k5 - (d3+d4*g)*pd1 
     du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
