@@ -38,7 +38,7 @@ so that only the first _n_ rows are used.
     σ_err = 0.1 
 
     # Likelihood 
-    println("Gonna go into likelihoods")
+    # println("Gonna go into likelihoods")
     for exp in 1:num_experiments
         p = [k6[exp], d1[exp], s2[exp]]
         predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
@@ -46,10 +46,10 @@ so that only the first _n_ rows are used.
         sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
         for i in eachindex(sliced_pred)
-            println("One timestep...")
+            # println("One timestep...")
             data[exp, i] ~ Normal(sliced_pred[i], σ_err^2)
         end
     end
 
-    println("Finished evaluation")
+    # println("Finished evaluation")
 end

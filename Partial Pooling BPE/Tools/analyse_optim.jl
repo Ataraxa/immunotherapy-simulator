@@ -4,11 +4,12 @@ using Evolutionary
 
 include("../Model/ode_model.jl")
 include("../Library/optimisation_lib.jl")
-params = load_object("Res/ga_res.jld2")
+
 what_to_plot = "ga_res"
 
 # Paramer vector
 if what_to_plot == "ga_res"
+    params = load_object("Res/ga_res.jld2")
     params = Evolutionary.minimizer(params)
     global opt_p = params[1:21]
     global _, true_p = get_default_values() 
