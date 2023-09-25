@@ -5,7 +5,7 @@ using Evolutionary
 include("../Model/ode_model.jl")
 include("../Library/optimisation_lib.jl")
 params = load_object("Res/ga_res.jld2")
-what_to_plot = "benchmark"
+what_to_plot = "ga_res"
 
 # Paramer vector
 if what_to_plot == "ga_res"
@@ -33,7 +33,7 @@ end
 
 
 layout = plot(layout=(2,3))
-titles=["Placebo", "CBD-IL-12 (Day 7)", "DBC-IL-12 (Day 9 & 14)", "IL-12 (Day 7)", "CPI (Day 9 & 14)", "CPI + CBD-IL-12"]
+titles=["CBD-IL-12 (Day 7)", "CBD-IL-12 (Day 9 & 14)", "CPI + CBD-IL-12", "CPI (Day 9 & 14)", "IL-12 (Day 7)","Placebo"]
 for i = 1:6
     simulated = sotr(i)
     tr = treatments_available[i]

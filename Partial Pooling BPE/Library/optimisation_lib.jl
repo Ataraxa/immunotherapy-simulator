@@ -67,7 +67,7 @@ cbd_il_12 = Dict(
 )
 
 cbd_il_9_14 = Dict(
-    "t_in" => [9, 17],
+    "t_in" => [9, 14],
     "t_in12" => 1,
     "t_inCPI" => 1,
     "active_cbd" =>true,
@@ -118,4 +118,7 @@ combo_therapy = Dict(
 #     "cpi" => cpi_9_14,
 #     "combo" => combo_therapy)
 
-treatments_available = [placebo, cbd_il_12,cbd_il_9_14,il_12_7,cpi_9_14,combo_therapy]
+treatments_available = [
+    cbd_il_12, cbd_il_9_14, combo_therapy,
+    cpi_9_14 ,  il_12_7   , placebo
+    ]

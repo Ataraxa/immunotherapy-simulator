@@ -25,7 +25,7 @@ function full_immune_response(du, u, h, p, t)
     p = p[1:21]
 
     # Model parameters.
-    t_d, t_delay, t_last, t_delay12, t_last1, # 5 params
+    t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
     k1, k2, k3, k4, k5, k6,
     d1, d2, d3, d4, d5, d6, d7, d8,
     s1, s2 = p
@@ -36,10 +36,10 @@ function full_immune_response(du, u, h, p, t)
 
     # Check if treatments are active at time t
     d_cbd = check_active(t, tr["t_in"], t_delay, t_last, tr["active_cbd"])
-    d_12 = check_active(t, tr["t_in12"], t_delay, t_last, tr["active_il12"])
+    d_12 = check_active(t, tr["t_in12"], t_delay12, t_last12, tr["active_il12"])
     
-    # d_cpi = ((tr["t_inCPI"]) < t && tr["active_cpi"])
-    d_cpi = 0 
+    d_cpi = ((tr["t_inCPI"]) < t && tr["active_cpi"])
+    # d_cpi = 0 
 
     # Evaluate differential equations.
     du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g
