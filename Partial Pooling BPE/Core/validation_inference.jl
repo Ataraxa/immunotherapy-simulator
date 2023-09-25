@@ -44,7 +44,8 @@ file_i = 0
 machine = ENV["MACHINE_TYPE"]
 filename = "$machine-validation_chain-$file_i.h5"
 while isfile("Res/$filename")
-    file_i+=1
+    global file_i+=1
+    filename = "$machine-validation_chain-$file_i.h5"
 end
 
 # Save MCMC chain
