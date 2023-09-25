@@ -1,5 +1,5 @@
 using Evolutionary
-using DelimitedFiles
+using JLD2
 using DifferentialEquations
 
 include("../Model/ode_model.jl")
@@ -22,4 +22,4 @@ params = Evolutionary.optimize(
 )
 
 # Save result to file
-writedlm("Res/ga_results.csv", params, ',')
+save_object("Res/ga_res.jld2", params)
