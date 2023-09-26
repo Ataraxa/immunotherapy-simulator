@@ -24,7 +24,7 @@ params = Evolutionary.optimize(
     ),
     Evolutionary.Options(
         parallelization=:thread,
-        iterations = 10000
+        iterations = 10000,
         successive_f_tol=2000
     )
 )

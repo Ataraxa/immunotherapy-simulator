@@ -43,7 +43,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
     chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCThreads(), num_iters, n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(0.65), 5; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(0.3), MCMCThreads(), 1000, 2; progress=false)
 end
 
 sampling_time = peektimer() - pre_sampling
@@ -55,7 +55,7 @@ machine = ENV["MACHINE_TYPE"]
 filename = "$machine-validation_chain-$file_i.h5"
 while isfile("Res/$filename")
     global file_i+=1
-    filename = "$machine-validation_chain-$file_i.h5"
+    global filename = "$machine-validation_chain-$file_i.h5"
 end
 
 # Save MCMC chain

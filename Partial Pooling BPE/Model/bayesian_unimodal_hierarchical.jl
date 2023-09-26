@@ -1,6 +1,7 @@
 using Turing 
 using Distributions
 using LinearAlgebra
+using Base.Threads
 include("ode_model.jl")
 
 """
@@ -10,7 +11,7 @@ Important: the `num_experiments` parameter can be used to slice down the data ma
 so that only the first _n_ rows are used.
 """
 @model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
-    println("Starting evaluation of the model")
+    println("Starting evaluation of the model: ", threadid())
 
     # Initialise the parameter arrays
     k6 = Vector{Float64}(undef, num_experiments)

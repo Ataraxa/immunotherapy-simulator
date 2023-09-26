@@ -7,7 +7,7 @@ using MCMCChains
 using MCMCChainsStorage
 
 println("Starting sampling process")
-dummy_chain = Chains(randn(50, 2, 4), [:a, :b])
+dummy_chain = Chains(randn(10000, 2, 4), [:a, :b])
 println("Finished")
 
 file_i = 0
