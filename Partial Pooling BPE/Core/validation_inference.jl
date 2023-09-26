@@ -11,8 +11,9 @@ using MCMCChains
 using MCMCChainsStorage
 
 include("../Model/dde_to_bayesian.jl")
-include("../Library/data_extractor.jl")
 include("../Model/bayesian_unimodal_hierarchical.jl")
+include("../Library/data_extractor.jl")
+include("../Library/validation_lib.jl")
 
 tick()
 println("Code started running")
@@ -21,6 +22,7 @@ DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters = (length(ARGS) >= 2) ? parse(Int64, ARGS[1]) : 1
 n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2]) : 1
+init_leap = (length(ARGS) >= 3) ? parse(Int64, ARGS[3]) : 0.65
 
 # Create a problem object
 prob_immune_resp = restricted_dde_space()
@@ -40,10 +42,10 @@ println("Starting sampling ($pre_sampling seconds since last step)")
 
 if ENV["MACHINE_TYPE"] == "hpc"
     println("Going into the remote computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCThreads(), num_iters, n_threads; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(init_leap), MCMCThreads(), n_iters, n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(0.3), MCMCThreads(), 1000, 2; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCThreads(), 5, 2; progress=false, init_theta=initial_values[1:2])
 end
 
 sampling_time = peektimer() - pre_sampling
@@ -63,4 +65,5 @@ h5open("Res/$filename", "w") do f
     write(f, chain_dde)
 end
 
-println("File saved successfully!")
+println("File saved successfully @$filename")
+println("Summary: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap")
