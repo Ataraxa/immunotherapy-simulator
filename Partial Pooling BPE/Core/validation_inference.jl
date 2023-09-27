@@ -17,12 +17,15 @@ include("../Library/validation_lib.jl")
 
 tick()
 println("Code started running")
+
 # Settings for inference
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters = (length(ARGS) >= 2) ? parse(Int64, ARGS[1]) : 1
 n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2]) : 1
 init_leap = (length(ARGS) >= 3) ? parse(Int64, ARGS[3]) : 0.65
+upper1 = (length(ARGS) >= 5) ? parse(Int64, ARGS[4]) : 5
+upper2 = (length(ARGS) >= 5) ? parse(Int64, ARGS[5]) : 20
 
 # Create a problem object
 prob_immune_resp = restricted_dde_space()
@@ -34,7 +37,7 @@ data_matrix = read_data(selected_days, num_experiments, step_size)
 
 # Fit model to data 
 model_dde = fit_unimodal_hierarchical(data_matrix, prob_immune_resp, num_experiments, 
-    step_size, selected_days)
+    step_size, selected_days, upper1, upper2)
 
 # This is where the heavy computations come in - so reserved for HPC
 pre_sampling = peektimer()
@@ -45,7 +48,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
     chain_dde = Turing.sample(model_dde, NUTS(init_leap), MCMCThreads(), n_iters, n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(0.65), MCMCThreads(), 5, 2; progress=false, init_theta=initial_values[1:2])
+    chain_dde = Turing.sample(model_dde, NUTS(init_leap), MCMCThreads(), 10, 2; progress=false)
 end
 
 sampling_time = peektimer() - pre_sampling
@@ -65,5 +68,12 @@ h5open("Res/$filename", "w") do f
     write(f, chain_dde)
 end
 
+# Write in log file
+summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap | bounds=$upper1,$upper2 \n"
+open("Res/log-$machine.txt", "a") do f 
+    write(f, summary)
+end
+
+# End of scripts log
 println("File saved successfully @$filename")
-println("Summary: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap")
+println(summary)

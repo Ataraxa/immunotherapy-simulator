@@ -10,7 +10,7 @@ Statistical hierachical model: population prior is unimodal (with 2 hyperparamet
 Important: the `num_experiments` parameter can be used to slice down the data matrix,
 so that only the first _n_ rows are used.
 """
-@model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
+@model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days, upper1, upper2)
     println("Starting evaluation of the model: ", threadid())
 
     # Initialise the parameter arrays
@@ -30,9 +30,9 @@ so that only the first _n_ rows are used.
     
     # Regular priors
     for exp in 1:num_experiments
-        k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0, upper=100)
-        d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=0, upper=100)
-        s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0, upper=100)    
+        k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0, upper=upper1)
+        d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=0, upper=upper2)
+        s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0, upper=upper1)    
     end
 
     # Experimental error (σ_err)

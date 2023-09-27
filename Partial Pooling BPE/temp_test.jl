@@ -1,3 +1,5 @@
-a = ARGS[1] == undef ? 0 : 1
 
-print(a)
+
+open("Res/log-dummy.txt", "a") do f 
+    write(f, "Test2 \n")
+end
