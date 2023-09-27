@@ -13,8 +13,8 @@ using Turing
 using LinearAlgebra
 
 # Custom libraries
-include("ode_model.jl")
-include("binormal.jl")
+include("../Differential/ode_model.jl")
+include("../binormal.jl")
 
 @model function fit_base_model(data, problem)
     if data === missing 

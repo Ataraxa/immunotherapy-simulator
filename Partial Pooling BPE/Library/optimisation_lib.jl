@@ -1,6 +1,6 @@
 using DifferentialEquations
 
-include("../Model/ode_model.jl")
+include("../Model/Differential/ode_model.jl")
 
 function solve_for_treatment(params, treatment_spec)
     p = [params[1:21]; treatment_spec]

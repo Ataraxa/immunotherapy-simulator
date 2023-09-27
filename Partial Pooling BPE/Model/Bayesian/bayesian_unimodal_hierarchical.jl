@@ -2,7 +2,7 @@ using Turing
 using Distributions
 using LinearAlgebra
 using Base.Threads
-include("ode_model.jl")
+include("../Differential/ode_model.jl")
 
 """
 Statistical hierachical model: population prior is unimodal (with 2 hyperparameters)
@@ -30,9 +30,9 @@ so that only the first _n_ rows are used.
     
     # Regular priors
     for exp in 1:num_experiments
-        k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=0, upper=upper1)
-        d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=0, upper=upper2)
-        s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=0, upper=upper1)    
+        k6[exp] ~ truncated(Normal(µ_k6, σ_k6); lower=-10, upper=upper1)
+        d1[exp] ~ truncated(Normal(µ_d1, σ_d1); lower=-10, upper=upper2)
+        s2[exp] ~ truncated(Normal(µ_s2, σ_s2); lower=-10, upper=upper1)    
     end
 
     # Experimental error (σ_err)
