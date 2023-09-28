@@ -24,20 +24,18 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters = (length(ARGS) >= 2) ? parse(Int64, ARGS[1]) : 1000
 n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2]) : 1
 init_leap = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 0.65
-upper1 = (length(ARGS) >= 5) ? parse(Int64, ARGS[4]) : 1000
-upper2 = (length(ARGS) >= 5) ? parse(Int64, ARGS[5]) : 1000
+num_experiments = (length(ARGS) >= 4) ? parse(Int64, ARGS[4]) : 1
 
 # Create a problem object
 prob_immune_resp = restricted_dde_space()
 
 # Extract validation data, select days and add random noise
 selected_days = [0,7,8,9,11,14,17,20]
-num_experiments = 1
 data_matrix = read_data(selected_days, num_experiments, step_size)
 
 # Fit model to data 
 model_dde = fit_unimodal_hierarchical(data_matrix, prob_immune_resp, num_experiments, 
-    step_size, selected_days, upper1, upper2)
+    step_size, selected_days)
 
 # This is where the heavy computations come in - so reserved for HPC
 pre_sampling = peektimer()
@@ -69,7 +67,7 @@ h5open("Res/$filename", "w") do f
 end
 
 # Write in log file
-summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap | bounds=$upper1,$upper2 \n"
+summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap | n_exp=$num_experiments \n"
 open("Res/log-$machine.txt", "a") do f 
     write(f, summary)
 end
