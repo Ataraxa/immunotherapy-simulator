@@ -5,7 +5,7 @@ include("./Library/optimisation_lib.jl")
 
 pb = restricted_dde_space()
 k6 = -0.713
-d1 = 1.5
+d1 = 2.426
 s2 = -1.069
 p = [exp(k6), exp(d1), exp(s2)]
 print(p)
