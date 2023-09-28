@@ -7,7 +7,7 @@ using MCMCChains
 using MCMCChainsStorage
 using StatsPlots: plot
 
-chain = h5open("Res/local-anarchical-21.h5", "r") do f
+chain = h5open("Res/local-anarchical-25.h5", "r") do f
     read(f, Chains)
 end
 display(plot(chain[:,:,:]))

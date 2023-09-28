@@ -12,7 +12,7 @@ so that only the first _n_ rows are used.
 @model function fit_anarchical(data, problem, s, selected_days, upper1, upper2)
     # Regular priors
     d1 ~ truncated(Normal(2.3, 0.6);  lower=-100, upper=log(5))
-    s2 ~ truncated(Normal(-1.3, 0.6); lower=-100, upper=log(20))    
+    s2 ~ truncated(Normal(-1.3, 0.6); lower=-100, upper=log(75))    
     k6 ~ truncated(Normal(-0.7, 0.6); lower=-100, upper=log(5))
 
     # Experimental error (σ_err)
