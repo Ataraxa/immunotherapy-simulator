@@ -23,19 +23,20 @@ println("Code started running")
 # Settings for inference
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
-n_iters = (length(ARGS) >= 2) ? parse(Int64, ARGS[1]) : 1000
-n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2]) : 1
+
+n_iters   = (length(ARGS) >= 2) ? parse(Int64, ARGS[1])   : 1000
+n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2])   : 1
 init_leap = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 0.65
-upper1 = (length(ARGS) >= 5) ? parse(Int64, ARGS[4]) : 5
-upper2 = (length(ARGS) >= 5) ? parse(Int64, ARGS[5]) : 20
+upper1    = (length(ARGS) >= 5) ? parse(Int64, ARGS[4])   : 5
+upper2    = (length(ARGS) >= 5) ? parse(Int64, ARGS[5])   : 20
 
 # Create a problem object
 prob_immune_resp = restricted_dde_space()
 
-# Extract validation data, select days and add random noise
+# Extract validation data and logtransform it
 selected_days = cbd_il_12["active_days"]
 num_experiments = 1
-data_matrix = cbd_il_12["mean"]
+data_matrix = log.(cbd_il_12["mean"])
 
 # Fit model to data 
 model_dde = fit_anarchical(data_matrix, prob_immune_resp, 
@@ -50,7 +51,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
     chain_dde = Turing.sample(model_dde, NUTS(init_leap), MCMCThreads(), n_iters, n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(1.0), MCMCThreads(), 100, 2; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(), MCMCThreads(), 100, 2; progress=false)
 end
 
 sampling_time = peektimer() - pre_sampling
