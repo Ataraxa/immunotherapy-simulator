@@ -76,7 +76,7 @@ h5open("Res/$filename", "w") do f
 end
 
 # Write in log file
-summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap | bounds=$upper1,$upper2 \n"
+summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap | bounds=$max1,$max2 | std=$std_k6,$std_d1,$std_s2,$exp_err \n"
 # open("Res/log-$machine.txt", "a") do f 
 #     write(f, summary)
 # end
