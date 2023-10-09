@@ -9,14 +9,17 @@ Statistical hierachical model: population prior is unimodal (with 2 hyperparamet
 Important: the `num_experiments` parameter can be used to slice down the data matrix,
 so that only the first _n_ rows are used.
 """
-@model function fit_anarchical(data, problem, s, selected_days, upper1, upper2)
+@model function fit_anarchical(data, problem, s, selected_days, 
+        std_k6, std_d1, std_s2,
+        max1, max2,
+        exp_err)
     # Regular priors
-    k6 ~ truncated(Normal(-0.7, 0.3); lower=-100, upper=log( 5))
-    d1 ~ truncated(Normal( 2.3, 0.3); lower=-100, upper=log(20))
-    s2 ~ truncated(Normal(-1.3, 0.3); lower=-100, upper=log( 5))    
+    k6 ~ truncated(Normal(-0.7, std_k6); lower=-100, upper=log(max1))
+    d1 ~ truncated(Normal( 2.3, std_d1); lower=-100, upper=log(max2))
+    s2 ~ truncated(Normal(-1.3, std_s2); lower=-100, upper=log(max1))    
 
     # Experimental error (σ_err)
-    σ_err = 4
+    σ_err = exp_err
 
     # Simulate model
     p = [exp(k6), exp(d1), exp(s2)]
@@ -26,14 +29,7 @@ so that only the first _n_ rows are used.
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
     for i in eachindex(sliced_pred)
-        if sliced_pred[i] < 0
-            println(sliced_pred[i])
-            println("__________")
-            println(p)
-            println("__________")
-            println(i)
-        end
-
+        println(sliced_pred[i])
         data[i] ~ Normal(log(sliced_pred[i]), σ_err)
     end
 end

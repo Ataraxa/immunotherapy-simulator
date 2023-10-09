@@ -30,6 +30,8 @@ for traj in 1:num_traj
     # p[3][1] = binorm(0.5, 8, 14, 2, 2) # d1
     # p[4][2] = binorm(0.5, 0.1, 0.5, 0.1, 0.1) # s2 
 
+    # Generate 
+
     p[2][6] = rand(truncated(Normal(0.5, 0.3); lower=0)) # k6 
     p[3][1] = rand(truncated(Normal(11, 3); lower=0)) # d1
     p[4][2] = rand(truncated(Normal(0.3, 0.2); lower=0)) # s2 

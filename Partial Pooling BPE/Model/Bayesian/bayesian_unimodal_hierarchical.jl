@@ -19,14 +19,14 @@ so that only the first _n_ rows are used.
     s2 = Vector{Float64}(undef, num_experiments)
 
     # Hyperprior distributions
-    µ_k6 ~ Normal(-0.70, 1)
-    σ_k6 ~ truncated(Normal(0, 1); lower=0)
+    ln_µ_k6 ~ Normal(-0.70, 1)
+    ln_σ_k6 ~ truncated(Normal(0, 1); lower=0)
 
-    µ_d1 ~ Normal(2.40, 1)
-    σ_d1 ~ truncated(Normal(0, 1); lower=0)
+    ln_µ_d1 ~ Normal(2.40, 1)
+    ln_σ_d1 ~ truncated(Normal(0, 1); lower=0)
 
-    µ_s2 ~ Normal(-1.2, 1)
-    σ_s2 ~ truncated(Normal(0, 1); lower=0)
+    ln_µ_s2 ~ Normal(-1.2, 1)
+    ln_σ_s2 ~ truncated(Normal(0, 1); lower=0)
     
     # Regular priors
     for expr in 1:num_experiments
