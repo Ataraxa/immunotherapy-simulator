@@ -27,8 +27,12 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters   = (length(ARGS) >= 2) ? parse(Int64, ARGS[1])   : 1000
 n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2])   : 1
 init_leap = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 0.65
-upper1    = (length(ARGS) >= 5) ? parse(Int64, ARGS[4])   : 5
-upper2    = (length(ARGS) >= 5) ? parse(Int64, ARGS[5])   : 20
+std_k6    = (length(ARGS) >= 6) ? parse(Int64, ARGS[4])   : 0.3
+std_d1    = (length(ARGS) >= 6) ? parse(Int64, ARGS[5])   : 0.3
+std_s2    = (length(ARGS) >= 6) ? parse(Int64, ARGS[5])   : 0.3
+max1      = (length(ARGS) >= 8) ? parse(Int64, ARGS[5])   : 5
+max2      = (length(ARGS) >= 8) ? parse(Int64, ARGS[5])   : 20
+exp_err   = (length(ARGS) >= 9) ? parse(Int64, ARGS[5])   : 20
 
 # Create a problem object
 prob_immune_resp = restricted_dde_space()
@@ -40,7 +44,7 @@ data_matrix = log.(cbd_il_12["mean"])
 
 # Fit model to data 
 model_dde = fit_anarchical(data_matrix, prob_immune_resp, 
-    step_size, selected_days, upper1, upper2)
+    step_size, selected_days, std_k6, std_d1, std_s2, max1, max2, exp_err)
 
 # This is where the heavy computations come in - so reserved for HPC
 pre_sampling = peektimer()
@@ -48,7 +52,7 @@ println("Starting sampling ($pre_sampling seconds since last step)")
 
 if ENV["MACHINE_TYPE"] == "hpc"
     println("Going into the remote computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(init_leap), MCMCThreads(), n_iters, n_threads; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(), MCMCThreads(), n_iters, n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
     chain_dde = Turing.sample(model_dde, NUTS(), MCMCThreads(), 100, 2; progress=false)
