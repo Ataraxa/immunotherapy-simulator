@@ -1,6 +1,8 @@
 using Turing 
 using Distributions
 using Base.Threads
+using ForwardDiff: Dual 
+using ForwardDiff
 include("../Differential/ode_model.jl")
 
 """
@@ -14,7 +16,7 @@ so that only the first _n_ rows are used.
         max1, max2,
         exp_err)
     
-    printn("__________________________________________________")
+    println("__________________________________________________")
 
     # Regular priors
     k6 ~ truncated(Normal(-0.7, std_k6); lower=-100, upper=log(max1))
@@ -26,19 +28,23 @@ so that only the first _n_ rows are used.
 
     # Simulate model
     p = [exp(k6), exp(d1), exp(s2)]
+    valued_p = Vector{Float64}(undef, 3)
+    must_switch = false
     println(p)
 
     # Experimental block 
-    for param in p 
+    for (i, param) in enumerate(p) 
         if typeof(param) == Dual{ForwardDiff.Tag{Turing.TuringTag, Float64}, Float64, 3}
-            param = param.value 
+            valued_p[i] = param.value 
+            println("Changed!")
+            must_switch = true
         end 
     end
 
-    predictions = solve(problem; p=p, saveat=0.1)
+    predictions = solve(problem; p=(must_switch) ? valued_p : p, saveat=0.1)
     pred_vol = predictions[4,:] + predictions[5,:]
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
-    println(p)
+    println(valued_p)
     println(sliced_pred)
     for i in eachindex(sliced_pred)
         data[i] ~ Normal(log(sliced_pred[i]), σ_err)

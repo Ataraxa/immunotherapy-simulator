@@ -55,7 +55,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
     chain_dde = Turing.sample(model_dde, NUTS(), MCMCThreads(), n_iters, n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(model_dde, NUTS(), MCMCThreads(), 100, 2; progress=false)
+    chain_dde = Turing.sample(model_dde, NUTS(), MCMCThreads(), 100, 1; progress=false)
 end
 
 sampling_time = peektimer() - pre_sampling
