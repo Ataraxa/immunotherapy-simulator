@@ -29,6 +29,8 @@ so that only the first _n_ rows are used.
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
     for i in eachindex(sliced_pred)
+        println("__________________________________________________")
+        println(p)
         println(sliced_pred[i])
         data[i] ~ Normal(log(sliced_pred[i]), σ_err)
     end

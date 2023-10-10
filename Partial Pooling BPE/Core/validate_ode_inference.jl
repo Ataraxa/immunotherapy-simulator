@@ -24,15 +24,15 @@ println("Code started running")
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
 
-n_iters   = (length(ARGS) >= 2) ? parse(Int64, ARGS[1])   : 1000
-n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2])   : 1
+n_iters   = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
+n_threads = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 init_leap = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 0.65
-std_k6    = (length(ARGS) >= 6) ? parse(Int64, ARGS[4])   : 0.3
-std_d1    = (length(ARGS) >= 6) ? parse(Int64, ARGS[5])   : 0.3
-std_s2    = (length(ARGS) >= 6) ? parse(Int64, ARGS[6])   : 0.3
-max1      = (length(ARGS) >= 8) ? parse(Int64, ARGS[7])   : 20
-max2      = (length(ARGS) >= 8) ? parse(Int64, ARGS[8])   : 20
-exp_err   = (length(ARGS) >= 9) ? parse(Int64, ARGS[9])   : 2
+std_k6    = (length(ARGS) >= 6) ? parse(Float64, ARGS[4]) : 0.3
+std_d1    = (length(ARGS) >= 6) ? parse(Float64, ARGS[5]) : 0.3
+std_s2    = (length(ARGS) >= 6) ? parse(Float64, ARGS[6]) : 0.3
+max1      = (length(ARGS) >= 8) ? parse(Int64,   ARGS[7]) : 20
+max2      = (length(ARGS) >= 8) ? parse(Int64,   ARGS[8]) : 20
+exp_err   = (length(ARGS) >= 9) ? parse(Float64, ARGS[9]) : 2
 
 # Create a problem object
 prob_immune_resp = restricted_dde_space()
