@@ -10,7 +10,7 @@ function nlm_ci(chain)
     hpd(chain)
 end
 
-chain = h5open("Res/hpc-anarchical-2.h5", "r") do f
+chain = h5open("Res/hpc-anarchical-10.h5", "r") do f
     read(f, Chains)
 end
 

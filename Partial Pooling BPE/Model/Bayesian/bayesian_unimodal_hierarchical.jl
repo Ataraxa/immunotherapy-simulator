@@ -2,6 +2,8 @@ using Turing
 using Distributions
 using LinearAlgebra
 using Base.Threads
+using ForwardDiff: Dual 
+using ForwardDiff
 include("../Differential/ode_model.jl")
 
 """
@@ -11,7 +13,8 @@ Important: the `num_experiments` parameter can be used to slice down the data ma
 so that only the first _n_ rows are used.
 """
 @model function fit_unimodal_hierarchical(data, problem, num_experiments, s, selected_days)
-    println("Starting evaluation of the model: ", threadid())
+
+    # println("Starting evaluation of the model: ", threadid())
 
     # Initialise the parameter arrays
     k6 = Vector{Float64}(undef, num_experiments)
@@ -40,9 +43,23 @@ so that only the first _n_ rows are used.
 
     # Likelihood 
     # println("Gonna go into likelihoods")
+    # expr = experiment n°X
     for expr in 1:num_experiments
         p = [exp(k6[expr]), exp(d1[expr]), exp(s2[expr])]
-        predictions = solve(problem, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
+        valued_p = Vector{Float64}(undef, 3)
+        must_switch = false
+        
+        # Must convert FowardDiff to Float numbers
+        # DDESolver behaves badly with ForwardDiff type
+        for (i, param) in enumerate(p) 
+            if typeof(param) == Dual{ForwardDiff.Tag{Turing.TuringTag, Float64}, Float64, 3}
+                valued_p[i] = param.value 
+                println("Changed!")
+                must_switch = true
+            end 
+        end
+    
+        predictions = solve(problem, MethodOfSteps(Tsit5()); p=(must_switch) ? valued_p : p, saveat=0.1)
         pred_vol = predictions[4,:] + predictions[5,:]
         sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 

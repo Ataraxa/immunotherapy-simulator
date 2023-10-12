@@ -10,7 +10,7 @@ using HDF5
 using MCMCChains
 using MCMCChainsStorage
 using StatsPlots: plot, plot!, scatter!, savefig 
-using StatsBase: percentile, mode
+using StatsBase: percentile, mode, median
 
 include("../Model/Differential/dde_to_bayesian.jl")
 
@@ -45,8 +45,8 @@ function simulate_from_posterior(chain, n_samples=100)
     
     # Plot median and 25-75 quartile range
     plot!(
-        0:0.1:27, percentile.(eachcol(simulation_matrix), 25);
-        fillrange =  percentile.(eachcol(simulation_matrix), 75),
+        0:0.1:27, percentile.(eachcol(simulation_matrix), 45);
+        fillrange =  percentile.(eachcol(simulation_matrix), 55),
         fillalpha = 0.3,
         alpha = 0
         )
@@ -62,7 +62,7 @@ function simulate_from_posterior(chain, n_samples=100)
 end
 
 if abspath(PROGRAM_FILE) != @__FILE__
-    chain = h5open("Res/hpc-anarchical-2.h5", "r") do f
+    chain = h5open("Res/hpc-anarchical-8.h5", "r") do f
         read(f, Chains)
     end
 
