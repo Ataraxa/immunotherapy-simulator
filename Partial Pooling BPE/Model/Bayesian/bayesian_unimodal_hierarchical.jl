@@ -33,9 +33,9 @@ so that only the first _n_ rows are used.
     
     # Regular priors
     for expr in 1:num_experiments
-        k6[expr] ~ truncated(Normal(µ_k6, σ_k6); lower=-100, upper=log(10))
-        d1[expr] ~ truncated(Normal(µ_d1, σ_d1); lower=-100, upper=log(75))
-        s2[expr] ~ truncated(Normal(µ_s2, σ_s2); lower=-100, upper=log(10))    
+        k6[expr] ~ truncated(Normal(ln_µ_k6, ln_σ_k6); lower=-100, upper=log(10))
+        d1[expr] ~ truncated(Normal(ln_µ_d1, ln_σ_d1); lower=-100, upper=log(75))
+        s2[expr] ~ truncated(Normal(ln_µ_s2, ln_σ_s2); lower=-100, upper=log(10))    
     end
 
     # Experimental error (σ_err)
