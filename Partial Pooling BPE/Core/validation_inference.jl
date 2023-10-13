@@ -21,10 +21,12 @@ println("Code started running")
 # Settings for inference
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
-n_iters = (length(ARGS) >= 2) ? parse(Int64, ARGS[1]) : 1000
-n_threads = (length(ARGS) >= 2) ? parse(Int64, ARGS[2]) : 1
-init_leap = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 0.65
-num_experiments = (length(ARGS) >= 4) ? parse(Int64, ARGS[4]) : 1
+
+n_iters         = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
+n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
+init_leap       = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 0.65
+num_experiments = (length(ARGS) >= 4) ? parse(Int64,   ARGS[4]) : 1
+σ_likelihood    = (length(ARGS) >= 5) ? parse(Float64, ARGS[5]) : 2.0
 
 # Create a problem object
 prob_immune_resp = restricted_dde_space()
@@ -35,7 +37,7 @@ data_matrix = read_data(selected_days, num_experiments, step_size)
 
 # Fit model to data 
 model_dde = fit_unimodal_hierarchical(data_matrix, prob_immune_resp, num_experiments, 
-    step_size, selected_days)
+    step_size, selected_days, σ_likelihood)
 
 # This is where the heavy computations come in - so reserved for HPC
 pre_sampling = peektimer()
