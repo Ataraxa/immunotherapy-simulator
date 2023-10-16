@@ -1,15 +1,21 @@
 using DifferentialEquations
-
+using Plots: plot, plot!
 include("../Model/Differential/ode_model.jl")
 
 function solve_for_treatment(params, treatment_spec)
     p = [params[1:21]; treatment_spec]
     u0 = params[22:end]
+    print(u0)
     t_span = (0.0, 27.0)
     h(p, t; idxs::Int) = 0.0
+
+    println("")
+    println("_______________________________________________")
+    println(u0)
+
     problem = DDEProblem(full_immune_response, u0, h, t_span, p)
     
-    sol = solve(problem; saveat=0.1)
+    sol = solve(problem; saveat=0.01)
 
     return(sol)
 end
@@ -17,10 +23,14 @@ end
 function fitness(params)
     error_per_treatment = zeros(6)
     j = 1
+
+    # Iterate over all treatments
     for treatment in treatments_available
-        params = [params; 0]
         sol = solve_for_treatment(params, treatment)
         tumour_vol = sol[4,:] + sol[5,:]
+        plot(treatment["active_days"], treatment["mean"])
+        display(plot!(0.0:0.01:27.0, tumour_vol))
+        
 
         i = 1
         error_per_day = zeros(length(treatment["active_days"]))
@@ -38,7 +48,7 @@ function fitness(params)
 
     error = 0 
     for i in eachindex(error_per_treatment)
-        error += error_per_treatment[i]
+        error += error_per_treatment[i]*length(error_per_treatment)
     end
 
     return(error)

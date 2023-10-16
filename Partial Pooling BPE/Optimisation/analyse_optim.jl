@@ -2,8 +2,8 @@ using JLD2
 using Plots: plot, plot!, scatter!, RGB
 using Evolutionary
 
-include("../Model/ode_model.jl")
-include("../Library/optimisation_lib.jl")
+include("../Model/Differential/ode_model.jl")
+include("./opt_lib.jl")
 
 what_to_plot = "ga_res"
 

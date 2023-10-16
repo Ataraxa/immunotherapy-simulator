@@ -12,7 +12,7 @@ function draw_population_posterior(chain, n_samples=10_000)
     density_vector_s2 = Vector{Float64}(undef, n_samples)
     
     # Sample µ and σ
-    post_vec = sample(chain[[:µ_k6, :µ_d1, :µ_s2, :σ_k6, :σ_d1, :σ_s2]], 
+    post_vec = sample(chain[[:ln_µ_k6, :ln_µ_d1, :ln_µ_s2, :ln_σ_k6, :ln_σ_d1, :ln_σ_s2]], 
         n_samples; replace=true)
 
     # Sample from population N(µ,σ)
@@ -23,8 +23,7 @@ function draw_population_posterior(chain, n_samples=10_000)
         density_vector_s2[i] = rand(Normal(p[3], p[6]))
         i += 1
     end
-    # plot(density(density_vector_d1); xlim=(0,40))
-    # println(median(density_vector_d1))
+
 
     plot_font = "Computer Modern"
     default(fontfamily=plot_font,
@@ -57,7 +56,7 @@ function draw_population_posterior(chain, n_samples=10_000)
 end
 
 if abspath(PROGRAM_FILE) != @__FILE__
-    chain = h5open("Res/hpc-validation_chain-8.h5", "r") do f
+    chain = h5open("Res/hpc-validation_chain-10.h5", "r") do f
         read(f, Chains)
     end
 

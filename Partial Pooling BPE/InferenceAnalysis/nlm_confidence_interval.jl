@@ -10,8 +10,8 @@ function nlm_ci(chain)
     hpd(chain)
 end
 
-chain = h5open("Res/hpc-anarchical-10.h5", "r") do f
+chain = h5open("Res/hpc-validation_chain-10.h5", "r") do f
     read(f, Chains)
 end
 
-nlm_ci(chain)
+df = nlm_ci(chain[:,:,[1,2,4,5]])
