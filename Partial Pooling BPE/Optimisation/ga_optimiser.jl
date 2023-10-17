@@ -5,6 +5,9 @@ using DifferentialEquations
 include("../Model/Differential/ode_model.jl")
 include("./opt_lib.jl")
 
+n_iters      = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 100
+n_iter_tol   = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 10
+
 # Fetch known fit parameters for BoxConstraints
 u0, p = get_default_values() # u0 has 4 params, p has 21 params
 target = [p; u0[1:end-1]] # 1x25 vector
@@ -23,8 +26,8 @@ params = Evolutionary.optimize(
     ),
     Evolutionary.Options(
         parallelization=:thread,
-        iterations = 10_000,
-        successive_f_tol = 100
+        iterations = n_iters,
+        successive_f_tol = n_iters_tol
     )
 )
 
