@@ -19,6 +19,7 @@ if what_to_plot == "ga_res"
     global u0 = [params[22:end]; 0]
 elseif what_to_plot == "benchmark"
     u0, opt_p = get_christian()
+    opt_p = (1 - 0.15) .* opt_p
 end
 
 # AUX ------------------------------------------------------

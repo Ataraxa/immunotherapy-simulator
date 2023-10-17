@@ -21,6 +21,35 @@ function solve_for_treatment(params, treatment_spec)
 end
 
 "Argument format = u0 DOES NOT contain the 0"
+# function fitness(params)
+#     error_per_treatment = zeros(6)
+#     j = 1
+#     for treatment in treatments_available
+#         params = [params; 0]
+#         sol = solve_for_treatment(params, treatment)
+#         tumour_vol = sol[4,:] + sol[5,:]
+
+#         i = 1
+#         error_per_day = zeros(length(treatment["active_days"]))
+#         for day = treatment["active_days"]
+#             _, sol_index = findmin(broadcast(abs, day .* ones(length(sol.t)) - sol.t))
+#             in_silico = tumour_vol[sol_index]
+#             in_vivo = treatment["mean"][i]
+#             error_per_day[i] = ((in_silico - in_vivo)^2)/1000;
+#             i += 1
+#         end
+
+#         error_per_treatment[j] = sum(error_per_day)
+#         j+=1
+#     end
+
+#     error = 0 
+#     for i in eachindex(error_per_treatment)
+#         error += error_per_treatment[i]
+#     end
+
+#     return(error)
+# end
 function fitness(params, is_debug=false)
     debug_data = Vector{Vector{Tuple}}(undef, 6) # this is simply for debug purpose - will remove later
     error_per_treatment = zeros(6)
@@ -56,8 +85,12 @@ function fitness(params, is_debug=false)
     for i in eachindex(error_per_treatment)
         error += error_per_treatment[i]*length(error_per_treatment)
     end
-
-    return(debug_data, error)
+    
+    println("_______________________________________________")
+    println(error)
+    println(params)
+    
+    return(error)
 end
 
 placebo = Dict(

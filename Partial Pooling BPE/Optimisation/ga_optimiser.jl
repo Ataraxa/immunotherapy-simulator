@@ -12,19 +12,10 @@ width_factor = 0.25
 lower = (1 - width_factor) .* target  # Add unknown params at the end
 upper = (1 + width_factor) .* target
 
-# Block to validate the width factor feature
-# for i in eachindex(lower)
-#     a = lower[i]
-#     b = upper[i]
-#     c = target[i]
-#     println("$a $c $b")
-# end
-
 # Perform optimisation
 params = Evolutionary.optimize(
     fitness,
     BoxConstraints(lower, upper),
-    lower,
     GA(
         populationSize=200,
         crossoverRate=0.8,
@@ -32,8 +23,8 @@ params = Evolutionary.optimize(
     ),
     Evolutionary.Options(
         parallelization=:thread,
-        iterations = 500_000,
-        successive_f_tol=  parse(Int64,   ARGS[1])
+        iterations = 10_000,
+        successive_f_tol = 100
     )
 )
 
