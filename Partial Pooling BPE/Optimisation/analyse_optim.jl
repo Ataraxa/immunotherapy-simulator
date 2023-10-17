@@ -5,24 +5,28 @@ using Evolutionary
 include("../Model/Differential/ode_model.jl")
 include("./opt_lib.jl")
 
-what_to_plot = "ga_res"
+what_to_plot = "benchmark"
+filename = "Res/ga_res.jld2"
 
-# Paramer vector
+# Extract paramater vector from files
 if what_to_plot == "ga_res"
-    params = load_object("Res/ga_res.jld2")
+    params = load_object(filename)
     params = Evolutionary.minimizer(params)
+
     global opt_p = params[1:21]
     global _, true_p = get_default_values() 
+
     global u0 = [params[22:end]; 0]
 elseif what_to_plot == "benchmark"
-    u0, opt_p = get_default_values()
+    u0, opt_p = get_christian()
 end
 
+# AUX ------------------------------------------------------
 # Default value for DDE problem
 t_span = (0.0, 27.0)
 h(p, t; idxs::Int) = 0.0
 
-# Solve and plot for each treatment
+# Solve and plot for a given treatment (passed as index)
 function sotr(i)
     tr = treatments_available[i]
     passed_params = [opt_p; tr]
@@ -31,8 +35,9 @@ function sotr(i)
 
     return sol[4,:] + sol[5,:]
 end
+# AUX (end) -----------------------------------------------
 
-
+# Plot tumour evolution or each treatment
 layout = plot(layout=(2,3))
 titles=["CBD-IL-12 (Day 7)", "CBD-IL-12 (Day 9 & 14)", "CPI + CBD-IL-12", "CPI (Day 9 & 14)", "IL-12 (Day 7)","Placebo"]
 for i = 1:6
@@ -61,6 +66,12 @@ for i = 1:6
         layout, xaxis, tr["mean"];
         subplot=i, mc=RGB(0.8500, 0.3250, 0.0980), ms=2)
 end
+display(plot(layout))
+
+# Compute fitness 
+fitness([opt_p; u0[1:end-1]])
 
 
-plot(layout)
+
+
+

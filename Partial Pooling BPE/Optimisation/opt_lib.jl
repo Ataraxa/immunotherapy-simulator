@@ -4,14 +4,14 @@ include("../Model/Differential/ode_model.jl")
 
 function solve_for_treatment(params, treatment_spec)
     p = [params[1:21]; treatment_spec]
-    u0 = params[22:end]
-    print(u0)
+    u0 = [params[22:end]; 0] # Add back the 0 here!
+
     t_span = (0.0, 27.0)
     h(p, t; idxs::Int) = 0.0
 
-    println("")
-    println("_______________________________________________")
-    println(u0)
+    # println("")
+    # println("_______________________________________________")
+    # println(u0)
 
     problem = DDEProblem(full_immune_response, u0, h, t_span, p)
     
@@ -20,16 +20,20 @@ function solve_for_treatment(params, treatment_spec)
     return(sol)
 end
 
-function fitness(params)
+"Argument format = u0 DOES NOT contain the 0"
+function fitness(params, is_debug=false)
+    debug_data = Vector{Vector{Tuple}}(undef, 6) # this is simply for debug purpose - will remove later
     error_per_treatment = zeros(6)
     j = 1
 
     # Iterate over all treatments
     for treatment in treatments_available
+        debug_data[j] = Vector{Tuple}(undef, 0)
+
         sol = solve_for_treatment(params, treatment)
         tumour_vol = sol[4,:] + sol[5,:]
-        plot(treatment["active_days"], treatment["mean"])
-        display(plot!(0.0:0.01:27.0, tumour_vol))
+        # plot(treatment["active_days"], treatment["mean"])
+        # display(plot!(0.0:0.01:27.0, tumour_vol))
         
 
         i = 1
@@ -39,6 +43,8 @@ function fitness(params)
             in_silico = tumour_vol[sol_index]
             in_vivo = treatment["mean"][i]
             error_per_day[i] = ((in_silico - in_vivo)^2)/1000;
+
+            push!(debug_data[j], (sol_index, in_silico, in_vivo))
             i += 1
         end
 
@@ -51,7 +57,7 @@ function fitness(params)
         error += error_per_treatment[i]*length(error_per_treatment)
     end
 
-    return(error)
+    return(debug_data, error)
 end
 
 placebo = Dict(

@@ -5,7 +5,7 @@ using DifferentialEquations
 include("../Model/Differential/ode_model.jl")
 include("./opt_lib.jl")
 
-# Fetch known fit parameters for boxConstraints
+# Fetch known fit parameters for BoxConstraints
 u0, p = get_default_values() # u0 has 4 params, p has 21 params
 target = [p; u0[1:end-1]] # 1x25 vector
 width_factor = 0.25
@@ -32,24 +32,22 @@ params = Evolutionary.optimize(
     ),
     Evolutionary.Options(
         parallelization=:thread,
-        iterations = 10_000,
-        successive_f_tol=20_000
+        iterations = 500_000,
+        successive_f_tol=  parse(Int64,   ARGS[1])
     )
 )
 
 # Save results
 file_i = 0
 machine = ENV["MACHINE_TYPE"]
-filename = "$machine-ga_opt-$file_i.h5"
+filename = "$machine-ga_opt-$file_i.jld2"
 while isfile("Res/$filename")
     global file_i+=1
-    global filename = "$machine-ga_opt-$file_i.h5"
+    global filename = "$machine-ga_opt-$file_i.jld2"
 end
 
 # Save MCMC chain
-h5open("Res/$filename", "w") do f 
-    write(f, params)
-end
+save_object("Res/$filename", params)
 
 # Write in log file
 # summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap | n_exp=$num_experiments \n"
