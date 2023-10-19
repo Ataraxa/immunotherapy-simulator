@@ -20,3 +20,5 @@ for name in fieldnames(typeof(test))
     val = eval(code)(test)
     setproperty!(based, field, val)
 end
+
+println("Success")

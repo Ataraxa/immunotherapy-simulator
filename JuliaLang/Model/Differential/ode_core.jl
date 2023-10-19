@@ -35,10 +35,10 @@ function full_immune_response(du, u, h, p, t)
     g, c, pd1, vl, vd = u
 
     # Check if treatments are active at time t
-    d_cbd = check_active(t, tr["t_in"], t_delay, t_last, tr["active_cbd"])
-    d_12 = check_active(t, tr["t_in12"], t_delay12, t_last12, tr["active_il12"])
+    d_cbd = check_active(t, tr.t_in, t_delay, t_last, (tr.t_in != 0))
+    d_12 = check_active(t, tr.t_in12, t_delay12, t_last12, (tr.t_in12 != 0))
     
-    d_cpi = ((tr["t_inCPI"]) < t && tr["active_cpi"])
+    d_cpi = ((tr.t_inCPI) < t && (tr.t_inCPI != 0))
     # d_cpi = 0 
 
     # Evaluate differential equations.
