@@ -31,4 +31,4 @@ opts_br = ContinuationPar(p_min = -10.0, p_max = -0.9,
 # continuation of equilibria
 br = continuation(prob, PALC(tangent=Bordered()), opts_br; normC = norminf)
     
-scene = plot(br, plotfold=false, markersize=3, legend=:topleft)
+scene = plot(br, plotfold=true, markersize=3, legend=:topleft)

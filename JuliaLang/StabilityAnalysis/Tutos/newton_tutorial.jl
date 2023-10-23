@@ -1,7 +1,7 @@
 using BifurcationKit
 using ForwardDiff # for auto-differentiation
 using LinearAlgebra
-using Plots
+using Plots: plot, scatter
 
 function mixed_jacobian(z, k, f, J)
     x = z[1:end-1]; p = z[end]
@@ -81,30 +81,42 @@ function continuation(f, J, x0, p0; pmin, pmax, dp0, dx0, N = 1000)
     return xs, ps, stability
 end
 
+# function maasch_rule(u, p)
+#     x, y, z = u
+#     q, r, s = 1.2, 0.8, 0.8
+#     dx = -x - y
+#     dy = -p*z + r*y + s*z^2 - z^2*y
+#     dz = -q*(x + z)
+#     return [dx, dy, dz]
+# end
+
+# function maasch_jacob(u, p)
+#     x, y, z = u
+#     q, r, s = 1.2, 0.8, 0.8
+#     return [-1     -1  0;
+#             0   (r - z^2)  (-p + 2z*s - 2z*y);
+#             -q   0   -q]
+# end
+
 function maasch_rule(u, p)
-    x, y, z = u
-    q, r, s = 1.2, 0.8, 0.8
-    dx = -x - y
-    dy = -p*z + r*y + s*z^2 - z^2*y
-    dz = -q*(x + z)
-    return [dx, dy, dz]
+    x = u
+    dx = p .+ x.^2
+    return [dx]
 end
 
 function maasch_jacob(u, p)
-    x, y, z = u
-    q, r, s = 1.2, 0.8, 0.8
-    return [-1     -1  0;
-            0   (r - z^2)  (-p + 2z*s - 2z*y);
-            -q   0   -q]
+    x = u
+    return [2*x]
 end
 
-pmin = -0.1
-pmax = 2
+
+pmin = -1.0
+pmax = 1.0
 δ = 0.9
-p0 = 0
-x0 = [-1.4, -1.4, -1.4]
+p0 = 0.9
+x0 = [0]
 dp0 = 0.1
-dx0 = [0.01, 0.01, 0.01]
+dx0 = [0.01]
 
 xs, ps, stability = continuation(maasch_rule, maasch_jacob, x0, p0;
     pmin, pmax, dp0, dx0

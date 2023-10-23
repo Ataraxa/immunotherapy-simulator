@@ -1,5 +1,5 @@
 using Distributions, DataFrames
-using PlotlyJS
+using PlotlyJS: plot, scatter, attr, Layout
 
 include("../../Model/Differential/ode_restricted.jl")
 include("../../Model/treatments_lib.jl")
@@ -43,4 +43,4 @@ function do_simulations(n_iters=1_000, θ=25)
     ), Layout(margin=attr(l=0, r=0, b=0, t=0)))
 end
 
-do_simulations(1000)
+do_simulations(1000, 50)
