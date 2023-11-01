@@ -1,0 +1,5 @@
+Summary for hpc-worked.h5: 1000 iters, 4 threads, 0.65 leap, [5 20], no starting pos
+
+Summary for hpc-validation_chain-0.h5: n_iters=  5 | n_threads=4 | input_leap=0.65 | bounds=1000,1000 
+Summary for hpc-validation_chain-1.h5: n_iters=100 | n_threads=4 | input_leap=0.65 | bounds=5,20
+Summary for hpc-validation_chain-2.h5: n_iters=100 | n_threads=4 | input_leap=0.65 | bounds=1000,1000 
