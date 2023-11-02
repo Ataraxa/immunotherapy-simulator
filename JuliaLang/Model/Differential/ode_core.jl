@@ -24,7 +24,7 @@ Inputs:
 Outputs:
     - ::DDEProblem, to be solved later
 """
-function problem_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
+function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
     immune_resp::Function = (x->print(x))
     
     @match model begin
@@ -91,10 +91,14 @@ function problem_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
         end
     end
 
-    p, u0 = struct_split(christian)
+    return immune_resp
+end
+
+function model2problem(model; param_struct=christian)
+    p, u0 = struct_split(param_struct)
     u0 = [u0; 0]
     h(p, t; idxs::Int) = 0.0
     t_span = (0.0, 27.0)
 
-    return DDEProblem(immune_resp, u0, h, t_span, p)
+    return DDEProblem(model, u0, h, t_span, p)
 end

@@ -69,6 +69,6 @@ experimental time series.
 
     # Likelihoods
     for i in eachindex(sliced_pred)
-        data[1, i] ~ Normal(sliced_pred[i], σ_likelihood)
+        data[1, i] ~ Normal(log(sliced_pred[i]), σ_likelihood)
     end    
 end

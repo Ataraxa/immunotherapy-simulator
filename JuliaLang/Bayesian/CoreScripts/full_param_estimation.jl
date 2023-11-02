@@ -27,7 +27,7 @@ problem = problem_factory()
 
 # Data Extraction 
 selected_days = [0,7,8,9,11,14,17,20]
-data_vector = read_data(selected_days, 1, step_size, "fakeOde")
+data_vector = log.(read_data(selected_days, 1, step_size, "fakeOde"))
 
 ### Run inference 
 fitted_model = fit_individual(data_vector, problem, 
