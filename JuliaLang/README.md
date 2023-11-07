@@ -18,3 +18,6 @@ Folder that stores the MCMC chains calculated by the HPC cluster. It acts as an 
 
 <h2>Test</h2>
 Collection of tests to check that each individual component of the project behaves as expected. 
+
+<h1>Useful commnand<h1>
+`; tput rmam` to artificially reduce stacktrace

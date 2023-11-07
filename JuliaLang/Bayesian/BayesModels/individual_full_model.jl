@@ -20,7 +20,7 @@ Inputs:
     - timestep: to solve the DDEProblem and synchronise with selected_days
     - σ_likelihood: standard deviation of the likelihood distribution
 """
-@model function fit_individual(data, problem, selected_days, timestep, 
+@model function fit_individual_full(data, problem, selected_days, timestep, 
         σ_likelihood)
 
     # Prior distributions

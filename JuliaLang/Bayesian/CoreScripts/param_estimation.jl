@@ -13,15 +13,20 @@ import Match
 include("../../Model/Differential/ode_core.jl")
 include("../../CommonLibrary/data_extractor.jl")
 include("../BayesModels/individual_full_model.jl")
+include("../BayesModels/individual_restricted.jl")
 
-### Settings for inference
+#### Settings for inference
+# space = either full (21 parameters) or restricted (2-5 params)
+# model = takuya, feedbacked, etc...
+####
+
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
 
 n_iters         = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 2.0
-space           = (length(ARGS) >= 4) ? parse(String,  ARGS[4]) : "full"
+space           = (length(ARGS) >= 4) ? parse(String,  ARGS[4]) : "rest"
 model           = (length(ARGS) >= 5) ? parse(String,  ARGS[5]) : "takuya"
 
 ### Setting up the inference 
@@ -30,14 +35,16 @@ problem = create_problem(model=model)
 
 # Data Extraction 
 selected_days = [0,7,8,9,11,14,17,20]
-data_vector = log.(read_data(selected_days, 1, step_size, "fakeOde"))
+temp = read_data(selected_days, 1, step_size, "fakeOde")
+println(temp)
+data_vector = log.(temp)
 
-### Run inference 
+### Run inference
+model_args = [data_vector, problem, selected_days, step_size, σ_likelihood]
 @match space begin
-    ""
+    "full" => global fitted_model = fit_individual_full(model_args...)
+    "rest" => global fitted_model = fit_individual_restricted(model_args...)
 end
-fitted_model = fit_individual(data_vector, problem, 
-    selected_days, step_size, σ_likelihood)
 
 ### Sample from Posterior
 if ENV["MACHINE_TYPE"] == "hpc"

@@ -22,7 +22,7 @@ Inputs:
     - timestep: to solve the DDEProblem and synchronise with selected_days
     - σ_likelihood: standard deviation of the likelihood distribution
 """
-@model function fit_individual_restricted(data, problem, s, selected_days, 
+@model function fit_individual_restricted(data, problem, selected_days, s, 
         exp_err)
     
     ## Regular priors
@@ -40,7 +40,7 @@ Inputs:
 
     ## Solve DDE model  
     repacked_p = repack_params(updateParams(float_p...) )
-    predictions = solve(problem; p=repacked_p[0], saveat=0.1)
+    predictions = solve(problem; p=repacked_p[1], saveat=0.1)
     pred_vol = predictions[4,:] + predictions[5,:]
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
