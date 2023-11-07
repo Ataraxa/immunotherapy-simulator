@@ -7,8 +7,18 @@ include("../../Model/Differential/ode_core.jl")
 include("../../Model/Differential/ode_params.jl")
 
 """
-Statistical model to estimate the individual parameters of a mouse, given an
-experimental time series.
+Statistical model to estimate all the individual parameters of a mouse, given an
+experimental time series (θ from R21, ie not including the initial 
+conditions u0).
+
+Inputs:
+
+    - problem: a tumour DDEProblem that requires a full parameter vector (w/o 
+    u0) to be solved
+    - data: the time series to be fitted
+    - selected_days days: vector of Int64, days at which data was collected
+    - timestep: to solve the DDEProblem and synchronise with selected_days
+    - σ_likelihood: standard deviation of the likelihood distribution
 """
 @model function fit_individual(data, problem, selected_days, timestep, 
         σ_likelihood)
@@ -16,9 +26,9 @@ experimental time series.
     # Prior distributions
     c = christian
 
-    ln_td      ~ truncated(Normal(c.t_d,1); lower=-100, upper=log(2000))
-    ln_t_delay ~ truncated(Normal(c.t_delay,1); lower=-100, upper=log(2000))
-    ln_t_last  ~ truncated(Normal(c.t_last,1); lower=-100, upper=log(2000))
+    ln_td      ~ truncated(Normal(c.t_d,     1); lower=-100, upper=log(2000))
+    ln_t_delay ~ truncated(Normal(c.t_delay, 1); lower=-100, upper=log(2000))
+    ln_t_last  ~ truncated(Normal(c.t_last,  1); lower=-100, upper=log(2000))
    
     ln_t_delay12 = 0 # Not useful for current treatment
     ln_t_last12 = 0
@@ -64,8 +74,8 @@ experimental time series.
         print(float_p)
     end
     # println(pred_tumour)
-    # sliced_pred = pred_tumour[selected_days*trunc(Int, 1/timestep) .+ 1]
-    sliced_pred = pred_tumour[[1, 71, 81, 91, 111, 141, 171, 201]]
+    sliced_pred = pred_tumour[selected_days*trunc(Int, 1/timestep) .+ 1]
+    # sliced_pred = pred_tumour[[1, 71, 81, 91, 111, 141, 171, 201]]
 
     # Likelihoods
     for i in eachindex(sliced_pred)

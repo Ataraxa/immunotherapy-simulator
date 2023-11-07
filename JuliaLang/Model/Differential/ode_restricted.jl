@@ -1,9 +1,9 @@
 using DifferentialEquations
 
-include("./ode_core.jl")
 include("./ode_params.jl")
-include("../treatments_lib.jl")
+include("../../CommonLibrary/struct_manipulation.jl")
 
+## This structure represents the restricted parameter space
 struct updateParams 
     k6::Float64
     d1::Float64
@@ -11,9 +11,10 @@ struct updateParams
 end
 
 """
-Function to perform tumour simulations in restricted parameter space.
-Pass the parameters of interest in a struct, the unspecified ones will be
-inferred from the average values (from GA)
+Use a default parameter structure to complete a restricted-space parameter 
+vector
+
+Returns a Tuple (p, u0)
 """
 function repack_params(
     restricted::updateParams,
@@ -25,7 +26,8 @@ function repack_params(
         val = :($restricted.$name)
         setproperty!(base, name, eval(val))
     end
-    
-    return prob_dde
+
+    # Return base structure converted to vector
+    return struct_split(base)
 end
 

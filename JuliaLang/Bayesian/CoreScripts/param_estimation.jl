@@ -8,6 +8,7 @@ import DifferentialEquations
 import MCMCChains
 import MCMCChainsStorage
 import HDF5: h5open
+import Match
 
 include("../../Model/Differential/ode_core.jl")
 include("../../CommonLibrary/data_extractor.jl")
@@ -20,16 +21,21 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 2.0
+space           = (length(ARGS) >= 4) ? parse(String,  ARGS[4]) : "full"
+model           = (length(ARGS) >= 5) ? parse(String,  ARGS[5]) : "takuya"
 
 ### Setting up the inference 
 # DDE Problem
-problem = problem_factory()
+problem = create_problem(model=model)
 
 # Data Extraction 
 selected_days = [0,7,8,9,11,14,17,20]
 data_vector = log.(read_data(selected_days, 1, step_size, "fakeOde"))
 
 ### Run inference 
+@match space begin
+    ""
+end
 fitted_model = fit_individual(data_vector, problem, 
     selected_days, step_size, σ_likelihood)
 

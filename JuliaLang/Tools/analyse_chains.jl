@@ -7,7 +7,7 @@ using MCMCChains
 using MCMCChainsStorage
 using StatsPlots: plot
 
-chain = h5open("Res/hpc-validation_chain-10-clup.h5", "r") do f
+chain = h5open("Results/hpc-individual-0.h5", "r") do f
     read(f, Chains)
 end
 a = namesingroup(chain, :k6)

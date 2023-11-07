@@ -1,8 +1,9 @@
 using Distributions, DataFrames
+# using Plots
 using PlotlyJS: plot, scatter, attr, Layout
 using LaTeXStrings
 
-include("../../Model/Differential/ode_restricted.jl")
+include("../../Model/Differential/legacy_model.jl")
 include("../../Model/treatments_lib.jl")
 
 function do_simulations(n_iters=1_000, θ=25)
@@ -31,6 +32,8 @@ function do_simulations(n_iters=1_000, θ=25)
         end
     end
 
+    println(typeof(all_k6))
+
     layout = Layout(
         scene=attr(
             xaxis_type="log",
@@ -42,7 +45,7 @@ function do_simulations(n_iters=1_000, θ=25)
             zaxis_title="s2",
             )
         )
-
+    
     return plot(scatter(
         x=all_k6,
         y=all_d1,
@@ -52,7 +55,6 @@ function do_simulations(n_iters=1_000, θ=25)
             size=20,
             color=colours,                # set color to an array/list of desired values
             colorscale="Viridis",   # choose a colorscale
-            opacity= (colours == :red) ? 0 : 1
         ),
         type="scatter3d"
     ), layout)

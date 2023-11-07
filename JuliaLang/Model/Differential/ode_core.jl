@@ -94,7 +94,13 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
     return immune_resp
 end
 
-function model2problem(model; param_struct=christian)
+function create_problem(; 
+        model="takuya", 
+        treatment::Treatment=CBD_IL_12_ver7, 
+        param_struct=christian
+        )
+    
+    model=model_factory(model=model, treatment=treatment)
     p, u0 = struct_split(param_struct)
     u0 = [u0; 0]
     h(p, t; idxs::Int) = 0.0
