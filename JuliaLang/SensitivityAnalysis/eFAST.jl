@@ -3,15 +3,17 @@ using DifferentialEquations
 using Distributions
 using Plots
 
-include("../Model/ode_model.jl")
+include("../Model/Differential/ode_core.jl")
+include("../Model/Differential/ode_params.jl")
+include("../CommonLibrary/struct_manipulation.jl")
 
 # Settings
-np = 23 # umber of parameters to be analysed
+np = 23 # number of parameters to be analysed
 
 # Define the problem object
 t_span = (0.0, 25.0)
 h(p, t; idxs::Int) = 0.0
-u0, p = get_default_values() 
+p, u0 = struct_split(christian)
 problem = DDEProblem(full_with_feedback, u0, h, t_span, p)
 
 # Wrap the problem inside a function that solves it with a given set of params 

@@ -6,8 +6,8 @@ include("../../CommonLibrary/struct_manipulation.jl")
 ## This structure represents the restricted parameter space
 struct updateParams 
     k6::Float64
-    # d1::Float64
-    # s2::Float64
+    d1::Float64
+    s2::Float64
 end
 
 """

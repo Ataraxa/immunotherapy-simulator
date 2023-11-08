@@ -1,3 +1,10 @@
+#= FILE DESCRIPTION
+
+Script used to generate fake data purely used for the validation step.
+It simply uses a model and a parameter structure to predict the time evolution
+of all relevant quantities.
+=#
+
 using DelimitedFiles
 
 include("../Model/Differential/ode_core.jl")
@@ -22,4 +29,9 @@ predictions = solve(prob; p=p, saveat=0.1)
 ### Save predictions to file
 matrix_sol = reshape(reduce(hcat, predictions), 5, 301)
 writedlm("Data/fakeOde/trajectories-1.csv", [predictions.t'; matrix_sol], ',')
+
+# summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads \n"
+# open("Results/log-$machine.txt", "a") do f 
+#     write(f, summary)
+# end
 

@@ -26,13 +26,15 @@ Inputs:
         exp_err)
     
     ## Regular priors
-    ln_k6 ~ truncated(Cauchy(0, 1); lower=-100, upper=0)
+    ln_k6 ~ truncated(Cauchy(0, 1); lower=-100, upper=0) # Negative half-Cauchy
+    ln_d1 ~ truncated(Cauchy(0, 1); lower=0, upper=7) # Positive half-Cauchy
+    ln_s2 ~ truncated(Cauchy(0, 1); lower=-100, upper=0)
 
     ## Experimental error (σ_err)
     σ_err = exp_err
 
     ## Convert ForwardDiff to Float64 (bad type interface)
-    p = [ln_k6] .|> exp
+    p = [ln_k6, ln_d1, ln_s2] .|> exp
     float_p = Vector{Float64}(undef, length(p))
     for (i, param) in enumerate(p) 
         float_p[i] = (typeof(param) <: Dual) ? param.value : param
