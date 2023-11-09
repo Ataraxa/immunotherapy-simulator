@@ -7,8 +7,8 @@ include("../../Model/treatments_lib.jl")
 
 pred = solve(create_problem(
     max_day=100.0,
-    treatment=CPI,
-    model="w/feedback"
+    treatment=CBD_IL_12_ver7,
+    model="takuya"
     ))
 display(plot(pred.t, pred[4,:] + pred[5,:]))
 
