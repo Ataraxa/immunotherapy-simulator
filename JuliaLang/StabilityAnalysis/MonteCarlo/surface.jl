@@ -3,21 +3,31 @@ using Distributions, DataFrames
 using PlotlyJS: plot, scatter, attr, Layout
 using LaTeXStrings
 
-include("../../Model/Differential/legacy_model.jl")
 include("../../Model/treatments_lib.jl")
+include("../../Model/Differential/ode_core.jl")
+include("../../Model/Differential/ode_params.jl")
+include("../../Model/Differential/ode_restricted.jl")
+
 
 function do_simulations(n_iters=1_000, θ=25)
+    ## Variable initialisation
     all_k6  = []
     all_d1  = []
     all_s2  = []
     colours = []
+    edge_len = trunc(Int64, cbrt(n_iters))
+
+    ## Problem definition
+    problem = create_problem(; 
+        model="w/feedback",
+        param_struct=new_christ,
+        max_day=100.0)
     
-    for k6 in exp10.(range(-1, stop=1, length=10))
-        for d1 in exp10.(range(0, stop=2, length=10))
-            for s2 in exp10.(range(-2, stop=0, length=10))
-                update = updateParams(k6, d1, s2)
-                prob = restricted_simulation(update; max_days=100.0)
-                sol = solve(prob; saveat=0.1)
+    for k6 in exp10.(range(-1, stop=1, length=edge_len))
+        for d1 in exp10.(range(0, stop=2, length=edge_len))
+            for s2 in exp10.(range(-2, stop=0, length=edge_len))
+                p, _ = repack_params(updateParams(k6, d1, s2), new_christ)
+                sol = solve(problem; p=p, saveat=0.1)
 
                 total_tumour = sol[4,:] + sol[5,:]
 

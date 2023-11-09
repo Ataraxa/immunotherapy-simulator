@@ -18,7 +18,7 @@ Returns a Tuple (p, u0)
 """
 function repack_params(
     restricted::updateParams,
-    base::baseParams = christian,
+    base = christian,
     )
 
     # Update the default parameters, to be passed to the DDE model
