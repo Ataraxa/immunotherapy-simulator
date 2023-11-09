@@ -42,7 +42,7 @@ Inputs:
     end
 
     ## Solve DDE model  
-    repacked_p = repack_params(updateParams(float_p...) )
+    repacked_p = repack_params(updateParams1(float_p...) )
     predictions = solve(problem; p=repacked_p[1], saveat=0.1)
     pred_vol = predictions[4,:] + predictions[5,:]
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
@@ -72,7 +72,7 @@ end
     end
 
     ## Solve DDE model  
-    repacked_p = repack_params(updateParams(float_p...) )
+    repacked_p = repack_params(updateParams3(float_p...) )
     predictions = solve(problem; p=repacked_p[1], saveat=0.1)
     pred_vol = predictions[4,:] + predictions[5,:]
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]

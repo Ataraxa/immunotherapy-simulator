@@ -4,7 +4,11 @@ include("./ode_params.jl")
 include("../../CommonLibrary/struct_manipulation.jl")
 
 ## This structure represents the restricted parameter space
-struct updateParams 
+mutable struct updateParams1
+    k6::Float64
+end
+
+struct updateParams3
     k6::Float64
     d1::Float64
     s2::Float64
@@ -17,7 +21,7 @@ vector
 Returns a Tuple (p, u0)
 """
 function repack_params(
-    restricted::updateParams,
+    restricted,
     base = christian,
     )
 
