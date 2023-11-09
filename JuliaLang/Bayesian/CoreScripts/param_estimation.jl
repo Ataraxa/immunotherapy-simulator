@@ -1,7 +1,9 @@
-"""
-Script to estimate the 25 parameters of a tumour DDE model through a Bayesian 
-statistical model.
-"""
+#= FILE DESCRIPTION
+
+Script used to estimate parameters of the DDE model by fitting it to a time 
+series. This is particulary useful to verify that a Bayesian analysis can yield 
+the correct results when we already know the correct parameters beforehand. 
+=#
 
 import Turing # to run bayesian inference 
 import DifferentialEquations
@@ -26,7 +28,7 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 2.0
-space           = (length(ARGS) >= 4) ?                ARGS[4]  : "rest"
+space           = (length(ARGS) >= 4) ?                ARGS[4]  : "rest1"
 model           = (length(ARGS) >= 5) ?                ARGS[5]  : "takuya"
 
 ### Setting up the inference 
@@ -43,7 +45,8 @@ data_vector = log.(temp)
 model_args = [data_vector, problem, selected_days, step_size, σ_likelihood]
 @match space begin
     "full" => global fitted_model = fit_individual_full(model_args...)
-    "rest" => global fitted_model = fit_individual_restricted(model_args...)
+    "rest1" => global fitted_model = fit_individual_restricted1(model_args...)
+    "rest3" => global fitted_model = fit_individual_restricted3(model_args...)
 end
 
 ### Sample from Posterior
@@ -71,7 +74,7 @@ h5open("Results/$filename", "w") do f
 end
 
 # Write in log file
-summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads \n"
+summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | model=$model | space=$space \n"
 open("Results/log-$machine.txt", "a") do f 
     write(f, summary)
 end
