@@ -1,12 +1,13 @@
 using Evolutionary
 using JLD2
 using DifferentialEquations
+using DotEnv
 
-# include("./opt_lib.jl")
 include("./fitness_factory.jl")
 include("../Model/Differential/ode_core.jl")
 include("../Model/Differential/ode_params.jl")
 
+DotEnv.config() # Loads content from .env file
 n_iters      = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 100
 n_iter_tol   = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 10
 
@@ -38,13 +39,13 @@ params = Evolutionary.optimize(
 file_i = 0
 machine = ENV["MACHINE_TYPE"]
 filename = "$machine-ga_opt-$file_i.jld2"
-while isfile("Res/$filename")
+while isfile("Results/$filename")
     global file_i+=1
     global filename = "$machine-ga_opt-$file_i.jld2"
 end
 
 # Save MCMC chain
-save_object("Res/$filename", params)
+save_object("Results/$filename", params)
 
 # Write in log file
 # summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | input_leap=$init_leap | n_exp=$num_experiments \n"

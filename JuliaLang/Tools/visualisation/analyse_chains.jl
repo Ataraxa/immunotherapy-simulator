@@ -14,7 +14,7 @@ a = namesingroup(chain, :k6)
 display(plot(chain))
 
 # # Gelman diagnostic: PSRFCI under 1.1 indicates good mixing and convergence
-df_gelman = gelmandiag(chain[:,:,:])
+# df_gelman = gelmandiag(chain[:,:,:])
 
 # # # Autocorrelation
 # display(autocorplot(chain))
