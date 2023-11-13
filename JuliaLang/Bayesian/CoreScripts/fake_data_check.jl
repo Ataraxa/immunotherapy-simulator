@@ -56,7 +56,7 @@ end
 # Create new filename
 file_i = 0
 machine = ENV["MACHINE_TYPE"]
-filename = "$machine-individual-$file_i.h5"
+filename = "$machine-individual-$num_experiments-$file_i.h5"
 while isfile("Res/$filename")
     global file_i+=1
     global filename = "$machine-validation_chain-$file_i.h5"
@@ -68,7 +68,7 @@ h5open("Results/$filename", "w") do f
 end
 
 # Write in log file
-summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | model=$model | space=$space \n"
+summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | model=$model | space=$space | nₑₓₚ=$num_experiments | distro=Cauchy \n"
 open("Results/log-$machine.txt", "a") do f 
     write(f, summary)
 end
