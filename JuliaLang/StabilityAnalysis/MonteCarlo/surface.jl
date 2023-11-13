@@ -19,14 +19,14 @@ function do_simulations(n_iters=1_000, θ=25)
 
     ## Problem definition
     problem = create_problem(; 
-        model="w/feedback",
-        param_struct=new_christ,
+        model="takuya",
+        param_struct=christian,
         max_day=100.0)
     
     for k6 in exp10.(range(-1, stop=1, length=edge_len))
         for d1 in exp10.(range(0, stop=2, length=edge_len))
             for s2 in exp10.(range(-2, stop=0, length=edge_len))
-                p, _ = repack_params(updateParams(k6, d1, s2), new_christ)
+                p, _ = repack_params(updateParams3(k6, d1, s2), christian)
                 sol = solve(problem; p=p, saveat=0.1)
 
                 total_tumour = sol[4,:] + sol[5,:]

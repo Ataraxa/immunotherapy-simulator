@@ -6,7 +6,7 @@ include("../../Model/Differential/ode_restricted.jl")
 include("../../Model/treatments_lib.jl")
 
 pred = solve(create_problem(
-    max_day=100.0,
+    max_day=27.0,
     treatment=CBD_IL_12_ver7,
     model="takuya"
     ))

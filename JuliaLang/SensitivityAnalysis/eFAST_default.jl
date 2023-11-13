@@ -14,7 +14,7 @@ np = 22 # number of parameters to be analysed
 
 # Define the problem object
 global problem = create_problem(
-    max_day=27.0,
+    max_day=100.0,
     treatment=CBD_IL_12_ver7,
     model="takuya",
     param_struct=christian
@@ -33,7 +33,9 @@ wrapped_response = function (params_vector)
     # prob1 = remake(problem;p=p, u0=u0)
     sol = solve(problem;p=p, u0=u0, saveat=0.1)
     area = sum((sol[4,:] + sol[5,:]) .* 0.1)
-    return (sol[4,end] + sol[5,end])
+
+    return area
+    # return (sol[4,end] + sol[5,end])
 end 
 
 # Lower and upper bounds of the solution 

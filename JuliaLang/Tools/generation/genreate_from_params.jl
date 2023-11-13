@@ -5,26 +5,24 @@ It simply uses a model and a parameter structure to predict the time evolution
 of all relevant quantities.
 =#
 
+using Distributions
 using DelimitedFiles
 
-include("../Model/Differential/ode_core.jl")
-include("../Model/Differential/ode_params.jl")
-include("../Model/treatments_lib.jl")
-include("../CommonLibrary/struct_manipulation.jl")
+include("../../Model/Differential/ode_core.jl")
+include("../../Model/Differential/ode_params.jl")
+include("../../Model/treatments_lib.jl")
+include("../../CommonLibrary/struct_manipulation.jl")
 
 ### Create problem object
-p, u0 = struct_split(christian)
-p = [p; CBD_IL_12_ver7]
-u0 = [u0; 0]
-h(p, t; idxs::Int) = 0.0
-t_span = (0.0, 30.0)
-prob = DDEProblem(full_immune_response, u0, h, t_span, p)
+prob = create_problem()
 
 ### Generate predictions
-predictions = solve(prob; p=p, saveat=0.1)
-
+predictions = solve(prob; saveat=0.1)
+vol = predictions[4,:] + predictions[5,:]
 ### Add random noise to simulation 
-# training_data = Array(predictions) + 10 * randn(size(predictions))
+noise = rand(Normal(0, 1), 10, 271)
+(vol + noise) .|> log 
+
 
 ### Save predictions to file
 matrix_sol = reshape(reduce(hcat, predictions), 5, 301)

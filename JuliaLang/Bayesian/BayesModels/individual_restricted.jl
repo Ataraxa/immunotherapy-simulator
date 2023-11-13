@@ -23,7 +23,7 @@ Inputs:
     - σ_likelihood: standard deviation of the likelihood distribution
 """
 @model function fit_individual_restricted1(data, problem, selected_days, s, 
-        exp_err)
+        exp_err; num_experiments = 1)
     
     ## Regular priors
     ln_k6 ~ truncated(Cauchy(0, 1); lower=-100, upper=0) # Negative half-Cauchy
@@ -48,13 +48,15 @@ Inputs:
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
     ## Likelihoods
-    for i in eachindex(sliced_pred)
-        data[1, i] ~ Normal(log(sliced_pred[i]), σ_err) # TODO: should it be log??
-    end
+    for exp in 1:num_experiments
+        for i in eachindex(sliced_pred)
+            data[exp, i] ~ Normal(log(sliced_pred[i]), σ_err) # TODO: should it be log??
+        end
+    end 
 end
 
 @model function fit_individual_restricted3(data, problem, selected_days, s, 
-        exp_err)
+        exp_err; num_experiments = 1)
 
     ## Regular priors
     ln_k6 ~ truncated(Cauchy(0, 1); lower=-100, upper=0) # Negative half-Cauchy
@@ -78,7 +80,9 @@ end
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
     ## Likelihoods
-    for i in eachindex(sliced_pred)
-        data[1, i] ~ Normal(log(sliced_pred[i]), σ_err) # TODO: should it be log??
-    end
+    for exp in 1:num_experiments
+        for i in eachindex(sliced_pred)
+            data[exp, i] ~ Normal(log(sliced_pred[i]), σ_err) # TODO: should it be log??
+        end
+    end 
 end
