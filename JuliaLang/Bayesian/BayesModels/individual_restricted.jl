@@ -50,7 +50,7 @@ Inputs:
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ Normal(log(sliced_pred[i]), σ_err) # TODO: should it be log??
+            data[exp, i] ~ Normal(log(sliced_pred[i]), 1) # TODO: should it be log??
         end
     end 
 end
@@ -82,7 +82,7 @@ end
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ Normal(log(sliced_pred[i]), σ_err) # TODO: should it be log??
+            data[exp, i] ~ Normal(log(sliced_pred[i]), 1) # NOT log'ed
         end
     end 
 end

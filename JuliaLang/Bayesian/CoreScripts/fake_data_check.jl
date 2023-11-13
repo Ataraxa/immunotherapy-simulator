@@ -4,11 +4,12 @@ This script is used to fit a Bayesian model to a set of manually-
 generated data. This is useful to check model identifiability. 
 =#
 
+using HDF5
 using Match
 using DotEnv
-using HDF5: h5open
 using MCMCChains
 using MCMCChainsStorage
+using DelimitedFiles: readdlm
 
 include("../../CommonLibrary/data_extractor.jl")
 include("../../Model/Differential/ode_core.jl")
@@ -26,16 +27,15 @@ model           = (length(ARGS) >= 5) ?                ARGS[5]  : "takuya"
 
 
 ### Main 
-## Data Extraction
+# Data Extraction
 selected_days = [0,7,8,9,11,14,17,20]
-read_params = selected_days, num_experiments, 0.1, "fake2"
-data = (read_data(read_params...) .|> log)
+data_mat = readdlm("Data/fakeOde2/trajectories-0.csv", ',')
 
-## Problem Definition 
+# Problem Definition 
 problem = create_problem(model=model)
 
-## Fit Model to Data 
-model_args = [data, problem, selected_days, step_size, σ_likelihood]
+# Fit Model to Data 
+model_args = [data_mat, problem, selected_days, step_size, σ_likelihood]
 @match space begin
     "full" => global fitted_model = fit_individual_full(model_args...)
     "rest1" => global fitted_model = fit_individual_restricted1(model_args...; 
@@ -44,7 +44,7 @@ model_args = [data, problem, selected_days, step_size, σ_likelihood]
         num_experiments = num_experiments)
 end
 
-## Sample from Posterior
+# Sample from Posterior
 if ENV["MACHINE_TYPE"] == "hpc"
     println("Going into the remote computing branch")
     chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), n_iters, n_threads; progress=false)
@@ -54,7 +54,7 @@ elseif ENV["MACHINE_TYPE"] == "local"
 end
 
 ### Enf-of-script log
-## Create new filename
+# Create new filename
 file_i = 0
 machine = ENV["MACHINE_TYPE"]
 filename = "$machine-individual-$file_i.h5"
@@ -63,16 +63,16 @@ while isfile("Res/$filename")
     global filename = "$machine-validation_chain-$file_i.h5"
 end
 
-## Save MCMC chain
+# Save MCMC chain
 h5open("Results/$filename", "w") do f 
     write(f, chain_dde)
 end
 
-## Write in log file
+# Write in log file
 summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | model=$model | space=$space \n"
 open("Results/log-$machine.txt", "a") do f 
     write(f, summary)
 end
 
 println("File saved successfully @$filename")
-println(summary
+println(summary)
