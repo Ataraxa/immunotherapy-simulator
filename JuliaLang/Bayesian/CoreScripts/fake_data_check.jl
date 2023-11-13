@@ -16,15 +16,14 @@ include("../../Model/Differential/ode_core.jl")
 include("../BayesModels/individual_restricted.jl")
 
 ### Script Settings
-num_experiments = 3
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 1.0
-space           = (length(ARGS) >= 4) ?                ARGS[4]  : "rest1"
-model           = (length(ARGS) >= 5) ?                ARGS[5]  : "takuya"
-
+space           = (length(ARGS) >= 4) ?                (ARGS[4])  : "rest1"
+model           = (length(ARGS) >= 5) ?                (ARGS[5])  : "takuya"
+num_experiments = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
 
 ### Main 
 # Data Extraction

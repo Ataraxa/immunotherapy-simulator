@@ -12,7 +12,7 @@ chain = h5open("Results/hpc-individual-0.h5", "r") do f
 end
 a = namesingroup(chain, :k6)
 plotd = plot(chain)
-savefig(plotd,"Misc/Images/batch2/takuya_restr1.png")
+savefig(plotd,"Misc/Images/batch2/takuya_restr12.png")
 
 # # Gelman diagnostic: PSRFCI under 1.1 indicates good mixing and convergence
 # df_gelman = gelmandiag(chain[:,:,:])
