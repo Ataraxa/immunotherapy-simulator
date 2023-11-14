@@ -3,3 +3,4 @@ Summary for local-individual-0.h5: n_iters=1000 | n_threads=1
 Summary for local-individual-0.h5: n_iters=1000 | n_threads=1 
 Summary for local-individual-0.h5: n_iters=1000 | n_threads=1 | model=takuya | space=rest1 
 Summary for local-individual-0.h5: n_iters=1000 | n_threads=1 | model=takuya | space=rest1 
+Summary for local-individual-1-0.h5: n_iters=1000 | n_threads=1 | model=takuya | space=rest1 | n_exp=1 | distro=normal 

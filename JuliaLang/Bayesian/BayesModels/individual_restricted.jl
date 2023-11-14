@@ -22,11 +22,13 @@ Inputs:
     - timestep: to solve the DDEProblem and synchronise with selected_days
     - σ_likelihood: standard deviation of the likelihood distribution
 """
-@model function fit_individual_restricted1(data, problem, selected_days, s, 
-        exp_err; num_experiments = 1)
+@model function fit_individual_restricted1(
+        data, problem, selected_days, s, exp_err, 
+        distro::ContinuousDistribution ; 
+        num_experiments = 1)
     
     ## Regular priors
-    ln_k6 ~ truncated(Cauchy(0, 1); lower=-100, upper=0)
+    ln_k6 ~ truncated(distro; lower=-100, upper=0)
 
     ## Experimental error (σ_err)
     σ_err = exp_err
@@ -56,9 +58,9 @@ end
         exp_err; num_experiments = 1)
 
     ## Regular priors
-    ln_k6 ~ truncated(Cauchy(0, 1); lower=-100, upper=0) # Negative half-Cauchy
-    ln_d1 ~ truncated(Cauchy(0, 1); lower=0, upper=7) # Positive half-Cauchy
-    ln_s2 ~ truncated(Cauchy(0, 1); lower=-100, upper=0)
+    ln_k6 ~ truncated(distro; lower=-100, upper=0) # Negative half-Cauchy
+    ln_d1 ~ truncated(distro; lower=0, upper=7) # Positive half-Cauchy
+    ln_s2 ~ truncated(distro; lower=-100, upper=0)
 
     ## Experimental error (σ_err)
     σ_err = exp_err

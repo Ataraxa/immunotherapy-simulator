@@ -8,6 +8,7 @@ using HDF5
 using Match
 using DotEnv
 using MCMCChains
+using Distributions
 using MCMCChainsStorage
 using DelimitedFiles: readdlm
 
@@ -21,9 +22,10 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 1.0
-space           = (length(ARGS) >= 4) ?                (ARGS[4])  : "rest1"
-model           = (length(ARGS) >= 5) ?                (ARGS[5])  : "takuya"
+space           = (length(ARGS) >= 4) ?              (ARGS[4])  : "rest1"
+model           = (length(ARGS) >= 5) ?              (ARGS[5])  : "takuya"
 num_experiments = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
+input_distro    = (length(ARGS) >= 7) ?               (ARGS[7]) : "normal"
 
 ### Main 
 # Data Extraction
@@ -34,7 +36,16 @@ data_mat = readdlm("Data/fakeOde2/trajectories-0.csv", ',')
 problem = create_problem(model=model)
 
 # Fit Model to Data 
-model_args = [data_mat, problem, selected_days, step_size, σ_likelihood]
+@match input_distro begin
+    "normal" => global distro = Normal(0, 1)
+    "cauchy" => global distro = Cauchy(0, 1) 
+end
+model_args = [data_mat, problem, selected_days, step_size, σ_likelihood, distro]
+
+println("Settings for infernce:")
+println("Distribution: $distro")
+println("Number of experiments: $num_experiments")
+
 @match space begin
     "full" => global fitted_model = fit_individual_full(model_args...)
     "rest1" => global fitted_model = fit_individual_restricted1(model_args...; 
@@ -68,7 +79,7 @@ h5open("Results/$filename", "w") do f
 end
 
 # Write in log file
-summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | model=$model | space=$space | nₑₓₚ=$num_experiments | distro=Cauchy \n"
+summary = "Summary for $filename: n_iters=$n_iters | n_threads=$n_threads | model=$model | space=$space | n_exp=$num_experiments | distro=$input_distro \n"
 open("Results/log-$machine.txt", "a") do f 
     write(f, summary)
 end
