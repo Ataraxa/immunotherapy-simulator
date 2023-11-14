@@ -54,8 +54,11 @@ Inputs:
     end 
 end
 
-@model function fit_individual_restricted3(data, problem, selected_days, s, 
-        exp_err; num_experiments = 1)
+@model function fit_individual_restricted3(
+    data, problem, selected_days, s, exp_err, 
+    distro::ContinuousDistribution ; 
+    num_experiments = 1)
+
 
     ## Regular priors
     ln_k6 ~ truncated(distro; lower=-100, upper=0) # Negative half-Cauchy
