@@ -5,6 +5,7 @@ generated data. This is useful to check model identifiability.
 =#
 
 using HDF5
+using Dates
 using Match
 using DotEnv
 using MCMCChains
@@ -68,9 +69,9 @@ end
 file_i = 0
 machine = ENV["MACHINE_TYPE"]
 filename = "$machine-individual-$num_experiments-$file_i.h5"
-while isfile("Res/$filename")
+while isfile("Results/$filename")
     global file_i+=1
-    global filename = "$machine-validation_chain-$file_i.h5"
+    global filename = "$machine-individual-$num_experiments-$file_i.h5"
 end
 
 # Save MCMC chain
@@ -84,5 +85,5 @@ open("Results/log-$machine.txt", "a") do f
     write(f, summary)
 end
 
-println("File saved successfully @$filename")
+println("File saved successfully @$filename ($(now()))")
 println(summary)

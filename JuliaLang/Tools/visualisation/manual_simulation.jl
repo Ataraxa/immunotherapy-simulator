@@ -24,7 +24,9 @@ my_plot = plot(pred.t, pred[4,:] + pred[5,:]; label="Posterior Prediction")
 
 data = readdlm("Data/fakeOde2/trajectories-0.csv", ',')
 
-plot!(my_plot, 0:0.1:27.0, exp.(data[1:3, :]'); label="Training Data")
+selected_days = [0,7,8,9,11,14,17,20]
+plot!(my_plot, selected_days, exp.(data[1, :])[selected_days*trunc(Int, 1/0.1) .+ 1])
+display(my_plot)
 
 
 savefig(my_plot, "prout.pdf")
