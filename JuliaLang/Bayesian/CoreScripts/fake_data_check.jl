@@ -20,18 +20,19 @@ include("../BayesModels/individual_restricted.jl")
 ### Script Settings
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
-n_iters         = (length(ARGS) >= 2) ? parse(Int64,   ARGS[1]) : 1000
+n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 1.0
-space           = (length(ARGS) >= 4) ?              (ARGS[4])  : "rest1"
-model           = (length(ARGS) >= 5) ?              (ARGS[5])  : "takuya"
+space           = (length(ARGS) >= 4) ?               (ARGS[4]) : "rest1"
+model           = (length(ARGS) >= 5) ?               (ARGS[5]) : "takuya"
 num_experiments = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
 input_distro    = (length(ARGS) >= 7) ?               (ARGS[7]) : "normal"
+data_set        = (length(ARGS) >= 8) ? parse(Int64,   ARGS[8]) : 0
 
 ### Main 
 # Data Extraction
 selected_days = [0,7,8,9,11,14,17,20]
-data_mat = readdlm("Data/fakeOde2/trajectories-0.csv", ',')
+data_mat = readdlm("Data/fakeOde2/trajectories-$data_set.csv", ',')
 
 # Problem Definition 
 problem = create_problem(model=model)

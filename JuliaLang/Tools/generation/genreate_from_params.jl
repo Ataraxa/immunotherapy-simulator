@@ -26,7 +26,7 @@ vol = predictions[4,:] + predictions[5,:]
 
 ### Add random noise to simulation 
 stacked_vol = repeat(vol, 1, 10)'
-noise = rand(Normal(0, 1), 10, 271)
+noise = rand(Normal(0, 0.1), 10, 271)
 noisy_vol = log.(stacked_vol) .+ noise
 
 ### Save predictions to file
