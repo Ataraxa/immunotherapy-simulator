@@ -1,5 +1,6 @@
-<h1>Bayesian Parameter Estimation</h1>
+<h1>Welcome to the folder JuliaLang</h1>
 
+<h2>Analysis Scr</h2>
 This folder contains all the code necessary to perfrom a Bayesian inference on the data. The full theoretical procedure is outlined in the <b>Documents</b> folder.
 
 The general flow is as follows: the `main_inference.jl` is called, which is the heart of the code. It combines a `DDEProblem` object with the data vector by passing them to the Bayesian model. The resulting fitted model is sampled by a MCMC chain, stored in a `.h5` file for further analysis.

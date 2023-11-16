@@ -23,15 +23,12 @@ Inputs:
     - σ_likelihood: standard deviation of the likelihood distribution
 """
 @model function fit_individual_restricted1(
-        data, problem, selected_days, s, exp_err, 
+        data, problem, selected_days, s, σ_likelihood,
         distro::ContinuousDistribution ; 
         num_experiments = 1)
     
     ## Regular priors
     ln_k6 ~ truncated(distro; lower=-100, upper=0)
-
-    ## Experimental error (σ_err)
-    σ_err = exp_err
 
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6] .|> exp
@@ -49,13 +46,13 @@ Inputs:
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ Normal(log(sliced_pred[i]), 1) # TODO: should it be log??
+            data[exp, i] ~ Normal(log(sliced_pred[i]),  σ_likelihood) # TODO: should it be log??
         end
     end 
 end
 
 @model function fit_individual_restricted3(
-    data, problem, selected_days, s, exp_err, 
+    data, problem, selected_days, s, σ_likelihood,
     distro::ContinuousDistribution ; 
     num_experiments = 1)
 
@@ -64,9 +61,6 @@ end
     ln_k6 ~ truncated(distro; lower=-100, upper=0) # Negative half-Cauchy
     ln_d1 ~ truncated(distro; lower=0, upper=7) # Positive half-Cauchy
     ln_s2 ~ truncated(distro; lower=-100, upper=0)
-
-    ## Experimental error (σ_err)
-    σ_err = exp_err
 
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6, ln_d1, ln_s2] .|> exp
@@ -84,7 +78,7 @@ end
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ Normal(log(sliced_pred[i]), 1) # NOT log'ed
+            data[exp, i] ~ Normal(log(sliced_pred[i]),  σ_likelihood) # NOT log'ed
         end
     end 
 end
