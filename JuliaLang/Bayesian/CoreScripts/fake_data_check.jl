@@ -23,16 +23,19 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 1.0
-space           = (length(ARGS) >= 4) ?               (ARGS[4]) : "rest1"
-model           = (length(ARGS) >= 5) ?               (ARGS[5]) : "takuya"
-num_experiments = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
-input_distro    = (length(ARGS) >= 7) ?               (ARGS[7]) : "normal"
-data_set        = (length(ARGS) >= 8) ? parse(Int64,   ARGS[8]) : 0
+num_experiments = (length(ARGS) >= 4) ? parse(Int64,   ARGS[6]) : 1
+data_set        = (length(ARGS) >= 5) ? parse(Int64,   ARGS[8]) : 0
+space           = (length(ARGS) >= 6) ?               (ARGS[4]) : "rest1"
+model           = (length(ARGS) >= 7) ?               (ARGS[5]) : "takuya"
+input_distro    = (length(ARGS) >= 8) ?               (ARGS[7]) : "normal"
+log_norm        = (length(ARGS) >= 9) ?               (ARGS[7]) : "identity"
 
 ### Main 
-# Data Extraction
+# Data Extraction 
+# /!\ Please refer to convention file to understand the format of csv files
 selected_days = [0,7,8,9,11,14,17,20]
-data_mat = readdlm("Data/fakeOde2/trajectories-$data_set.csv", ',')
+data_mat = readdlm("Data/fakeData/trajectories-$data_set.csv", ',')
+data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1] # slice pred
 
 # Problem Definition 
 problem = create_problem(model=model)
@@ -42,11 +45,14 @@ problem = create_problem(model=model)
     "normal" => global distro = Normal(0, 1)
     "cauchy" => global distro = Cauchy(0, 1) 
 end
-model_args = [data_mat, problem, selected_days, step_size, σ_likelihood, distro]
 
-println("Settings for infernce:")
-println("Distribution: $distro")
-println("Number of experiments: $num_experiments")
+@match log_norm begin 
+    "identity" => global transform = (x -> x)
+    "logarithm" => global transform = (x -> log(x))
+end
+
+model_args = [data_mat, problem, selected_days, step_size, σ_likelihood,
+     transform, distro]
 
 @match space begin
     "full" => global fitted_model = fit_individual_full(model_args...)

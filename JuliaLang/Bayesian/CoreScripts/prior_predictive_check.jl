@@ -24,13 +24,13 @@ ln_d₁_prior = truncated(Cauchy(0, 1); lower=0, upper=7)
 ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=0)
 
 ### Main
-ln_k₆ = rand(ln_k₆_prior, num_samples)
-ln_d₁ = rand(ln_d₁_prior, num_samples)
-ln_s₂ = rand(ln_s₂_prior, num_samples)
+ln₍k₆₎ = rand(ln_k₆_prior, num_samples)
+ln₍d₁₎ = rand(ln_d₁_prior, num_samples)
+ln₍s₂₎ = rand(ln_s₂_prior, num_samples)
 
 for i in 1:num_samples
-    # p = [ln_k₆[i], ln_d₁[i], ln_s₂[i]] .|> exp 
-    p = [ln_k₆[i]] .|> exp
+    # p = [ln₍k₆₎[i], ln₍d₁₎[i], ln₍s₂₎[i]] .|> exp 
+    p = [ln₍k₆₎[i]] .|> exp
 
     re_p, u0 = repack_params(updateParams1(p...))
     predictions = solve(problem; p=re_p, saveat=0.1)
