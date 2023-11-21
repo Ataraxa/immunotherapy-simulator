@@ -65,7 +65,8 @@ end
 function fit_individual_restricted3(
     data, problem, selected_days, s, σ_likelihood, 
     log_norm::String,
-    distro::Vector{ContinuousDistribution}; 
+    # distro::Vector{ContinuousDistribution}; 
+    distro::ContinuousDistribution ;
     num_experiments = 1)
 
     # Process the transform 
