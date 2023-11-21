@@ -23,12 +23,12 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 1.0
-num_experiments = (length(ARGS) >= 4) ? parse(Int64,   ARGS[6]) : 1
-data_set        = (length(ARGS) >= 5) ? parse(Int64,   ARGS[8]) : 0
-space           = (length(ARGS) >= 6) ?               (ARGS[4]) : "rest1"
-model           = (length(ARGS) >= 7) ?               (ARGS[5]) : "takuya"
-input_distro    = (length(ARGS) >= 8) ?               (ARGS[7]) : "cauchy"
-log_norm        = (length(ARGS) >= 9) ?               (ARGS[7]) : "identity"
+num_experiments = (length(ARGS) >= 4) ? parse(Int64,   ARGS[4]) : 1
+data_set        = (length(ARGS) >= 5) ? parse(Int64,   ARGS[5]) : 0
+space           = (length(ARGS) >= 6) ?               (ARGS[6]) : "rest1"
+model           = (length(ARGS) >= 7) ?               (ARGS[7]) : "takuya"
+input_distro    = (length(ARGS) >= 8) ?               (ARGS[8]) : "cauchy"
+log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "identity"
 
 ### Main 
 # Data Extraction 
