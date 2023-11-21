@@ -80,9 +80,9 @@ function fit_individual_restricted3(
     end
         
     ## Regular priors
-    ln_k6 ~ truncated(distro[1]; lower=-100, upper=0) # Negative half-Cauchy
-    ln_d1 ~ truncated(distro[2]; lower=0,    upper=7) # Positive half-Cauchy
-    ln_s2 ~ truncated(distro[3]; lower=-100, upper=0)
+    ln_k6 ~ truncated(distro; lower=-100, upper=0) # Negative half-Cauchy
+    ln_d1 ~ truncated(distro; lower=0,    upper=7) # Positive half-Cauchy
+    ln_s2 ~ truncated(distro; lower=-100, upper=0)
 
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6, ln_d1, ln_s2] .|> exp
