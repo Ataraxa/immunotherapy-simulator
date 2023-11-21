@@ -23,10 +23,21 @@ Inputs:
     - σ_likelihood: standard deviation of the likelihood distribution
 """
 @model function fit_individual_restricted1(
-        data, problem, selected_days, s, σ_likelihood, transform,
+        data, problem, selected_days, s, σ_likelihood, 
+        log_norm::String,
         distro::ContinuousDistribution ; 
         num_experiments = 1)
-    
+
+    # Process the transform 
+    @match log_norm begin 
+        "identity" => global forward = (x -> x)
+        "logarithm" => global forward = (x -> log(x))
+    end
+    @match log_norm begin 
+        "identity" => global reciprocal = (x -> x)
+        "logarithm" => global reciprocal = (x -> exp(x))
+    end
+        
     ## Regular priors
     ln_k6 ~ truncated(distro; lower=-100, upper=0)
 
@@ -46,17 +57,27 @@ Inputs:
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ Normal(sliced_pred[i],  σ_likelihood) # TODO: should it be log??
+            data[exp, i] ~ reciprocal(Normal(forward(sliced_pred[i]),  σ_likelihood))
         end
     end 
 end
 
-@model function fit_individual_restricted3(
-    data, problem, selected_days, s, σ_likelihood, transform,
+function fit_individual_restricted3(
+    data, problem, selected_days, s, σ_likelihood, 
+    log_norm::String,
     distro::Vector{ContinuousDistribution}; 
     num_experiments = 1)
 
-
+    # Process the transform 
+    @match log_norm begin 
+        "identity" => global forward = (x -> x)
+        "logarithm" => global forward = (x -> log(x))
+    end
+    @match log_norm begin 
+        "identity" => global reciprocal = (x -> x)
+        "logarithm" => global reciprocal = (x -> exp(x))
+    end
+        
     ## Regular priors
     ln_k6 ~ truncated(distro[1]; lower=-100, upper=0) # Negative half-Cauchy
     ln_d1 ~ truncated(distro[2]; lower=0,    upper=7) # Positive half-Cauchy
@@ -78,7 +99,7 @@ end
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            transform(data[exp, i]) ~ Normal(transform(sliced_pred[i]),  σ_likelihood)
+            data[exp, i] ~ reciprocal(Normal(forward(sliced_pred[i]),  σ_likelihood))
         end
     end 
 end

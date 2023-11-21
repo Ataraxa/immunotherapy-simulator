@@ -27,7 +27,7 @@ num_experiments = (length(ARGS) >= 4) ? parse(Int64,   ARGS[6]) : 1
 data_set        = (length(ARGS) >= 5) ? parse(Int64,   ARGS[8]) : 0
 space           = (length(ARGS) >= 6) ?               (ARGS[4]) : "rest1"
 model           = (length(ARGS) >= 7) ?               (ARGS[5]) : "takuya"
-input_distro    = (length(ARGS) >= 8) ?               (ARGS[7]) : "normal"
+input_distro    = (length(ARGS) >= 8) ?               (ARGS[7]) : "cauchy"
 log_norm        = (length(ARGS) >= 9) ?               (ARGS[7]) : "identity"
 
 ### Main 
@@ -46,13 +46,13 @@ problem = create_problem(model=model)
     "cauchy" => global distro = Cauchy(0, 1) 
 end
 
-@match log_norm begin 
-    "identity" => global transform = (x -> x)
-    "logarithm" => global transform = (x -> log(x))
-end
+# @match log_norm begin 
+#     "identity" => global transform = (x -> x)
+#     "logarithm" => global transform = (x -> log(x))
+# end
 
 model_args = [data_mat, problem, selected_days, step_size, σ_likelihood,
-     transform, distro]
+    log_norm, distro]
 
 @match space begin
     "full" => global fitted_model = fit_individual_full(model_args...)

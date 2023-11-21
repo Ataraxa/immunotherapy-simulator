@@ -1,10 +1,7 @@
-using Match 
+f = (x -> x*2)
 
-cdt = "logarithm"
-
-@match cdt begin 
-    "identity" => global transform = (x -> x)
-    "logarithm" => global transform = (x -> log.(x))
+function test_func(func)
+    func(10)
 end
 
-transform([1, 2, 3])
+test_func(f)
