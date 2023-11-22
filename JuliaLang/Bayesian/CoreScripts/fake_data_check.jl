@@ -36,7 +36,7 @@ log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "identity"
 selected_days = [0,7,8,9,11,14,17,20]
 data_mat = readdlm("Data/fakeData/trajectories-$data_set.csv", ',')
 data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1] # slice pred
-scatter(selected_days, data_mat')
+# scatter(selected_days, data_mat')
 
 # Problem Definition 
 problem = create_problem(model=model)

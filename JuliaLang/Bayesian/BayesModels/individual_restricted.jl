@@ -35,6 +35,7 @@ Inputs:
     end
     # Process data matrix
     data = transform.(data)
+    
     ## Regular priors
     ln_k6 ~ truncated(distro; lower=-100, upper=0)
 
