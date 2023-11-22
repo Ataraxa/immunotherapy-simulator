@@ -7,7 +7,7 @@ using MCMCChains
 using MCMCChainsStorage
 using StatsPlots: plot, savefig
 
-chain = h5open("Results/hpc-individual-1-2.h5", "r") do f
+chain = h5open("Results/hpc-individual-10-4 (1).h5", "r") do f
     read(f, Chains)
 end
 a = namesingroup(chain, :k6)
@@ -16,7 +16,7 @@ display(plotd)
 # savefig(plotd,"Misc/Images/batch2/takuya_restr12.png")
 
 # # Gelman diagnostic: PSRFCI under 1.1 indicates good mixing and convergence
-# df_gelman = gelmandiag(chain[:,:,[1, 2, 4, 5]])
+df_gelman = gelmandiag(chain[:,:,:])
 
 # # # Autocorrelation
 # display(autocorplot(chain))

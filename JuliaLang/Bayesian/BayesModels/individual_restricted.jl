@@ -30,14 +30,11 @@ Inputs:
 
     # Process the transform 
     @match log_norm begin 
-        "identity" => global forward = (x -> x)
-        "logarithm" => global forward = (x -> log(x))
+        "identity" => global transform = (x -> x)
+        "logarithm" => global transform = (x -> log(x))
     end
-    @match log_norm begin 
-        "identity" => global reciprocal = (x -> x)
-        "logarithm" => global reciprocal = (x -> exp(x))
-    end
-        
+    # Process data matrix
+    data = transform.(data)
     ## Regular priors
     ln_k6 ~ truncated(distro; lower=-100, upper=0)
 
@@ -57,12 +54,12 @@ Inputs:
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ reciprocal(Normal(forward(sliced_pred[i]),  σ_likelihood))
+            data[exp, i] ~ (Normal(transform(sliced_pred[i]),  σ_likelihood))
         end
     end 
 end
 
-function fit_individual_restricted3(
+@model function fit_individual_restricted3(
     data, problem, selected_days, s, σ_likelihood, 
     log_norm::String,
     # distro::Vector{ContinuousDistribution}; 

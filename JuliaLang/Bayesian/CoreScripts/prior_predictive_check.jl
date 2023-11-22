@@ -14,14 +14,14 @@ include("../../Model/Differential/ode_core.jl")
 include("../../Model/Differential/ode_restricted.jl")
 
 ### Script Settings
-num_samples = 1_000
+num_samples = 500
 simul_matrix = Matrix{Float64}(undef, num_samples, 271) # (undef, row, col)
 problem = create_problem()
 
 ### Priors 
-ln_k₆_prior = truncated(Cauchy(0, 1); lower=-100, upper=0)
-ln_d₁_prior = truncated(Cauchy(0, 1); lower=0, upper=7)
-ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=0)
+ln_k₆_prior = truncated(Cauchy(-0.61, 1); lower=-100, upper=0)
+ln_d₁_prior = truncated(Cauchy(3, 1); lower=0, upper=7)
+ln_s₂_prior = truncated(Cauchy(-1.0, 1); lower=-100, upper=0)
 
 ### Main
 ln₍k₆₎ = rand(ln_k₆_prior, num_samples)
@@ -48,8 +48,8 @@ plot!(
 
 plot!(my_plot, 0:0.1:27.0, median.(eachcol(simul_matrix)))
 
-data = readdlm("Data/fakeOde2/trajectories-0.csv", ',')
-plot!(my_plot, 0:0.1:27, exp.(data[1,:]))
+# data = readdlm("Data/fakeOde2/trajectories-0.csv", ',')
+# plot!(my_plot, 0:0.1:27, exp.(data[1,:]))
 display(my_plot)
 
     

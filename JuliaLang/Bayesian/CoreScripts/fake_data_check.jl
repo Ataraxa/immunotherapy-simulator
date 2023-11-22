@@ -36,20 +36,16 @@ log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "identity"
 selected_days = [0,7,8,9,11,14,17,20]
 data_mat = readdlm("Data/fakeData/trajectories-$data_set.csv", ',')
 data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1] # slice pred
+scatter(selected_days, data_mat')
 
 # Problem Definition 
 problem = create_problem(model=model)
 
 # Fit Model to Data 
 @match input_distro begin
-    "normal" => global distro = Normal(0, 1)
-    "cauchy" => global distro = Cauchy(0, 1) 
+    "normal" => global distro = Normal(0,1)
+    "cauchy" => global distro = Cauchy(0,1) 
 end
-
-# @match log_norm begin 
-#     "identity" => global transform = (x -> x)
-#     "logarithm" => global transform = (x -> log(x))
-# end
 
 model_args = [data_mat, problem, selected_days, step_size, σ_likelihood,
     log_norm, distro]
@@ -70,6 +66,7 @@ elseif ENV["MACHINE_TYPE"] == "local"
     println("Going into the local computing branch")
     chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; progress=false)
 end
+println(gelmandiag(chain_dde))
 
 ### Enf-of-script log
 # Create new filename

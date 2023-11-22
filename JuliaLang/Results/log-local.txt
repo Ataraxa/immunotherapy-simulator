@@ -40,3 +40,15 @@ Summary for local-individual-1-3.h5:
  *
     Dataset:               set=0 
  
+Summary for local-individual-1-4.h5: 
+ 
+    MCMC parameters:       n_iters=1000 | n_threads=1 
+
+    Parameter space:       space=rest3  
+
+    Likelihood parameters: model=takuya | σ_noise=1.0 
+ 
+    Inference parameters:  n_exp=1 | distro=cauchy 
+ *
+    Dataset:               set=0 
+ 
