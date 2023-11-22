@@ -88,8 +88,9 @@ summary = "Summary for $filename: \n
     MCMC parameters:       n_iters=$n_iters | n_threads=$n_threads \n
     Parameter space:       space=$space  \n
     Likelihood parameters: model=$model | σ_noise=$σ_likelihood \n 
-    Inference parameters:  n_exp=$num_experiments | distro=$input_distro \n *
-    Dataset:               set=$data_set \n \n"
+    Inference parameters:  n_exp=$num_experiments | distro=$input_distro \n
+    Dataset:               set=$data_set \n 
+    Transformation:        transform=$log_norm \n \n"
 
 open("Results/log-$machine.txt", "a") do f 
     write(f, summary)
