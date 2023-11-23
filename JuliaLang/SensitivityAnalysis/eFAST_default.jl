@@ -3,7 +3,7 @@ using DifferentialEquations
 using Distributions
 using Plots
 using StatsPlots: groupedbar
-
+using Match
 include("../Model/treatments_lib.jl")
 include("../Model/Differential/ode_core.jl")
 include("../Model/Differential/ode_params.jl")
@@ -22,20 +22,22 @@ global problem = create_problem(
 
 _p, _u0 = struct_split(christian) # Default parameters
 
-# Wrap the problem inside a function that solves it with a given set of params 
-wrapped_response = function (params_vector)
-    # Assume vector = [p; vl0]
-    p = params_vector[1:end-1] 
-    # println(size(params_vector))
-    # println(size(p))  
-    u0 = [0.0084; 9.56; 4.95; params_vector[end]; 0]
+# Function wrapper that outputs scalar metric from numerical approx
+function scalar_metric(num_approx, time_step, metric_type)
+    # # Assume vector = [p; vl0]
+    # p = params_vector[1:end-1] 
+    # # println(size(params_vector))
+    # # println(size(p))  
+    # u0 = [0.0084; 9.56; 4.95; params_vector[end]; 0]
 
-    # prob1 = remake(problem;p=p, u0=u0)
-    sol = solve(problem;p=p, u0=u0, saveat=0.1)
-    area = sum((sol[4,:] + sol[5,:]) .* 0.1)
+    # # prob1 = remake(problem;p=p, u0=u0)
+    # sol = solve(problem;p=p, u0=u0, saveat=0.1)
+    # area = sum((sol[4,:] + sol[5,:]) .* 0.1)
+    @match metric_type begin 
+        "area" => global output = sum(num_approx .* time_step) 
+    end
 
-    return area
-    # return (sol[4,end] + sol[5,end])
+    return output
 end 
 
 # Lower and upper bounds of the solution 
