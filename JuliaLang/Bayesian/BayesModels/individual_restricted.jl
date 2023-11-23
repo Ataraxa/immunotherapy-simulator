@@ -69,13 +69,11 @@ end
 
     # Process the transform 
     @match log_norm begin 
-        "identity" => global forward = (x -> x)
-        "logarithm" => global forward = (x -> log(x))
+        "identity" => global transform = (x -> x)
+        "logarithm" => global transform = (x -> log(x))
     end
-    @match log_norm begin 
-        "identity" => global reciprocal = (x -> x)
-        "logarithm" => global reciprocal = (x -> exp(x))
-    end
+    # Process data matrix
+    data = transform.(data)
         
     ## Regular priors
     ln_k6 ~ truncated(distro; lower=-100, upper=0) # Negative half-Cauchy
@@ -98,7 +96,7 @@ end
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ reciprocal(Normal(forward(sliced_pred[i]),  σ_likelihood))
+            data[exp, i] ~ Normal(transform(sliced_pred[i]),  σ_likelihood)
         end
     end 
 end

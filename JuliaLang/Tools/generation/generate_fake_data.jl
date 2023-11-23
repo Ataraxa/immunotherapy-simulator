@@ -80,8 +80,8 @@ open("Data/fakeData/log.txt", "a") do f
 end
 
 @match space begin 
-    "restr1" => global param_list = "$file_i:$ln₍k₆₎-N/A-N/A\n"
-    "restr3" => global param_list = "$file_i:$ln₍k₆₎-$ln₍d₁₎-$ln₍s₂₎\n"
+    "restr1" => global param_list = "$file_i: $ln₍k₆₎ | N/A | N/A\n"
+    "restr3" => global param_list = "$file_i: $ln₍k₆₎ | $ln₍d₁₎ | $ln₍s₂₎\n"
 end
 
 open("Data/fakeData/params.txt", "a") do f 

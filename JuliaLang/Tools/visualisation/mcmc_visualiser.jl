@@ -7,12 +7,12 @@ using MCMCChains
 using MCMCChainsStorage
 using StatsPlots: plot, savefig
 
-chain = h5open("Results/restr1_n1_log.h5", "r") do f
+chain = h5open("Results/restr1_n10_log.h5", "r") do f
     read(f, Chains)
 end
 a = namesingroup(chain, :k6)
-# plotd = plot(chain[:,:,[1,3,4]])
-plotd = plot(chain[:,:,:])
+plotd = plot(chain[:,:,[2,3,4,5]])
+# plotd = plot(chain[:,:,:])
 display(plotd)
 # savefig(plotd,"Misc/Images/batch2/takuya_restr12.png")
 
