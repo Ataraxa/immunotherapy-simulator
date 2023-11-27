@@ -3,7 +3,7 @@ using DelimitedFiles: readdlm
 
 include("../../Model/Differential/ode_core.jl")
 
-data = readdlm("Data/fakeData/trajectories-1.csv", ',')
+data = readdlm("Data/fakeData/trajectories-0.csv", ',')
 
 # Plot Baseline
 # base_pb = create_problem()

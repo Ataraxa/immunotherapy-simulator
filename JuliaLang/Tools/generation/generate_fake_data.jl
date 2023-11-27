@@ -9,7 +9,8 @@ include("../../Model/Differential/ode_restricted.jl")
 # Settings
 do_overwrite_prev = false
 distro_name = "cauchy" 
-space = "restr3"
+space = "restr1"
+noise = "logn_noise"
 
 # Process Settings
 @match distro_name begin 
@@ -27,19 +28,21 @@ ln_s₂_prior = truncated(distro; lower=-100, upper=0)
 ln₍k₆₎ = rand(ln_k₆_prior)
 ln₍d₁₎ = rand(ln_d₁_prior)
 ln₍s₂₎ = rand(ln_s₂_prior)
-σ = 1.0
+σ = 0.3
 
 # Create and solve 
 problem = create_problem()
 
 @match space begin 
     "restr1" => begin  
-        p = [ln₍k₆₎] .|> exp
+        # p = [ln₍k₆₎] .|> exp
+        p = [exp(-0.8733718288575096)]
         global re_p, _ = repack_params(updateParams1(p...))
     end
 
     "restr3" => begin
         p = [ln₍k₆₎, ln₍d₁₎, ln₍s₂₎] .|> exp
+
         global re_p, _ = repack_params(updateParams3(p...))
     end
 end
@@ -49,14 +52,28 @@ end
 
 # re_p, u0 = repack_params(updateParams1(p...))
 predictions = solve(problem; p=re_p, saveat=0.1)
-mean_growth = predictions[4,:] + predictions[5,:]
-
-# Add noise 
+mean_growth = predictions[4,:] + predictions[5,:] 
 stacked_growth = repeat(mean_growth, 1, 10)'
-println(size(stacked_growth)[2])
-noise = rand(Normal(0, 1), 10, size(stacked_growth)[2])
 
-noisy_growth = stacked_growth .+ noise
+@match noise begin 
+    "norm_noise" => begin
+        noise = rand(Normal(0, 1), 10, size(stacked_growth)[2])
+        global noisy_growth = stacked_growth .+ noise
+    end 
+
+    "logn_noise" => begin
+        noise = rand(Normal(0, 0.2), 10, size(stacked_growth)[2])   
+        global noisy_growth = (log.(stacked_growth) + noise) .|> exp
+    end
+end
+
+### Rectify data 
+function data_rectifier(x, thresh)
+    rec_x = (x < thresh) ? thresh : x
+    return rec_x
+end
+data_rectifier.(noisy_growth, 1e-6)
+
 my_plot = plot(predictions.t, mean_growth)
 plot!(my_plot, predictions.t, noisy_growth')
 display(my_plot)
@@ -74,7 +91,7 @@ if do_overwrite_prev
 end
 writedlm("Data/fakeData/$filename", noisy_growth, ',')
 
-summary = "$(file_i):$(distro_name)-$(space)-$(σ)\n"
+summary = "$(file_i) -> $(distro_name) | $(space) | $(σ) | $(noise)\n"
 open("Data/fakeData/log.txt", "a") do f 
     write(f, summary)
 end

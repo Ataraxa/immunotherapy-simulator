@@ -66,7 +66,7 @@ elseif ENV["MACHINE_TYPE"] == "local"
     println("Going into the local computing branch")
     chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; progress=false)
 end
-println(gelmandiag(chain_dde))
+display(gelmandiag(chain_dde))
 
 ### Enf-of-script log
 # Create new filename
