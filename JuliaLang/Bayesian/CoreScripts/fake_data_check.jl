@@ -54,21 +54,15 @@ open("Data/fakeData/params.txt") do f
             rhs3 = filter(x -> x != "N/A", rhs2)
             # rhs = @pipe split(line, ':')[2] |> strip.(split(_, '|')) |> filter(x -> x != "N/A", _)
             global parsed_vec = [parse(Float64, x) for x in rhs3]
+            break
         end
     end
 end
 println(parsed_vec)
 
-@match inform_priors begin 
-    "true" => begin
-        global prior_vec = [Cauchy(par,1) for par in parsed_vec] 
-        # global prior_vec = Vector{T <:ContinuousDistribution}(prior_vec)
-    end
-
-    "false" => begin 
-        global prior_vec = [Cauchy(0 , 1) for par in parsed_vec] 
-    end
-end
+distro = @pipe Symbol(input_distro) |> getfield(Main, _)
+ip = parse(Bool, inform_priors)
+prior_vec = [distro(ip ? par : 0, 1) for par in parsed_vec]
 println(prior_vec)
 
 ### Main 
