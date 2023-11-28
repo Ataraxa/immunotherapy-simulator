@@ -24,7 +24,7 @@ n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
 model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
-input_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "cauchy"
+input_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Cauchy"
 inform_priors   = (length(ARGS) >= 6) ?               (ARGS[6]) : "true"
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 2
 
@@ -75,12 +75,6 @@ data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1] # slice pred
 
 # Problem Definition 
 problem = create_problem(model=model)
-
-# Fit Model to Data 
-@match input_distro begin
-    "normal" => global distro = Normal(0,1)
-    "cauchy" => global distro = Cauchy(0,1) 
-end
 
 model_args = [data_mat, problem, selected_days, step_size, σ_likelihood,
     log_norm, prior_vec]
