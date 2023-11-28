@@ -2,9 +2,15 @@ using UnPack
 
 include("../Model/Differential/ode_params.jl") # For type hinting
 
-"Utility function to convert a struct into an ordered, named tuple"
-function struct2tuple(input_struct)
-    
+## This structure represents the restricted parameter space
+mutable struct updateParams1
+    k6::Float64
+end
+
+struct updateParams3
+    k6::Float64
+    d1::Float64
+    s2::Float64
 end
 
 "Function to return (p, u0) from parameter struct"

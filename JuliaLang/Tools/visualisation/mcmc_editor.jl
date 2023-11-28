@@ -1,25 +1,25 @@
-using GLMakie
+using CairoMakie
 using Match
 import Makie.plot
 
 # Fetch :Chains object from file
-chain = h5open("Results/hpc-individual-1-1.h5", "r") do f
+chain = h5open("Results/restr1_n1_identity.h5", "r") do f
     read(f, Chains)
 end
 
 # Declare true values for each parameter, to draw vlines
 true_p = Dict(
-    :ln_k6 => -0.6171,
+    :ln_k6 => -0.2645722495192353,
     :ln_d1 => 2.3201,
     :ln_s2 => -0.8896
 )
 
 function Makie.plot(ch::Chains)
-    fig = Figure()
+    global fig = Figure()
     for (ind, param) in enumerate(ch.name_map.parameters)
         global ax = Axis(fig[ind, 1], title=string(param))
         for (ind2, datavec) in enumerate(eachcol(getindex(ch, param).data))
-            if ind2 in [4] # Ignore badly mixed chains 
+            if ind2 in [1] # Ignore badly mixed chains 
                 continue
             end
             # Get current default colorpalette
@@ -45,3 +45,4 @@ function Makie.plot(ch::Chains)
 end
 
 Makie.plot(chain)
+save("test.svg", fig)

@@ -3,7 +3,7 @@
 This script is used to fit a Bayesian model to a set of manually-
 generated data. This is useful to check model identifiability. 
 =#
-
+using Pipe
 using HDF5
 using Dates
 using Match
@@ -22,13 +22,54 @@ DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
-σ_likelihood    = (length(ARGS) >= 3) ? parse(Float64, ARGS[3]) : 1.0
-num_experiments = (length(ARGS) >= 4) ? parse(Int64,   ARGS[4]) : 1
-data_set        = (length(ARGS) >= 5) ? parse(Int64,   ARGS[5]) : 0
-space           = (length(ARGS) >= 6) ?               (ARGS[6]) : "rest1"
-model           = (length(ARGS) >= 7) ?               (ARGS[7]) : "takuya"
-input_distro    = (length(ARGS) >= 8) ?               (ARGS[8]) : "cauchy"
-log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "identity"
+num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
+model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
+input_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "cauchy"
+inform_priors   = (length(ARGS) >= 6) ?               (ARGS[6]) : "true"
+data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 2
+
+### Settings autoloading
+open("Data/fakeData/log.txt") do f 
+    lines = readlines(f)
+    for line in lines
+        if string(line[1]) == string(data_set)
+            rhs = split(line, '>')[2]
+            global unparsed_settings = strip.(split(rhs, '|'))
+            break
+        end
+    end
+end
+space = unparsed_settings[2]
+σ_likelihood = parse(Float64, unparsed_settings[3])
+log_norm = unparsed_settings[4]
+println("σ=$(σ_likelihood) | space=$(space) | log_norm=$(log_norm)")
+
+### Generate priors 
+open("Data/fakeData/params.txt") do f 
+    lines = readlines(f)
+    for line in lines 
+        if string(line[1]) == string(data_set)
+            rhs = split(line, ':')[2]
+            rhs2 = strip.(split(rhs, '|'))
+            rhs3 = filter(x -> x != "N/A", rhs2)
+            # rhs = @pipe split(line, ':')[2] |> strip.(split(_, '|')) |> filter(x -> x != "N/A", _)
+            global parsed_vec = [parse(Float64, x) for x in rhs3]
+        end
+    end
+end
+println(parsed_vec)
+
+@match inform_priors begin 
+    "true" => begin
+        global prior_vec = [Cauchy(par,1) for par in parsed_vec] 
+        # global prior_vec = Vector{T <:ContinuousDistribution}(prior_vec)
+    end
+
+    "false" => begin 
+        global prior_vec = [Cauchy(0 , 1) for par in parsed_vec] 
+    end
+end
+println(prior_vec)
 
 ### Main 
 # Data Extraction 
@@ -48,13 +89,13 @@ problem = create_problem(model=model)
 end
 
 model_args = [data_mat, problem, selected_days, step_size, σ_likelihood,
-    log_norm, distro]
+    log_norm, prior_vec]
 
 @match space begin
     "full" => global fitted_model = fit_individual_full(model_args...)
-    "rest1" => global fitted_model = fit_individual_restricted1(model_args...; 
+    "restr1" => global fitted_model = fit_individual_restricted1(model_args...; 
         num_experiments = num_experiments)
-    "rest3" => global fitted_model = fit_individual_restricted3(model_args...; 
+    "restr3" => global fitted_model = fit_individual_restricted3(model_args...; 
         num_experiments = num_experiments)
 end
 
