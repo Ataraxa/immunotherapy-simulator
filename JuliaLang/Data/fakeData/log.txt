@@ -2,4 +2,4 @@
 1 -> cauchy | restr3 | 1.0 | norm_noise
 2 -> cauchy | restr3 | 0.3 | logn_noise
 3 -> cauchy | restr1 | 0.3 | logn_noise
-
+4 -> normal | restr3 | 0.3 | logn_noise

@@ -7,9 +7,9 @@ include("../../Model/Differential/ode_core.jl")
 include("../../Model/Differential/ode_restricted.jl")
 
 # Settings
-do_overwrite_prev = false
-distro_name = "cauchy" 
-space = "restr1"
+do_overwrite_prev = true
+distro_name = "normal" 
+space = "restr3"
 noise = "logn_noise"
 
 # Process Settings

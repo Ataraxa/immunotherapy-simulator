@@ -24,9 +24,10 @@ n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
 model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
-input_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Cauchy"
+input_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ?               (ARGS[6]) : "true"
-data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 2
+data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 4
+prior_acc     = (length(ARGS) >= 8) ? parse(Float64, (ARGS[8])) : 1.0
 
 ### Settings autoloading
 open("Data/fakeData/log.txt") do f 
@@ -45,6 +46,7 @@ log_norm = unparsed_settings[4]
 println("σ=$(σ_likelihood) | space=$(space) | log_norm=$(log_norm)")
 
 ### Generate priors 
+# Read parameters used to generate data set
 open("Data/fakeData/params.txt") do f 
     lines = readlines(f)
     for line in lines 
@@ -60,9 +62,10 @@ open("Data/fakeData/params.txt") do f
 end
 println(parsed_vec)
 
+# Create either informative or non-informative priors based on settings
 distro = @pipe Symbol(input_distro) |> getfield(Main, _)
-ip = parse(Bool, inform_priors)
-prior_vec = [distro(ip ? par : 0, 1) for par in parsed_vec]
+ip = parse(Bool, inform_priors) # are priors informative ?
+prior_vec = [distro((ip ? par : 0), prior_acc) for par in parsed_vec]
 println(prior_vec)
 
 ### Main 
@@ -116,8 +119,9 @@ end
 summary = "Summary for $filename: \n 
     MCMC parameters:       n_iters=$n_iters | n_threads=$n_threads \n
     Parameter space:       space=$space  \n
+    Priors:                type=$input_distro | std=$prior_acc | isinform=$inform_priors \n
     Likelihood parameters: model=$model | σ_noise=$σ_likelihood \n 
-    Inference parameters:  n_exp=$num_experiments | distro=$input_distro \n
+    Pooling:               n_exp=$num_experiments \n
     Dataset:               set=$data_set \n 
     Transformation:        transform=$log_norm \n \n"
 
