@@ -4,7 +4,7 @@ This file contains a script to run a prior predictive check on a model.
 User must specify both the priors and likelihood.
 =#
 
-using Plots: plot, plot!
+using Plots: plot, plot!, savefig, pyplot
 using Turing
 using StatsBase: percentile, mode, median
 using Distributions
@@ -14,14 +14,15 @@ include("../../Model/Differential/ode_core.jl")
 include("../../Model/Differential/ode_restricted.jl")
 
 ### Script Settings
-num_samples = 500
+pyplot()
+num_samples = 1000
 simul_matrix = Matrix{Float64}(undef, num_samples, 271) # (undef, row, col)
 problem = create_problem()
 
 ### Priors 
-ln_k₆_prior = truncated(Cauchy(0, 0.6); lower=-100, upper=0)
+ln_k₆_prior = truncated(Cauchy(0, 1); lower=-5, upper=0)
 ln_d₁_prior = truncated(Cauchy(0, 1); lower=0, upper=7)
-ln_s₂_prior = truncated(Cauchy(0, 0.6); lower=-100, upper=0)
+ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=0)
 
 ### Main
 ln₍k₆₎ = rand(ln_k₆_prior, num_samples)
@@ -52,4 +53,4 @@ plot!(my_plot, 0:0.1:27.0, median.(eachcol(simul_matrix)))
 # plot!(my_plot, 0:0.1:27, exp.(data[1,:]))
 display(my_plot)
 
-    
+savefig(my_plot, "prout.png")

@@ -9,13 +9,17 @@ using Dates
 using Match
 using DotEnv
 using MCMCChains
+using ApproxBayes
 using Distributions
 using MCMCChainsStorage
+
+using ApproxBayes: Prior
 using DelimitedFiles: readdlm
 
 include("../../CommonLibrary/data_extractor.jl")
 include("../../Model/Differential/ode_core.jl")
 include("../BayesModels/individual_restricted.jl")
+include("../Approximate/distance_functions.jl")
 
 ### Script Settings
 DotEnv.config() # Loads content from .env file
@@ -28,6 +32,9 @@ input_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ?               (ARGS[6]) : "true"
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 4
 prior_acc     = (length(ARGS) >= 8) ? parse(Float64, (ARGS[8])) : 1.0
+
+### Temp settings 
+type = "approx"
 
 ### Settings autoloading
 open("Data/fakeData/log.txt") do f 
@@ -67,10 +74,11 @@ distro = @pipe Symbol(input_distro) |> getfield(Main, _)
 ip = parse(Bool, inform_priors) # are priors informative ?
 prior_vec = [distro((ip ? par : 0), prior_acc) for par in parsed_vec]
 println(prior_vec)
+println(typeof(rand(prior_vec[1])))
 
 ### Main 
 # Data Extraction 
-# /!\ Please refer to convention file to understand the format of csv files
+# Please refer to convention file to understand the format of csv files
 selected_days = [0,7,8,9,11,14,17,20]
 data_mat = readdlm("Data/fakeData/trajectories-$data_set.csv", ',')
 data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1] # slice pred
@@ -91,14 +99,28 @@ model_args = [data_mat, problem, selected_days, step_size, σ_likelihood,
 end
 
 # Sample from Posterior
-if ENV["MACHINE_TYPE"] == "hpc"
-    println("Going into the remote computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), n_iters, n_threads; progress=false)
-elseif ENV["MACHINE_TYPE"] == "local" 
-    println("Going into the local computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; progress=false)
+println("HERE: $(length(parsed_vec))")
+if type == "exact"
+    if ENV["MACHINE_TYPE"] == "hpc"
+        println("Going into the remote computing branch")
+        chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), n_iters, n_threads; progress=false)
+    elseif ENV["MACHINE_TYPE"] == "local" 
+        println("Going into the local computing branch")
+        chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; progress=false)
+    end
+    display(gelmandiag(chain_dde))
+elseif type == "approx"
+    distanceFunction = mse_distance
+    setup = ABCRejection(
+        distanceFunction,
+        length(parsed_vec), # dim_θ
+        0.1, # ε
+        Prior(prior_vec);
+        constants = [problem, selected_days, step_size],
+        maxiterations = 1000
+    )
+    posterior = runabc(setup, data_mat[1,:])
 end
-display(gelmandiag(chain_dde))
 
 ### Enf-of-script log
 # Create new filename
