@@ -1,0 +1,145 @@
+\begin{thebibliography}{10}
+
+\bibitem{nchs}
+Jiaquan~Xu et~al.
+\newblock Mortality in the {United States}.
+\newblock {\em NCHS Data Brief}, 2021.
+
+\bibitem{EvasionMech}
+Kim S.Ka. and Cho S.W.
+\newblock The evasion mechanisms of cancer immunity and drug intervention in
+  the tumor microenvironment.
+\newblock {\em Front Pharmacol.}, 13(868695), 2022.
+
+\bibitem{ReviewCPI}
+Alex~D. Waldman, Jill~M. Fritz, and Michael~J. Lenardo.
+\newblock A guide to cancer immunotherapy: from t cell basic science to
+  clinical practice.
+\newblock {\em Nature Reviews}, 20:651--69, 2020.
+
+\bibitem{cd8Effects}
+B.V. Kumar, T.J. Connors, and D.L. Farber.
+\newblock Human t cell development, localization, and function throughout life.
+\newblock {\em Immunity}, 48:202--213, 2018.
+
+\bibitem{ioDef}
+I.L.~Jr Bennet and P.B. Beeson.
+\newblock Studies on the pathogenesis of fever - characterization of
+  fever-producing substances from polymorphonuclear leukocytes and from the
+  fluid of sterile exudates.
+\newblock {\em J Exp Med.}, 98:493--508, 1953.
+
+\bibitem{il12IsCool}
+R.~Mortarini, A.~Borri, G.~Targni, et~al.
+\newblock Peripheral burst of tumor-specific cytotoxic t lymphocytes and
+  infiltration of metastatic lesions by memory cd8+ t cells in melanoma
+  patients receiving interleukin 12.
+\newblock {\em Cancer Res.}, 60:3559--68, 2000.
+
+\bibitem{cd8FirstWay}
+A.~Mukhopadhyay, J.~Wright, S.~Shirley, D.A. Canton, C.~Burkart, R.J. Connolly,
+  et~al.
+\newblock Characterization of abscopal effects of intratumoral
+  electroporation-mediated {IL-12} gene therapy.
+\newblock {\em Gene Ther.}, 26:1--15, 2019.
+
+\bibitem{il12CytokineStorm}
+J.E. Portielje, C.H. Lamers, W.H. Kruit, A.~Sparreboom, R.L. Bolhuis,
+  G.~Stoter, et~al.
+\newblock Repeated administrations of interleukin {(IL)-12} are associated with
+  persistently elevated plasma levels of {IL-10} and declining {IFN-gamma},
+  tumor necrosis factor-alpha, {IL-6}, and {IL-8} responses.
+\newblock {\em Clin Cancer Res}, 9, 76-83.
+
+\bibitem{ifngAngiogenesis}
+Y.~Hayakawa, K.~Takeda, H.~Yagita, M.J. Smyth, L.~Van~Kaern, K.~Okumura, et~al.
+\newblock Ifn-gamma-mediated inhibition of tumor angiogenesis by natural killer
+  t-cell ligand, alpha-galactosylceramide.
+\newblock {\em Blood}, 100, 2002.
+
+\bibitem{ifngNKProd}
+L.K. Chen, B.~Tourvieille, G.F. Burns, F.H. Bach, D.~Mathieu-Mahul,
+  M.~Sasportes, and other.
+\newblock Interferon: a cytotoxic {T lymphocyte} differentiation signal.
+\newblock {\em Eur J Immunol}, 17, 767-70.
+
+\bibitem{ifngAntigenExposure}
+F.M. Rosa, M.M. Cochet, and M.~Fellous.
+\newblock Interferon and major histocompatibility complex genes: a model to
+  analyse eukaryotic gene regulation?
+\newblock {\em Interferon}, 7:47--87, 1986.
+
+\bibitem{reducImmunoSuppression}
+S.A. Rosenberg, B.S. Packard, P.M. Aebersold, D.~Solomon, S.L. Topalian, S.T.
+  Toy, et~al.
+\newblock Use of tumor-infiltrating lymphocytes and interleukin-2 in the
+  immunotherapy of patients with metastatic melanoma.
+\newblock {\em N Engl J Med}, 319:1676--80, 1988.
+
+\bibitem{cpiProof}
+B.T. Fife and J.~A Bluestone.
+\newblock Control of peripheral t-cell tolerance and autoimmunity via the
+  ctla-4 and pd-1 pathways.
+\newblock {\em Immunol. Rev}, 224:166--182, 2008.
+
+\bibitem{PD1Autoimmune}
+H.~Nishimura, N.~Minato, T.~Nakano, and T.~Honjo.
+\newblock Immunological studies on {PD-1} deficient mice: implication of {PD-1}
+  as a negative regulator for {B} cell responses.
+\newblock {\em Int Immunol}, 10:1563--72, 1998.
+
+\bibitem{PDvsCTLA}
+B.T. Fife and J.A. Bluesone.
+\newblock Control of peripheral {T-cell} tolerance and autoimmunity via the
+  {CTLA-4} and {PD-1} pathways.
+\newblock {\em Immunol. Rev.}, 224, 166-182.
+
+\bibitem{cbdil12}
+A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
+\newblock Collagen-binding il-12 enhances tumour inflammation and drives the
+  complete remission of established immunologically cold mouse tumours.
+\newblock {\em Nature Biomedical Engineering}, 4:531--543, 2020.
+
+\bibitem{takuya}
+Takuya Miyano.
+\newblock Mathematical modeling of complete remission of immunologically cold
+  tumor by tumor-matrix targeted interleukin-12, 2019.
+
+\bibitem{christian1}
+Christian Hines.
+\newblock Cancer immunotherapy meeting notes, 2022.
+
+\bibitem{christian2}
+Christian Hines.
+\newblock Positive feedback between {IL-12} and {IFN}g, 2022.
+
+\bibitem{rosenbaum}
+B.~Rosenbaum, M.~Raats, et~al.
+\newblock Estimating parameters from multipple time series of population
+  dynamics using bayesian inference.
+\newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
+
+\bibitem{sens_review}
+Bertrand Iooss and Paul Lemaître.
+\newblock A review on global sensitivity analysis methods.
+\newblock {\em Uncertainty management in {Simulation-Optimisation of Complex
+  Systems: Algorithms and Applications}}, Springer, 2015.
+
+\bibitem{gelman2020bayesian}
+Andrew Gelman et~al.
+\newblock {Bayesian Workflow}, 2020.
+
+\bibitem{ABCtuber}
+Tanaka M.M. et~al.
+\newblock Using approximate bayesian computation to estimate tuberculosis
+  transmission parameters from genotype data.
+\newblock {\em Genetics}, 173(3):1511--1520, 2006.
+
+\bibitem{ABCerror}
+Christian~P. Robert, Jean-Marie Cornuet, Jean-Michel Marin, and Natesh~S.
+  Pillai.
+\newblock Lack of confidence in approximate bayesian computation model choice.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  108(37):15112--15117, 2011.
+
+\end{thebibliography}
