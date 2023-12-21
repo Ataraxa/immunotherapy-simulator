@@ -125,6 +125,17 @@ B.~Rosenbaum, M.~Raats, et~al.
   dynamics using bayesian inference.
 \newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
 
+\bibitem{fussmann}
+G.F. Fussmann, Ellner S.P., K.W. Shertze, and N.G. Hairston~Jr.
+\newblock {Crossing the Hopf bifurcation in a live predatory-prey system}.
+\newblock {\em Science}, 290(5495):1358--60, 2000.
+
+\bibitem{tomgro}
+M.A. Vazquez-Cruz, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
+\newblock Global sensitivity analysis by means of efast and sobol' methods and
+  calibration of reduced state-variable tomgro model using genetic algorithms.
+\newblock {\em Computers and Electronics in Agriculture}, 100, 2014.
+
 \bibitem{sens_review}
 Bertrand Iooss and Paul Lemaître.
 \newblock A review on global sensitivity analysis methods.
@@ -147,11 +158,5 @@ Christian~P. Robert, Jean-Marie Cornuet, Jean-Michel Marin, and Natesh~S.
 \newblock Lack of confidence in approximate bayesian computation model choice.
 \newblock {\em Proceedings of the National Academy of Sciences},
   108(37):15112--15117, 2011.
-
-\bibitem{tomgro}
-M.A. Vazquez, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
-\newblock Global sensitivity analysis by means of efast and sobol' methods and
-  calibration of reduced state-variable tomgro model using genetic algorithms.
-\newblock {\em Computers and Electronics in Agriculture}, 100, 2014.
 
 \end{thebibliography}
