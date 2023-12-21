@@ -4,9 +4,11 @@
 \contentsline {section}{\numberline {4}Implementation Plan}{5}{section.4}%
 \contentsline {section}{\numberline {5}Risk Register}{6}{section.5}%
 \contentsline {section}{\numberline {6}Evaluation}{7}{section.6}%
-\contentsline {section}{\numberline {7}Preliminary Results}{7}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Sensitivity Analysis}{7}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Numerical Stability Analysis}{8}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Bayesian Model Validation}{8}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Switchng to Approximate Bayesian Computation}{8}{subsection.7.4}%
-\contentsline {section}{References}{9}{subsection.7.4}%
+\contentsline {section}{\numberline {7}Preliminary Results}{8}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Sensitivity Analysis}{8}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Numerical Stability Analysis}{9}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Bayesian Model Validation}{9}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Prior Predictive Check}{9}{subsubsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.4}Fake Data Check}{9}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Switchng to Approximate Bayesian Computation}{12}{subsection.7.5}%
+\contentsline {section}{References}{13}{subsection.7.5}%

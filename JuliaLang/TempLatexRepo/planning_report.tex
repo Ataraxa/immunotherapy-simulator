@@ -89,7 +89,7 @@ V - ?? This should be enough
 
 % While all cancer immunotherapies focus on using the natural immune system to fight against cancer, many different variations exist. The specific therapy of concern in this project is a combination of cytokine-based treatments and immune checkpoint inhibitors. Before explaining its specificities in more details, we will review the general principles behind the two aforementionned types of immunotherapy. In both case, a specific type of T-lymphocyte, the CD8$^+$ T-cells, is the central actor . CD8$^+$ differentiate itself from other T-cells through the expression of the membrane receptor CD8, and its main function is to directly carry out cytotoxic activity (i.e. killing the malignant cells) after detecting tumoural antigen~\cite{cd8Effects}.
 %
-\par Cytokine-based therapies rely on the injection of specific cytokines (small proteins that act as signalling molecules during the immune response) to control tumour growth \cite{ioDef}. One of the most promising cytokine thus far is the interleukin-12 (IL-12), that was shown to have potent antitumour effects \cite{il12IsCool}. While it does not directly affect tumour cells, it mediates the production of other molecules or cells that have a more direct effect \cite{il12CytokineStorm}. First, it activates the production of tumour-infiltrating cytotoxic cells, mainly CD8$^+$~\cite{cd8FirstWay}. These are a type of T-lymphocytes whose main function is to carry out cytotoxic activity (i.e. killing the malignant cells) after detecting tumoural antigen~\cite{cd8Effects}. Secondly, they induce production of another type of cytokine, called interferon-$\gamma$ (IFN$\gamma$). IFNg in turn affects the tumour microenvironment by stimulating production of cytotoxic cells \cite{ifngNKProd}, reducing angiogenesis \cite{ifngAngiogenesis} and upregulating antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}. Lastly, IL-12 facilitates T-cell proliferation (including CD8$^+$) by reducing negative regulatory pathways that lead to immunosuppression \cite{reducImmunoSuppression}. It does so by inhibiting the effect of immune checkpoint PD1, following a similar strategy to checkpoint inhibitor (CPI) treatments. The more detailed mode of action is described in the following paragraph.
+\par Cytokine-based therapies rely on the injection of specific cytokines (small proteins that act as signalling molecules during the immune response) to control tumour growth \cite{ioDef}. One of the most promising cytokine thus far is the interleukin-12 (IL-12), that was shown to have potent antitumour effects \cite{il12IsCool}. While it does not directly affect tumour cells, it mediates the production of other molecules or cells that have a more direct effect \cite{il12CytokineStorm}. First, it activates the production of tumour-infiltrating cytotoxic cells, mainly CD8$^+$~\cite{cd8FirstWay}. These are a type of T-lymphocytes whose main function is to carry out cytotoxic activity (i.e. killing the malignant cells) after detecting tumoural antigen~\cite{cd8Effects}. Secondly, they induce production of another type of cytokine, called interferon-$\gamma$ (IFN$\gamma$). IFNg in turn affects the tumour microenvironment by stimulating production of cytotoxic cells \cite{ifngNKProd}, reducing angiogenesis \cite{ifngAngiogenesis} and upregulating antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}. Lastly, IL-12 facilitates T-cell proliferation (including CD8$^+$) by reducing negative regulatory pathways that lead to immunosuppression \cite{reducImmunoSuppression}. It does so by inhibiting the effect of immune checkpoint PD1, following a similar strategy to checkpoint inhibitor (CPI) treatments (the more detailed mode of action is described in the following paragraph). While these thre pathways indicate that IL-12 has a very robust antitumour effect, clinical studies demonstrated that systemic injection of IL-12 is exceedingly toxic as it triggers a large immune response throughout the whole body [cite]. These severe treatment-related adverse effects (trAEs) dampened research about IL-12n until a safer, more localised delivery method is found. 
 %
 % it is a pleiotropic molecule, meaning that it results in the release of numerous cytokines throughout the immune response~\cite{il12CytokineStorm}. One particular molecule released during this cytokine storm is the interferon-$\gamma$ (IFN$\gamma$). IFN$\gamma$ plays a dominant role within this cytokine storm, as not only does it have anti-angiogenesis effect~\cite{ifngAngiogenesis}, thus limiting cancer growth; but it also stimulate production Natural Killer cells \cite{ifngNKProd} (another type of cytotoxic cells capable of attacking tumours) and upregulate antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}. Finally, IL-12 facilitates T-cell proliferation by reducing negative regulatory pathways that lead to immunosuppression. Indeed, IL-12 inhibts the effect of the immune checkpoint PD-1, similarly to chekpoint inhibitors (CPI) treatments \cite{reducImmunoSuppression}. The more details mode of action is described in the following paragraph. [maybe need to mention trAEs? and poor performance so far...]
 %
@@ -110,10 +110,10 @@ V - ?? This should be enough
 The five state variables ($g$, $c$, $p$, $v_l$ and $v_d$) are concentration of IFNg, of CD8+ and of PD1 along with volume of living and dead tumour, respectively. This was motivated by the fact that these are the key players in the immune response, as explained above. The meanings of each parameter are report in the Appendix. The model was investigated by C. Hines, who showed that the model could successfuly reproduce experimental data by using a Genetic Algorithm for parameter fitting \cite{christian1}. However, C. Hines also demonstrated in a subsequent analysis that the model was conflicting with findings from the biologists in two ways. A positive feedback loop, where IL-12-induced IFNg in turn produces IL-12, is missing from the model \cite{christian2}. Additionally, C. Hines showed that the model outcome does not depend much on the initial tumour volume and treatment characteristics \cite{christian1}, which is opposite to results reported in \cite{cbdil12}.
 
 ~ % Section about the choice of computational tools
-\par While the above mechanistic model mentioned plays a defining role in the computational modelling of the CBD-IL-12 immunotherapy, it is not sufficient by itself. We also require additional tools to analyse it and extract useful data that help us improve the therapy. Regarding analysis of population-level data heterogeneity, a study by Rosenbaum et al. (2020) shows that hierarchical Bayesian inference is of particular relevance \cite{rosenbaum}. They studied the dynamics of predator-prey systems (as defined by Fussmann et al. \cite{fussmann}), which display two types of behaviour depending on the value of some parameters (either exponential decay or orbits), analogous to the treatment outcome of CBD-IL-12, where a patient can either go into CR or non-CR. By fitting data about a collection of predator-prey system dynamics to a Bayesian model, they were not only able to extract a specific set of parameters for each population; but they could also determine the patterns in parameter value that led to radically different types of behaviour. While this approach looks promising, it is very sensitive to the ``Curse of dimensionality'', and the immune-response model is likely to be too large to be analysed this way. A solution proposed by Vasquez-Cruz et al. \cite{tomgro} to reduce dimensionality of computational model is to use sensitivity analysis. These analysis tool is used to classify parameters by the level of impact they have on the model. By using both Sobol' method and extended Fourier amplitude sensitivity test (eFAST) in conjuction with parameter fitting, they were able to parameterise a reduced model that could still accurately reproduce experimental data.
+\par While the above mechanistic model mentioned plays a defining role in the computational modelling of the CBD-IL-12 immunotherapy, it is not sufficient by itself. We also require additional tools to analyse it and extract useful data that help us improve the therapy. Regarding analysis of population-level data heterogeneity, a study by Rosenbaum et al. (2020) shows that hierarchical Bayesian inference is of particular relevance \cite{rosenbaum}. They studied the dynamics of predator-prey systems (as defined by Fussmann et al. \cite{fussmann}), which display two types of behaviour depending on the value of some parameters (either exponential decay or orbits), analogous to the treatment outcome of CBD-IL-12, where a patient can either go into CR or non-CR. By fitting data about a collection of predator-prey system dynamics to a Bayesian model, they were not only able to extract a specific set of parameters for each population; but they could also determine the patterns in parameter value that led to radically different types of behaviour. While this approach looks promising, it suffers from one weakness: very sensitive to the ``Curse of dimensionality'', according to which the immune-response model is likely to be too large to be analysed this way. A solution proposed by Vasquez-Cruz et al. \cite{tomgro} to reduce dimensionality of computational models is to use sensitivity analysis. This analysis tool is used to classify parameters by the level of impact they have on the model. By using both Sobol' method and extended Fourier amplitude sensitivity test (eFAST) in conjuction with parameter fitting, they were able to parameterise a reduced model that could still accurately reproduce experimental data.
 
 ~ % Section about the biomarkers identification step
-\par A paragraph for litt review about cancer biomarker identification and already existing ones.
+%  \par A paragraph for litt review about cancer biomarker identification and already existing ones.
 
 % MoHowever, in the same study this success rate was shown to be highly dependent on a number of factors such as the dose, combination with other treatments, initial tumour volume, etc. As the mechanisms of action of CBD-IL-12 are still unclear, it is difficult to predict the outcome of a specific treatment, or to design an effective treatment, for a given patient. This hence motivates us to study this specific molecule more carefully, as a better understanding fo the main principles governing the immune response seems necessary to maximise and optimise this new treatment.
 \par  
@@ -123,19 +123,21 @@ The five state variables ($g$, $c$, $p$, $v_l$ and $v_d$) are concentration of I
 In light of the knowledge gathered through the litterature review presented above, the proposed plan to fulfill the 4 (3?) objectives is as follows.\\[12pt]
 %
 \noindent\textbf{Task 1.1 -- Evaluation of the initial model (already completed)}\\
-First we familiarise with the initial mechanistic model of the immune response developped by Takuya. This includes numerical stability/bifurcation analysis, sensitivity analysis to find the boundary between CR and non-CR in parameter space. This step is necessary to understand to general design principles that guide the development of a mechanistic model, and can potentially reveal some of the model weaknesses that need to be addressed. The sensitivity analysis is also key to reduce the dimensionality of the problem, since the model is otherwise too large and would result in intractable computations.\\[12pt]
+This includes numerical stability/bifurcation analysis and sensitivity analysis to find the boundary between CR and non-CR in parameter space. This step is necessary to understand to general design principles that guide the development of a mechanistic model, and can potentially reveal some of the model weaknesses that need to be addressed. The sensitivity analysis is also key to reduce the dimensionality of the problem, since the model is otherwise too large and would result in intractable computations.\\[12pt]
 %
 \noindent\textbf{Task 1.2 -- Non-hierarchical model validation (already completed)}\\ 
-The second step is to verify that the model can be used to perform Bayesian inference, as this will be at the core of the analysis. Following the the procedure highlighted by Gelman et al, 2020, in their \textit{Bayesian Workflow} paper \cite{gelman2020bayesian}, the validation consists of three main steps: prior predictive check, fake data check and posterior predictive check. For each step, the paper also provides a list of potential methods to improve the model if it fails the corresponding test. The Bayesian analysis relies on using a hierarchical model, however we propose to first validate simpler, non-hierarchical model twice: with complete- and no-pooling. [Explain why! maybe cite as well]\\[12pt]
+The second step is to verify that the model can be used to perform Bayesian inference, as this will be the core of the analysis. Following the the procedure highlighted by Gelman et al, 2020, in their \textit{Bayesian Workflow} paper \cite{gelman2020bayesian}, the validation consists of three main steps: prior predictive check, fake data check and posterior predictive check. We first validate two versions of the model, with complete- and no-pooling, since they are the basic, simpler blocks that we will use in task 2.2 to construct the full hierarchical model.\\[12pt]
+%
+The above validation procedure might fail in two ways : either the model cannot produce results (for example, the MCMC chains cannot explore the posterior distribution well), or it produces wrong results. For each outcome, we present below the steps we plan to take to overcome these.\\[12pt]
 %
 \noindent\textbf{Task 1.2a (fall-back 1) -- Validate using Approximate Bayesian Computation (1-2 month)}\\ 
-The above validation procedure might fail in two ways : either the model produces wrong results, or it cannot even produce results (for example, the MCMC chains cannot explore the posterior distribution well). In case the latter happen, it would be due to the high complexity of the likelihood function (the mechanistic model of the immune response), a set set of five Delayed Differential Equations that cannot be solved analytically. One way to reduce this complexity would be to use Approximate Bayesian Computation (ABC), which is a likelihood-free framework \cite{ABCtuber}. This approach would enable us to prevent the inference from running into convergence problems, at the cost of slightly less exact results. \\[12pt]
+In case the MCMC chains do not converge, it would be due to the high complexity of the likelihood function (the mechanistic model of the immune response), a set of five Delayed Differential Equations that cannot be solved analytically. One way to reduce this complexity would be to use Approximate Bayesian Computation (ABC), which is a likelihood-free framework \cite{ABCtuber}. This approach is a  realitvely easy to implement method that prevents convergence problems, at the cost of slightly less exact results. \\[12pt]
 %
 \noindent\textbf{Task 1.2b (fall-back 2) -- Validate using simplified likelihood function (2-3 months)}\\
 As suggested in the \textit{Bayesian Workflow} paper, another method to solve convergence issues would be to simplify the likelihood function, for example by using Ordinary Differential Equations instead of DDEs. This is an alternative to ABC, and would require more time to implement as it needs to completely review the tumour model. However, contrary to ABC, it is still a traditional Bayesian inference and hence does not results in approxmation errors that can have a non-negligible impact, as highlighted by Robert et al, 2011 \cite{ABCerror}\\[12pt] 
 %
 \noindent\textbf{Task 1.2c (fall-back 3) -- Modify the model (3 months)} [need refo.]\\ 
-The two fall-backs described above are mostly usefull to address convergence issues, but may not help much if the model produces wrong results. In this case, the most sensible approach would be to modify the Bayesian model (either the priors or the likelihood, depending on which test was not passed). Using litterature about cancer immunology will be key, as is especially suggests that a key feedback loop is missing in the current model [cite!!]. During this process, it is likely that we will need to use a Genetic Algorithm for parameter fitting. This is especially useful to test that the mechanistic model can reproduce the data, without having to resort to a full Bayesian inference, where many additional elements interact together. \\[12pt] 
+In case the inference can be run but produces wrong results, the most sensible approach would be to modify the Bayesian model. Using litterature about cancer immunology will be crucial to ensure that all the key interactions active during the immune response are correctly translated into the mechanistic model. The first missing pathway that we plan to implement is the positive feedback loop mentioned in Section~\ref{sec:background}.  During this process, it is likely that we will need to use a Genetic Algorithm for parameter fitting. This would be useful to test that the mechanistic model can reproduce the data, without having to resort to a full Bayesian inference, where many additional elements interact together and can make precise diagnostic harder. \\[12pt] 
 %
 \noindent\textbf{Task 1.3 -- Validation of the hierarchical model (??)}\\ 
 Once two component of the hierarchical model are validated (the no-pooling and complete-pollingn models), it is necessary to validate the hierarchical model itself. We will follow the same procedure (include the fall-backs) as for the non-hierarchical models. [anything else to mention here?]\\[12pt]
@@ -185,7 +187,13 @@ Below we present a list of the key components of the cancer immunotherapy projec
 The mechanistic model is the core element of the project. Its `quality'' can be asessed by two criteria: it should be able to reproduce the data obtained in the lab by Dr. Ishihara (see Appendix), and it should make ``biological sense''. To assess the former, we propose to use the standard method of parameter fitting through a Genetic Algorithm (GA), which has already been used in the past for this purpose \cite{christian2}. This enables us to find a parameterisation of the model that leads to the best simulation, along with the Mean-Squared Error to the true data. This metric can be used to validate that the model can produce data close enough to the experimental time series. To assess the second criteria, we will use a sensitivity analysis (namely, the eFAST method [should justify?]). It enables us to check that the model is sensitive to the same quantity as shown in the lab [wording is terrible here, need to rephrase], for example to the treatment specification or to the initial tumour volume, which is not the case for the current one. [need to describe experiments more?]\\[11pt]
 %
 \textit{Bayesian Model}\\[3pt]
-To validate the Bayesian model, which is an extension of the mechanistic model, we will follow the Bayesian Workflow procedure, as explained on Section~\ref{sec:plan}. Describe here with more detail, but nothing else to be explained.\\[11pt]
+To validate the Bayesian model, which is an extension of the mechanistic model, we will follow the Bayesian Workflow procedure, as explained on Section~\ref{sec:plan}. Each validation test is evaluated differently:
+\begin{itemize}
+    \item \textbf{Prior Predictive Check:} we sample 1,000 sets of parameter from the priors and simulate tumour growth for each of them. The 95\% credible interval of the resulting collection of time series should contain our expected range of curves we can expect. Evaluation of this step is mostly qualitative.
+    \item \textbf{Fake Data Check:} we first need to generate a artificial dataset using known values of parameters, and then fit the Bayesian model to these fake datasets. By comparing the results of the model (i.e. the estimated parameter value in the form of the posterior distribution) to the true values, we can conclude whether the model can successfully perform parameter estimation or not. A possible quantitative approach detailed in \cite{rosenbaum} involves substracting the true parameter value from the posterior. This results in a ``error'' distribution that should theoretically be zero-mean.
+    \item \textbf{Posterior Predictive Check:} this is analogous to the Prior Predictive Check, except that parameter are drawn from the posterior distributions instead of the prior distributions. This results in a collection of simulated time series. The median curve can be compared with the true curve obtained in the lab through a difference metric (MSE is the typical error metric for time series). 
+\end{itemize}
+~\\[11pt]
 %
 \iffalse
 \textit{Biomarkers}\\[3pt]
@@ -193,7 +201,7 @@ lorem ipsum\\[11pt]
 %
 \fi
 \textit{Responder Profile}\\[3pt]
-lorem ipsum
+Once the responder profile has been characterised, its accuracy can be evaluated by comparing the predicted treatment outcome against the true outcome on a new batch of cancerous mice. The procedure to inoculate skin cancer, inject the immunotherapy and measure tumour volume should be the same as defined in \cite{cbdil12} and \cite{takuya}. To be robust against all cases, only half of the batch of cancerous mice should be predicted as complete responder according to the responder profile. This ensures that we can collect data about both the rate of true positives and of true negatives.
 
 \section{Preliminary Results}
 \subsection{Sensitivity Analysis}
@@ -208,7 +216,106 @@ In order to restrict the parameter space for subsequent analysis, and also to un
 \subsection{Numerical Stability Analysis}
 The very first aspect of Miyano's model that we wanted to verify was its ability to capture two specific treatment outcome: CR vs non-CR. As these behaviours can essentially be characterised by the fixed-points of the model (if the steady-state behaviour of the model converges to high values of tumour volume, it is a non-CR behaviour, and vice-versa). We opted for a grid-search stability analysis, meaning that we sample reguarly-spaced points in parameter space and classify them as either CR 
 \subsection{Bayesian Model Validation}
+In this section we show how the Bayesian model was validated, following the procedure highlighted in Sections X and Y. We focus on a reduced model with only three free parameters, $k_6$, $d_1$, $s_2$, which were identified by C.~Hines are the most impactful ones \cite{christian1}. All other parameters of the model were fixed to arbitrary, |``realistic'' values. 
+\subsubsection{Prior Predictive Check}
+In this case, we do not have much data on the typical values of the parameters since it is impossible to measure it (we only know that it is a positive number whose typical value is between 0 and 1, as evidenced by \cite{christian1}), so we aim to design an uninformative prior. Fig.~\ref{fig:ppc_1} shows a plot of 1,000 tumour growth time-series. Each of them was simulated using a set of parameters drawn from the following prior distribution:
+\begin{align*}
+    \ln(k_6) \sim \text{Cauchy}^-(0, 1) \\ 
+    \ln(d_1) \sim \text{Cauchy}^+(0, 1) \\ 
+    \ln(s_2) \sim \text{Cauchy}^-(0, 1) \\ 
+\end{align*} 
+As we exponentiate the Cauchy distribution, it means that $0 < k_6 < 1$. The blue shade represents the 95\% credible interval, and the dark green line is the median growth curve. As we can see, the 95\% credible interval is very wide and can virtually contain our expected range of curves, since it ranges from 0 (minimum volume) to 600 (maximum possible volume according to the equation), meaning that they are relatively uninformative priors. The median curve has the shape of the typical growth curve, as observed in the labs. Hence, we can say that the prior distribution is satisfying, as it could explain any potential growth curve while restricting the values of the parameters to a smaller subset of $\mathbb{R}$.
+    \begin{figure}[!ht]
+        \centering\includegraphics[scale=0.4]{prout1.png}
+        \caption{ODE solution for 1,000 parameter values sampled from the prior ($\boldsymbol{\theta} \in \mathbb{R}^1$)}
+        \label{fig:ppc_1}
+    \end{figure}
 
+\subsection{Fake Data Check}
+Each fake growth curve was generated by sampling a value of $\theta$ from the prior distribution, and then simulating the tumour growth in the same way as for the Prior Predictive Check. However, as biological data is always noisy, we also added some noise to make the fake dataset closer to what we would actually expect from the labs. This was done in two different ways, resulting in two distinct datasets. For dataset A, we simply added a white standard Gaussian noise to the simulation. For dataset B, we use added white noise to the log of the simulated curve. The generation process is summarized in Table~\ref{tbl:genproc}, where $x_*$ denotes a noiseless data point. The reason for using two different noise generation is that we observed, in the experimental data from the labs, that data points are usually more dispersed when they have a high value, suggesting an exponential relationship. \\ 
+Additionally, each dataset contains 10 time series. Fig.~\ref{fig:fd_1} plots the fake data points against the original curve. For clarity, only 5 time series, selected at random, were shown.
+\begin{table}[h!]
+    \centering
+    \caption{Summary of the generation process for the two datasets A and B}
+    % \vspace{3pt}
+    \begin{tabular}{c|c}
+        \hline
+        Dataset & Generation Process \\ \hline 
+        A       & $x_A=x_*+\mathcal{N}(0,1)$ \\
+        B       & $x_B=x_*\times e^{\mathcal{N}(0,\hspace{1.5px}0.3)}$ \\ \hline
+    \end{tabular}
+    \label{tbl:genproc}
+\end{table}
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}{.5\linewidth}
+        \centering\includegraphics[scale=0.4]{fd_1.png}
+        \caption{Dataset A}
+    \end{subfigure}%
+    \begin{subfigure}{.5\linewidth}
+        \centering\includegraphics[scale=0.4]{fd_2.png}
+        \caption{Dataset B}
+    \end{subfigure}
+    \caption{Plot of the fake data points (colored lines and scatter plot) along with the original growth curve (dashed line)}
+    \label{fig:fd_1}
+\end{figure}
+\textit{Results}\\[5pt] 
+Before checking if the estimated values match the true ones, we first assess convergence of the MCMC chains. Th R-hat values are reported in Table.~\ref{tbl:rhat_2} as the average R-hat value accross the 3 parameters. It must be noted that in this case, for a given inference, some chains get trapped while some are well-mixed. In that case, the R-hat calculation excludes the trapped chains. This is indicated in the Tables by reporting the number of chains used to calculate R-hat (out of the 5 chains). If none of the chain converged, we simply report N/A.
+\begin{table}[!h]
+    \centering
+    \caption{Assessement of convergence for the MCMC chains for uninformative priors (3 free parameters)}
+    \begin{tabular}{c|c||c|c|c}
+        \hline
+        Data set & Pooling Type & R-hat diagnostic & Number of Chains & Convergence  \\ \hline 
+        \multirow{2}{*}{C}      & None  & 116.08 & N/A & No \\
+                                & Complete & 298.67 & N/A & No \\ \hline 
+        \multirow{2}{*}{D}      & None  & 1.092 & 3/5 & Close to \\
+                                & Complete & 3.11 & N/A & No \\ \hline 
+    \end{tabular}
+    \label{tbl:rhat_2}
+\end{table}
+Looking at Table~\ref{tbl:rhat_2}, we can hence conclude that the chains did not converged, meaning that the model cannot make inference with $\boldsymbol{\theta} \in \mathbb{R}^3$ and uninformative priors. To further diagnose the model, we performed another set of inferences, except that the priors where highly informative:
+\begin{align*}
+    \ln(k_6) \sim \text{Cauchy}^-(\theta_{k_6}, 1) \\ 
+    \ln(d_1) \sim \text{Cauchy}^+(\theta_{d_1}, 1) \\ 
+    \ln(s_2) \sim \text{Cauchy}^-(\theta_{s_2}, 1) \\ 
+\end{align*} 
+where $\theta_x$ represent the true value of parameter $x$. Convergence of this new set of inferences is shown in Table~\ref{tbl:rhat_3}. As we can see, convergence of the MCMC chains are still very poor, even with highly informative priors centered on the true parameter values.
+\begin{table}[!h]
+    \centering
+    \caption{Assessement of convergence for the MCMC chains for uninformative priors (3 free parameters)}
+    \begin{tabular}{c|c||c|c|c}
+        \hline
+        Data set & Pooling Type & R-hat diagnostic & Number of Chains & Convergence  \\ \hline 
+        \multirow{2}{*}{C}      & None  & 18.15 & N/A & No \\
+                                & Complete & 45.96 & N/A & No \\ \hline 
+        \multirow{2}{*}{D}      & None  & 1.505 & 3/5 & Close to \\
+                                & Complete & 1.014 & 2/5 & Yes \\ \hline 
+    \end{tabular}
+    \label{tbl:rhat_3}
+\end{table}
+\\[12pt]
+It might be objected that Cauchy distributions are by definition not too informative since a non-negligible portion of their mass stretches well beyond their standard deviation, contrary to normal distributions. This hence motivated us to perform one last fake data check, using the normal priors shown below to be even more informative: 
+\begin{align*}
+    \ln(k_6) \sim \mathcal{N}^-(\theta_{k_6}, 0.3) \\ 
+    \ln(d_1) \sim \mathcal{N}^+(\theta_{d_1}, 0.3) \\ 
+    \ln(s_2) \sim \mathcal{N}^-(\theta_{s_2}, 0.3) \\ 
+\end{align*}
+Convergence results are shown in Table.~\ref{tbl:rhat_4}. The main result is that chains converged or were close to convergence only for dataset D, showing that a log-normal transformation is key to make exploration of the posterior easier to perform. Whilst the overall convergence rate is still very low given the informative normal priors, this series of fake data checks for the case of three free parameters highlighted the key role of the log-transformation.
+
+\begin{table}[!h]
+    \centering
+    \caption{Assessement of convergence for the MCMC chains for uninformative priors (3 free parameters)}
+    \begin{tabular}{c|c||c|c|c}
+        \hline
+        Data set & Pooling Type & R-hat diagnostic & Number of Chains & Convergence  \\ \hline 
+        \multirow{2}{*}{C}      & None     & 7.387 & N/A & No \\
+                                & Complete & 39.17 & N/A & No \\ \hline 
+        \multirow{2}{*}{D}      & None     & 1.066 & 3/5 & Yes \\
+                                & Complete & 1.111 & 5/5 & Close to \\ \hline 
+    \end{tabular}
+    \label{tbl:rhat_4}
+\end{table}
 \subsection{Switchng to Approximate Bayesian Computation}
 
 \newpage 
