@@ -13,13 +13,14 @@ Kim S.Ka. and Cho S.W.
 
 \bibitem{ReviewCPI}
 Alex~D. Waldman, Jill~M. Fritz, and Michael~J. Lenardo.
-\newblock A guide to cancer immunotherapy: from t cell basic science to
+\newblock A guide to cancer immunotherapy: from {T} cell basic science to
   clinical practice.
 \newblock {\em Nature Reviews}, 20:651--69, 2020.
 
 \bibitem{cd8Effects}
 B.V. Kumar, T.J. Connors, and D.L. Farber.
-\newblock Human t cell development, localization, and function throughout life.
+\newblock Human {T} cell development, localization, and function throughout
+  life.
 \newblock {\em Immunity}, 48:202--213, 2018.
 
 \bibitem{ioDef}
@@ -31,8 +32,8 @@ I.L.~Jr Bennet and P.B. Beeson.
 
 \bibitem{il12IsCool}
 R.~Mortarini, A.~Borri, G.~Targni, et~al.
-\newblock Peripheral burst of tumor-specific cytotoxic t lymphocytes and
-  infiltration of metastatic lesions by memory cd8+ t cells in melanoma
+\newblock Peripheral burst of tumor-specific cytotoxic {T} lymphocytes and
+  infiltration of metastatic lesions by memory {CD8+ T cells} in melanoma
   patients receiving interleukin 12.
 \newblock {\em Cancer Res.}, 60:3559--68, 2000.
 
@@ -53,8 +54,8 @@ J.E. Portielje, C.H. Lamers, W.H. Kruit, A.~Sparreboom, R.L. Bolhuis,
 
 \bibitem{ifngAngiogenesis}
 Y.~Hayakawa, K.~Takeda, H.~Yagita, M.J. Smyth, L.~Van~Kaern, K.~Okumura, et~al.
-\newblock Ifn-gamma-mediated inhibition of tumor angiogenesis by natural killer
-  t-cell ligand, alpha-galactosylceramide.
+\newblock {IFN-gamma-mediated} inhibition of tumor angiogenesis by natural
+  killer {T-cell} ligand, alpha-galactosylceramide.
 \newblock {\em Blood}, 100, 2002.
 
 \bibitem{ifngNKProd}
@@ -78,8 +79,8 @@ S.A. Rosenberg, B.S. Packard, P.M. Aebersold, D.~Solomon, S.L. Topalian, S.T.
 
 \bibitem{cpiProof}
 B.T. Fife and J.~A Bluestone.
-\newblock Control of peripheral t-cell tolerance and autoimmunity via the
-  ctla-4 and pd-1 pathways.
+\newblock Control of peripheral {T-cell} tolerance and autoimmunity via the
+  {CTLA-4} and {PD-1} pathways.
 \newblock {\em Immunol. Rev}, 224:166--182, 2008.
 
 \bibitem{PD1Autoimmune}
@@ -99,6 +100,11 @@ A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
 \newblock Collagen-binding il-12 enhances tumour inflammation and drives the
   complete remission of established immunologically cold mouse tumours.
 \newblock {\em Nature Biomedical Engineering}, 4:531--543, 2020.
+
+\bibitem{collagenInCancer}
+Shuaishuai Xu, Huaxiang Xu, Wenquan Wang, et~al.
+\newblock The role of collagen in cancer: from bench to bedside.
+\newblock {\em J Trans Med}, 17(309), 2019.
 
 \bibitem{takuya}
 Takuya Miyano.
@@ -141,5 +147,11 @@ Christian~P. Robert, Jean-Marie Cornuet, Jean-Michel Marin, and Natesh~S.
 \newblock Lack of confidence in approximate bayesian computation model choice.
 \newblock {\em Proceedings of the National Academy of Sciences},
   108(37):15112--15117, 2011.
+
+\bibitem{tomgro}
+M.A. Vazquez, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
+\newblock Global sensitivity analysis by means of efast and sobol' methods and
+  calibration of reduced state-variable tomgro model using genetic algorithms.
+\newblock {\em Computers and Electronics in Agriculture}, 100, 2014.
 
 \end{thebibliography}

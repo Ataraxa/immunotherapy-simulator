@@ -9,45 +9,45 @@ Warning--entry type for "christian1" isn't style-file defined
 --line 94 of file biblio.bib
 Warning--entry type for "takuya" isn't style-file defined
 --line 102 of file biblio.bib
-You've used 24 entries,
+You've used 26 entries,
             1791 wiz_defined-function locations,
-            605 strings with 8095 characters,
-and the built_in function-call counts, 4890 in all, are:
-= -- 387
-> -- 287
+            615 strings with 8437 characters,
+and the built_in function-call counts, 5247 in all, are:
+= -- 413
+> -- 315
 < -- 0
-+ -- 105
-- -- 81
-* -- 323
-:= -- 845
-add.period$ -- 68
-call.type$ -- 24
-change.case$ -- 24
++ -- 115
+- -- 89
+* -- 346
+:= -- 913
+add.period$ -- 74
+call.type$ -- 26
+change.case$ -- 26
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 192
-empty$ -- 465
-format.name$ -- 81
-if$ -- 1066
+cite$ -- 26
+duplicate$ -- 208
+empty$ -- 494
+format.name$ -- 89
+if$ -- 1141
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 20
-newline$ -- 119
-num.names$ -- 24
-pop$ -- 50
+int.to.str$ -- 26
+missing$ -- 22
+newline$ -- 129
+num.names$ -- 26
+pop$ -- 52
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 89
+skip$ -- 97
 stack$ -- 0
 substring$ -- 252
-swap$ -- 24
+swap$ -- 26
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 36
-width$ -- 26
-write$ -- 253
+while$ -- 38
+width$ -- 28
+write$ -- 275
 (There were 3 warnings)
