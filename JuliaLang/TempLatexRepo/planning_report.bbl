@@ -11,18 +11,6 @@ Kim S.Ka. and Cho S.W.
   the tumor microenvironment.
 \newblock {\em Front Pharmacol.}, 13(868695), 2022.
 
-\bibitem{ReviewCPI}
-Alex~D. Waldman, Jill~M. Fritz, and Michael~J. Lenardo.
-\newblock A guide to cancer immunotherapy: from {T} cell basic science to
-  clinical practice.
-\newblock {\em Nature Reviews}, 20:651--69, 2020.
-
-\bibitem{cd8Effects}
-B.V. Kumar, T.J. Connors, and D.L. Farber.
-\newblock Human {T} cell development, localization, and function throughout
-  life.
-\newblock {\em Immunity}, 48:202--213, 2018.
-
 \bibitem{ioDef}
 I.L.~Jr Bennet and P.B. Beeson.
 \newblock Studies on the pathogenesis of fever - characterization of
@@ -37,13 +25,6 @@ R.~Mortarini, A.~Borri, G.~Targni, et~al.
   patients receiving interleukin 12.
 \newblock {\em Cancer Res.}, 60:3559--68, 2000.
 
-\bibitem{cd8FirstWay}
-A.~Mukhopadhyay, J.~Wright, S.~Shirley, D.A. Canton, C.~Burkart, R.J. Connolly,
-  et~al.
-\newblock Characterization of abscopal effects of intratumoral
-  electroporation-mediated {IL-12} gene therapy.
-\newblock {\em Gene Ther.}, 26:1--15, 2019.
-
 \bibitem{il12CytokineStorm}
 J.E. Portielje, C.H. Lamers, W.H. Kruit, A.~Sparreboom, R.L. Bolhuis,
   G.~Stoter, et~al.
@@ -52,17 +33,30 @@ J.E. Portielje, C.H. Lamers, W.H. Kruit, A.~Sparreboom, R.L. Bolhuis,
   tumor necrosis factor-alpha, {IL-6}, and {IL-8} responses.
 \newblock {\em Clin Cancer Res}, 9, 76-83.
 
-\bibitem{ifngAngiogenesis}
-Y.~Hayakawa, K.~Takeda, H.~Yagita, M.J. Smyth, L.~Van~Kaern, K.~Okumura, et~al.
-\newblock {IFN-gamma-mediated} inhibition of tumor angiogenesis by natural
-  killer {T-cell} ligand, alpha-galactosylceramide.
-\newblock {\em Blood}, 100, 2002.
+\bibitem{cd8FirstWay}
+A.~Mukhopadhyay, J.~Wright, S.~Shirley, D.A. Canton, C.~Burkart, R.J. Connolly,
+  et~al.
+\newblock Characterization of abscopal effects of intratumoral
+  electroporation-mediated {IL-12} gene therapy.
+\newblock {\em Gene Ther.}, 26:1--15, 2019.
+
+\bibitem{cd8Effects}
+B.V. Kumar, T.J. Connors, and D.L. Farber.
+\newblock Human {T} cell development, localization, and function throughout
+  life.
+\newblock {\em Immunity}, 48:202--213, 2018.
 
 \bibitem{ifngNKProd}
 L.K. Chen, B.~Tourvieille, G.F. Burns, F.H. Bach, D.~Mathieu-Mahul,
   M.~Sasportes, and other.
 \newblock Interferon: a cytotoxic {T lymphocyte} differentiation signal.
 \newblock {\em Eur J Immunol}, 17, 767-70.
+
+\bibitem{ifngAngiogenesis}
+Y.~Hayakawa, K.~Takeda, H.~Yagita, M.J. Smyth, L.~Van~Kaern, K.~Okumura, et~al.
+\newblock {IFN-gamma-mediated} inhibition of tumor angiogenesis by natural
+  killer {T-cell} ligand, alpha-galactosylceramide.
+\newblock {\em Blood}, 100, 2002.
 
 \bibitem{ifngAntigenExposure}
 F.M. Rosa, M.M. Cochet, and M.~Fellous.
@@ -83,17 +77,17 @@ B.T. Fife and J.~A Bluestone.
   {CTLA-4} and {PD-1} pathways.
 \newblock {\em Immunol. Rev}, 224:166--182, 2008.
 
-\bibitem{PD1Autoimmune}
-H.~Nishimura, N.~Minato, T.~Nakano, and T.~Honjo.
-\newblock Immunological studies on {PD-1} deficient mice: implication of {PD-1}
-  as a negative regulator for {B} cell responses.
-\newblock {\em Int Immunol}, 10:1563--72, 1998.
-
 \bibitem{PDvsCTLA}
 B.T. Fife and J.A. Bluesone.
 \newblock Control of peripheral {T-cell} tolerance and autoimmunity via the
   {CTLA-4} and {PD-1} pathways.
 \newblock {\em Immunol. Rev.}, 224, 166-182.
+
+\bibitem{PD1Autoimmune}
+H.~Nishimura, N.~Minato, T.~Nakano, and T.~Honjo.
+\newblock Immunological studies on {PD-1} deficient mice: implication of {PD-1}
+  as a negative regulator for {B} cell responses.
+\newblock {\em Int Immunol}, 10:1563--72, 1998.
 
 \bibitem{cbdil12}
 A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
@@ -119,16 +113,23 @@ Christian Hines.
 Christian Hines.
 \newblock Positive feedback between {IL-12} and {IFN}g, 2022.
 
-\bibitem{rosenbaum}
-B.~Rosenbaum, M.~Raats, et~al.
-\newblock Estimating parameters from multipple time series of population
-  dynamics using bayesian inference.
-\newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
+\bibitem{revParamEst}
+Sophie Donnet and Adeline Samson.
+\newblock A review on estimation of stochastic differential equations for
+  pharmacokinetic/pharmacodynamic models.
+\newblock {\em Advanced Drug Delivery Review}, 65, 2013.
 
-\bibitem{fussmann}
-G.F. Fussmann, Ellner S.P., K.W. Shertze, and N.G. Hairston~Jr.
-\newblock {Crossing the Hopf bifurcation in a live predatory-prey system}.
-\newblock {\em Science}, 290(5495):1358--60, 2000.
+\bibitem{liu_wang}
+Baisen Liu, Liangliang Wang, and Jiguo Cao.
+\newblock Bayesian estimation of ordinary differential equation models when the
+  likelihood has multiple local modes.
+\newblock {\em Monte Carlo Methods and Applications}, 24(2):117--127, 2018.
+
+\bibitem{likelihood_2}
+Valderrama-Bahamóndez, Gloria I., and Holger Fröhlich.
+\newblock Mcmc techniques for parameter estimation of ode based models in
+  systems biology.
+\newblock {\em Frontiers in Applied Mathematics and Statistics}, 5, 2019.
 
 \bibitem{tomgro}
 M.A. Vazquez-Cruz, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
@@ -136,27 +137,26 @@ M.A. Vazquez-Cruz, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
   calibration of reduced state-variable tomgro model using genetic algorithms.
 \newblock {\em Computers and Electronics in Agriculture}, 100, 2014.
 
-\bibitem{sens_review}
-Bertrand Iooss and Paul Lemaître.
-\newblock A review on global sensitivity analysis methods.
-\newblock {\em Uncertainty management in {Simulation-Optimisation of Complex
-  Systems: Algorithms and Applications}}, Springer, 2015.
+\bibitem{MCMethods}
+D.~Luengo, L.~Martino, M.~Bugallo, et~al.
+\newblock A survey of monte carlo methods for parameter estimation.
+\newblock {\em EURASIP J. Adv. Signal Process}, 25, 2020.
 
-\bibitem{gelman2020bayesian}
-Andrew Gelman et~al.
-\newblock {Bayesian Workflow}, 2020.
+\bibitem{ReviewMCMCAlgo}
+C.P. Robert and W.~Changye.
+\newblock Markov chain monte carlo methods, a survey with some frequent
+  misunderstandings, 2020.
 
-\bibitem{ABCtuber}
-Tanaka M.M. et~al.
-\newblock Using approximate bayesian computation to estimate tuberculosis
-  transmission parameters from genotype data.
-\newblock {\em Genetics}, 173(3):1511--1520, 2006.
+\bibitem{NUTSvsHMCvsGibbs}
+Motohide Nishio and Aisaku Arakawa.
+\newblock Performance of hamiltonian monte carlo and no-u-turn sampler for
+  estimating genetic parameters and breeding values.
+\newblock {\em Genetics Selection Evolution}, 51(73), 2019.
 
-\bibitem{ABCerror}
-Christian~P. Robert, Jean-Marie Cornuet, Jean-Michel Marin, and Natesh~S.
-  Pillai.
-\newblock Lack of confidence in approximate bayesian computation model choice.
-\newblock {\em Proceedings of the National Academy of Sciences},
-  108(37):15112--15117, 2011.
+\bibitem{rosenbaum}
+B.~Rosenbaum, M.~Raats, et~al.
+\newblock Estimating parameters from multipple time series of population
+  dynamics using bayesian inference.
+\newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
 
 \end{thebibliography}
