@@ -9,18 +9,21 @@
 \contentsline {section}{\numberline {2}Ethical Analysis}{4}{section.2}%
 \contentsline {section}{\numberline {3}Litterature Review}{5}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Bayesian Parameter Estimation}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Hierarchical Modelling}{5}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Likelihood function}{6}{subsubsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.3}Reduction of the Computational Burden}{6}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Sensitivity Analysis}{6}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}High-performance Computational Methods}{6}{subsubsection.3.3.2}%
-\contentsline {section}{\numberline {4}Implementation Plan}{6}{section.4}%
-\contentsline {section}{\numberline {5}Risk Register}{6}{section.5}%
-\contentsline {section}{\numberline {6}Evaluation}{7}{section.6}%
-\contentsline {section}{\numberline {7}Preliminary Results}{8}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Numerical Stability Analysis}{8}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Sensitivity Analysis}{8}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Bayesian Model Validation}{8}{subsection.7.3}%
-\contentsline {subsubsection}{\numberline {7.3.1}Prior Predictive Check}{9}{subsubsection.7.3.1}%
-\contentsline {subsubsection}{\numberline {7.3.2}Fake Data Check}{9}{subsubsection.7.3.2}%
-\contentsline {section}{References}{13}{table.caption.8}%
+\contentsline {subsection}{\numberline {3.2}Hierarchical Modelling}{6}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Hierarchical Priors and Hyperpriors}{6}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Likelihood function}{7}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Calcultion of the Marginal Posterior Distributions}{7}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.3}Reduction of the Computational Burden}{8}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Sensitivity Analysis}{8}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}High-performance Computational Methods}{8}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Transforms}{8}{subsubsection.3.3.3}%
+\contentsline {section}{\numberline {4}Implementation Plan}{8}{section.4}%
+\contentsline {section}{\numberline {5}Risk Register}{8}{section.5}%
+\contentsline {section}{\numberline {6}Evaluation}{9}{section.6}%
+\contentsline {section}{\numberline {7}Preliminary Results}{10}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Numerical Stability Analysis}{10}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Sensitivity Analysis}{11}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Bayesian Model Validation}{11}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Prior Predictive Check}{12}{subsubsection.7.3.1}%
+\contentsline {subsubsection}{\numberline {7.3.2}Fake Data Check}{12}{subsubsection.7.3.2}%
+\contentsline {section}{References}{16}{table.caption.8}%

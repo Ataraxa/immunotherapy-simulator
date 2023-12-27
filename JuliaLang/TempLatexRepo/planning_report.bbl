@@ -11,6 +11,12 @@ Kim S.Ka. and Cho S.W.
   the tumor microenvironment.
 \newblock {\em Front Pharmacol.}, 13(868695), 2022.
 
+\bibitem{ReviewCPI}
+Alex~D. Waldman, Jill~M. Fritz, and Michael~J. Lenardo.
+\newblock A guide to cancer immunotherapy: from {T} cell basic science to
+  clinical practice.
+\newblock {\em Nature Reviews}, 20:651--69, 2020.
+
 \bibitem{ioDef}
 I.L.~Jr Bennet and P.B. Beeson.
 \newblock Studies on the pathogenesis of fever - characterization of
@@ -45,6 +51,14 @@ B.V. Kumar, T.J. Connors, and D.L. Farber.
 \newblock Human {T} cell development, localization, and function throughout
   life.
 \newblock {\em Immunity}, 48:202--213, 2018.
+
+\bibitem{ifnIL12}
+J.E. Portielje, C.H. Lamers, Kruit W.H., A.~Sparreboom, R.L. Bolhuis,
+  G.~Stoter, et~al.
+\newblock Repeated administration of interleukin {IL}-12 are associated with
+  persistently elevated plasma levels of {IL}-10 and declining ifn-gamma,
+  tumour necrosis factor-alpha, {IL}-6 and {IL-8} responses.
+\newblock {\em Clin Cancer Res}, 9:76--83, 2003.
 
 \bibitem{ifngNKProd}
 L.K. Chen, B.~Tourvieille, G.F. Burns, F.H. Bach, D.~Mathieu-Mahul,
@@ -119,6 +133,29 @@ Sophie Donnet and Adeline Samson.
   pharmacokinetic/pharmacodynamic models.
 \newblock {\em Advanced Drug Delivery Review}, 65, 2013.
 
+\bibitem{rosenbaum}
+B.~Rosenbaum, M.~Raats, et~al.
+\newblock Estimating parameters from multiple time series of population
+  dynamics using bayesian inference.
+\newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
+
+\bibitem{fussmann}
+G.F. Fussmann, Ellner S.P., K.W. Shertze, and N.G. Hairston~Jr.
+\newblock {Crossing the Hopf bifurcation in a live predatory-prey system}.
+\newblock {\em Science}, 290(5495):1358--60, 2000.
+
+\bibitem{mcmcPE}
+Gloria~I Vaderrama-Bahamòndez and Fröhlich Hogler.
+\newblock Mcmc techniques for parameter estimation of ode based models in
+  systems biology.
+\newblock {\em Front. Appl. Math. Stat}, 5, 2019.
+
+\bibitem{tbk_gelman}
+Andrew Gelman, John~B Carlin, Hal~S. Stern, David~B. Dunson, Aki Vehtari, and
+  Donald~B. Rubin.
+\newblock {\em Bayesian Data Analysis}.
+\newblock 3rd edition, 2021.
+
 \bibitem{liu_wang}
 Baisen Liu, Liangliang Wang, and Jiguo Cao.
 \newblock Bayesian estimation of ordinary differential equation models when the
@@ -153,10 +190,18 @@ Motohide Nishio and Aisaku Arakawa.
   estimating genetic parameters and breeding values.
 \newblock {\em Genetics Selection Evolution}, 51(73), 2019.
 
-\bibitem{rosenbaum}
-B.~Rosenbaum, M.~Raats, et~al.
-\newblock Estimating parameters from multipple time series of population
-  dynamics using bayesian inference.
-\newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
+\bibitem{mcmcTrapped}
+S.~Kirkpatrick, C.~D. Gelatt, and M.~P. Vecchi.
+\newblock Optimization by simulated annealing.
+\newblock {\em Science}, 220(4598):671--680, 1983.
+
+\bibitem{gelman2020bayesian}
+Andrew Gelman et~al.
+\newblock {Bayesian Workflow}, 2020.
+
+\bibitem{rhat}
+Stephen~P. Brooks and Andrew Gelman.
+\newblock General methods for monitoring convergence of iterative simulations.
+\newblock {\em Journal of Computational and Graphical Statistics}, 7(4), 1992.
 
 \end{thebibliography}
