@@ -11,6 +11,12 @@ Kim S.Ka. and Cho S.W.
   the tumor microenvironment.
 \newblock {\em Front Pharmacol.}, 13(868695), 2022.
 
+\bibitem{oncologyTreatRev}
+V.~Schirrmacher.
+\newblock From chemotherapy to biological therapy: {A} review of novel concepts
+  to reduce the side effects of systemic cancer treament (review).
+\newblock {\em Int J Oncol.}, 54(2), 2019.
+
 \bibitem{ReviewCPI}
 Alex~D. Waldman, Jill~M. Fritz, and Michael~J. Lenardo.
 \newblock A guide to cancer immunotherapy: from {T} cell basic science to
@@ -85,6 +91,17 @@ S.A. Rosenberg, B.S. Packard, P.M. Aebersold, D.~Solomon, S.L. Topalian, S.T.
   immunotherapy of patients with metastatic melanoma.
 \newblock {\em N Engl J Med}, 319:1676--80, 1988.
 
+\bibitem{clintriAC1}
+D.R. Leach, M.F. Krummel, and J.P. Allision.
+\newblock Enhancement of antitumor immunity by {CTLA-4} blockade.
+\newblock {\em Science}, 271:1734--1736, 1996.
+
+\bibitem{clintriAC2}
+E.D. Kwon et~al.
+\newblock Manipulation of {T} cell costimulatory and inhibitory signals for
+  immunotherapy of prostate cancer.
+\newblock {\em Proc. Natl Acad. Sci. USA}, 94:8099--8103, 1997.
+
 \bibitem{cpiProof}
 B.T. Fife and J.~A Bluestone.
 \newblock Control of peripheral {T-cell} tolerance and autoimmunity via the
@@ -102,6 +119,14 @@ H.~Nishimura, N.~Minato, T.~Nakano, and T.~Honjo.
 \newblock Immunological studies on {PD-1} deficient mice: implication of {PD-1}
   as a negative regulator for {B} cell responses.
 \newblock {\em Int Immunol}, 10:1563--72, 1998.
+
+\bibitem{antiCTLA4Mel}
+A.~van Elsas, A.~A. Hurwitz, and J.P. Allison.
+\newblock Combination immunotherapy of {B16} melanoma using anti-cytotoxic {T}
+  lymphocyte-associated antigen 4 {(CTLA-4)} and granulocyte/macrophage
+  colony-stimulating factor {(GM-CSF)}-producing vaccines induces rejection of
+  subcutaneous and metastatic tumors accompanied by autoimmune depigmentation.
+\newblock {\em J Exp Med}, 190:355--366, 1999.
 
 \bibitem{cbdil12}
 A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
@@ -127,11 +152,33 @@ Christian Hines.
 Christian Hines.
 \newblock Positive feedback between {IL-12} and {IFN}g, 2022.
 
+\bibitem{Davidian2011}
+Marie Davidian.
+\newblock {\em Nonlinear Mixed Effects Models}, pages 947--950.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2011.
+
+\bibitem{liu_wang}
+Baisen Liu, Liangliang Wang, and Jiguo Cao.
+\newblock Bayesian estimation of ordinary differential equation models when the
+  likelihood has multiple local modes.
+\newblock {\em Monte Carlo Methods and Applications}, 24(2):117--127, 2018.
+
 \bibitem{revParamEst}
 Sophie Donnet and Adeline Samson.
 \newblock A review on estimation of stochastic differential equations for
   pharmacokinetic/pharmacodynamic models.
 \newblock {\em Advanced Drug Delivery Review}, 65, 2013.
+
+\bibitem{SAEM}
+Emmanuelle Comets, Audrey Lavenu, and Marc Lavielle.
+\newblock Parameter estimation in nonlinear mixed effect models using saemix,
+  an {R} implementation of the {SAEM} algorithm.
+\newblock {\em Journal of Statistical Software}, 80(3), 2017.
+
+\bibitem{foce}
+Mary~J. Lindstrom and Douglas~M. Bates.
+\newblock Nonlinear mixed effects models for repeated measures data.
+\newblock {\em Biometrics}, 46(3), 1990.
 
 \bibitem{rosenbaum}
 B.~Rosenbaum, M.~Raats, et~al.
@@ -139,28 +186,11 @@ B.~Rosenbaum, M.~Raats, et~al.
   dynamics using bayesian inference.
 \newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
 
-\bibitem{fussmann}
-G.F. Fussmann, Ellner S.P., K.W. Shertze, and N.G. Hairston~Jr.
-\newblock {Crossing the Hopf bifurcation in a live predatory-prey system}.
-\newblock {\em Science}, 290(5495):1358--60, 2000.
-
-\bibitem{mcmcPE}
-Gloria~I Vaderrama-Bahamòndez and Fröhlich Hogler.
-\newblock Mcmc techniques for parameter estimation of ode based models in
-  systems biology.
-\newblock {\em Front. Appl. Math. Stat}, 5, 2019.
-
 \bibitem{tbk_gelman}
 Andrew Gelman, John~B Carlin, Hal~S. Stern, David~B. Dunson, Aki Vehtari, and
   Donald~B. Rubin.
 \newblock {\em Bayesian Data Analysis}.
 \newblock 3rd edition, 2021.
-
-\bibitem{liu_wang}
-Baisen Liu, Liangliang Wang, and Jiguo Cao.
-\newblock Bayesian estimation of ordinary differential equation models when the
-  likelihood has multiple local modes.
-\newblock {\em Monte Carlo Methods and Applications}, 24(2):117--127, 2018.
 
 \bibitem{likelihood_2}
 Valderrama-Bahamóndez, Gloria I., and Holger Fröhlich.
@@ -194,6 +224,11 @@ Motohide Nishio and Aisaku Arakawa.
 S.~Kirkpatrick, C.~D. Gelatt, and M.~P. Vecchi.
 \newblock Optimization by simulated annealing.
 \newblock {\em Science}, 220(4598):671--680, 1983.
+
+\bibitem{fussmann}
+G.F. Fussmann, Ellner S.P., K.W. Shertze, and N.G. Hairston~Jr.
+\newblock {Crossing the Hopf bifurcation in a live predatory-prey system}.
+\newblock {\em Science}, 290(5495):1358--60, 2000.
 
 \bibitem{gelman2020bayesian}
 Andrew Gelman et~al.
