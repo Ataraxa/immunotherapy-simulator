@@ -103,7 +103,9 @@ As outlined above, the aim of the project is to identify biological factors invo
 \section{Ethical Analysis}
 %This should be a short section. Mention the ethical basis, background, and implications of the project regarding subjects and specimens used and their provenance, data derived or measured and their use. Include the long-term effects and meaning of the work, as well as the effects of the work on colleagues, the College, society and the environment as appropriate.
 
-The specimens used, mice in this case, are acquired adhering to rigorous ethical guidelines, ensuring minimized suffering and adherence to animal welfare laws [cite]. The data derived from these experiments holds immense potential for understanding treatment response in cancer, aiding in the optimization of therapies for human use.
+Treatments and experiments on the specimens used, mice in this case, were approved by the Institutional Animal Care and Use Committee of the Univerity of Chicago (see Methods section of \cite{cbdil12}).
+
+The data derived from these experiments holds immense potential for understanding treatment response in cancer, aiding in the optimization of therapies for human use.
 
 Long-term implications involve the potential for groundbreaking advancements in cancer treatment, benefiting society globally. However, considerations extend beyond treatment efficacy to encompass environmental impact, fostering sustainable practices in research, and ethical ownership and dissemination of findings. Collaboration among colleagues, stakeholders, and the wider community fosters responsible research conduct and knowledge dissemination while ensuring transparency and accountability. Additionally, financial sustainability and social responsibility in implementing these therapies for public benefit are essential considerations.
 
@@ -122,12 +124,12 @@ Since the model developed by Miyano is based of DDE, we will focus in the follow
     \diff{X_i}{t} = f_i(t, \boldsymbol{X}(t), \boldsymbol{X}(t-\tau)| \boldsymbol{\theta}), \qquad t \in [t_0, t_{max}], i = 1, \ldots, I
 \end{align*}
 
-where $\tau$ denotes a constant delay, so that the rate of change of state $X_i$ depends on both the present state $\boldsymbol{X}(t)$ and a past state $\boldsymbol{X}(t-\tau)$. The subscript \textit{i} indexes the different state variables of interest, and $\boldsymbol{\theta}$ is the (unknown) vector of the parameters for the DDE model. This parameter vector is different for each treated mouse, as it uniquely characterises its treatement response, and hence we denote with $\boldsymbol{\theta}_j$ the parameter vector that characterises the $j$-th mouse. The experimentally observed tumour evolution for the $j$-th mouse is denoted by $\boldsymbol{y}_j$, and each of its elements is the tumour volume observed at a given time, noted $y_{jk}$. The aim of parameter estimation is to retrieve the parameter vector that can reproduce the observed data. Mathematically, this can be expressed as maximising the likelihood of the observations $\mathcal{L}(\theta;\boldsymbol{y})$, where $\eta_j$ is the random effect for individual $j$ \cite{SAEM}. 
+where $\tau$ denotes a constant delay, so that the rate of change of state $X_i$ depends on both the present state $\boldsymbol{X}(t)$ and a past state $\boldsymbol{X}(t-\tau)$. The subscript \textit{i} indexes the different state variables of interest, and $\boldsymbol{\theta}$ is the (unknown) vector of the parameters for the DDE model. This parameter vector is different for each treated mouse, as it uniquely characterises its treatement response, and hence we denote with $\boldsymbol{\theta}_j$ the parameter vector that characterises the $j$-th mouse. The experimentally observed tumour evolution for the $j$-th mouse is denoted by $\boldsymbol{y}_j$, and each of its elements is the tumour volume observed at a given time, noted $y_{j}(t)$. The aim of parameter estimation is to retrieve the parameter vector that can reproduce the observed data. Mathematically, this can be expressed as maximising the likelihood of the observations $\mathcal{L}(\theta;\boldsymbol{y})$, where $\eta_j$ is the random effect for individual $j$ \cite{SAEM}. 
 \begin{align*}
     \mathcal{L}(\boldsymbol{\theta};\boldsymbol{y})=\prod_{j} \mathcal{L}(\theta;\boldsymbol{y}_j)=\prod_j p(\boldsymbol{y}_j\vert \boldsymbol{\theta})=\prod_j \int p(\boldsymbol{y}_j\vert \eta_i,\boldsymbol{\theta})p(\eta_j\vert \boldsymbol{\theta}) \,d\eta_j
 \end{align*}
 
-Many statistical approaches have been developed to perform parameter estimation on differential equation models from noisy data \cite{liu_wang}. However, most of them cannot be applied to mixed-effect models. In the context of pharmacodynamics model , Donnet et al, 2013 \cite{revParamEst} reviewed different techniques available to perform parameter estimation. For analysis of population data with observational noise, two methods are available: Expectation-Maximisation (either Stochastic \cite{SAEM} or using First-Order Condition \cite{foce}) and Bayesian parameter estimation \cite{rosenbaum}. The authors concluded that Bayesian modelling in particular is the most flexible method and that it benefits from rigorous theoretical validity although at the cost of being more computationally intensive. Another relevant advantage is that Bayesian approach do not provide point estimate, but rather distributions, which could be key to explain outcome heterogeneity. Hence the Bayesian modelling approach seems to be the most relevant for the project. 
+Many statistical approaches have been developed to perform parameter estimation on differential equation models from noisy data \cite{liu_wang}. However, most of them cannot be applied to mixed-effect models. In the context of pharmacodynamics model , Donnet et al, 2013 \cite{revParamEst} reviewed different techniques available to perform parameter estimation. For analysis of population data with observational noise, two methods are available: Expectation-Maximisation (either Stochastic \cite{SAEM} or using First-Order Condition \cite{foce} (FOCE)) and Bayesian parameter estimation \cite{rosenbaum}. The authors concluded that Bayesian modelling in particular is the most flexible method, since it does not rely on assumptions and hence work both inidividual or population datasets, with or without noise, which is not the case for alternative methods. Additionally, it benefits from theoretical validity although at the cost of being more computationally intensive, whereas the FOCE method was not proven to converge to the true posterior. Another relevant advantage is that Bayesian approach do not provide point estimate, but rather distributions, which could be key to explain outcome heterogeneity. Hence the Bayesian modelling approach seems to be the most relevant for the project. 
 
 \subsection{Bayesian Parameter Estimation}
 
@@ -140,7 +142,7 @@ For a situation where data about only one individual was gathered, the posterior
 This formula is the direct application of Bayes' theorem. It is the product of the prior distribution $p(\boldsymbol{\theta})$, which represents our knownledge of the problem, and the likelihood $p(\boldsymbol{y} | \boldsymbol{\theta})$. Before further defining these distributions, we must extend this definition of the posterior distribution to work for mixed-effect models, called hierarchical models in Bayesian statistics. 
 
 \subsection{Hierarchical Modelling}
-We seek to estimate the probability distribution of the parameter vector $\boldsymbol{\theta}$ for each individual, however these vectors are not independent from each other since each individual is sampled from a common population (mixed-effect model). To analyse mixed-effect model, hierarchical Bayesian modelling is a standard method \cite{revParamEst}\cite{rosenbaum}. For example, Rosenbaum et al., 2019 \cite{rosenbaum}, studied models of predator-prey systems, which also display radically different behaviours depending on the values of certain kinetic rates that cannot be directly measured. By fitting times series of measurable data to a hierarchical Bayesian model, they could not only extract a specific set of parameters for each individual system; but also determine the regions in parameter space that led to radically different types of behaviour accross the population. As this study present many similarities with the current project, it shows that hierarchical Bayesian modelling is a promising tool that should be explored.
+We seek to estimate the probability distribution of the parameter vector $\boldsymbol{\theta}$ for each individual, however these vectors are not independent from each other since each individual is sampled from a common population (mixed-effect model). To analyse mixed-effect model, hierarchical Bayesian modelling is a standard method \cite{revParamEst}\cite{rosenbaum}. For example, Rosenbaum et al., 2019 \cite{rosenbaum}, studied models of predator-prey systems, which also display radically different behaviours depending on the values of certain kinetic rates that cannot be directly measured. By fitting times series of measurable data to a hierarchical Bayesian model, they could not only extract a specific set of parameters for each individual system; but also determine the regions in parameter space that led to radically different types of behaviour accross the population. As this study present many similarities with the current project, it shows that hierarchical Bayesian modelling is a promising tool that is worth exploring.
 
 Hierarchical modelling enables us to formulate that the parameter vector $\boldsymbol{\theta}_j$ is sampled from an population-level distribution characterised by the (also unknown) hyperparameters $\boldsymbol{\phi}$. The objective is hence to find the distribution of both $\boldsymbol{\theta}_j~\forall j$ and $\boldsymbol{\phi}$. The Bayesian parameter estimation framework integrates this additional assumption by changing the posterior to \cite{tbk_gelman}:
 \begin{align*}
@@ -165,7 +167,7 @@ The likelihood function in the Bayesian framework is how we model the dynamics o
 \begin{align*}
     \mathcal{L}(\boldsymbol{\theta}_j) = \prod_{t=t_0}^{t_{max}} \frac{1}{\sigma_{err}} \exp\left(-\frac{(y_{j}(t) - Y_j(t|\boldsymbol{\theta}_j))^2}{2\sigma_{err}^2}\right)  
 \end{align*}
-Where $Y_j(t|\boldsymbol{\theta}_j)$ is the simulated time series using the DDE model parameterised by $\boldsymbol{\theta}_j$. This is usually obtained by numerical methods. Without additional information about the measurement methods, this is the approach suggested by Rosenbaum et al \cite{rosenbaum}.
+Where $Y_j(t|\boldsymbol{\theta}_j)$ is the simulated time series using the DDE model parameterised by $\boldsymbol{\theta}_j$, $t$ is the time index for the time series and $\sigma_{err}$ is the experimental error. This is usually obtained by numerical methods. Without additional information about the measurement methods, this is the approach suggested by Rosenbaum et al \cite{rosenbaum}.
 
 % \subsubsection{Calcultion of the Marginal Posterior Distributions}\label{ssec:post}
 % Once the joint posterior distribution has been obtained, we can proceed to calculate the marginal probability densities for $\theta_j \forall j$ and for $\boldsymbol{\phi}$ \cite{tbk_gelman}.
@@ -191,10 +193,10 @@ To find the marginal posterior distribution for the hyperparameter vector $\bold
 As pharmacodynamics models can generally contain a high number of parameters, the Bayesian approach, which is computationally intensive \cite{revParamEst}, can result in intractable computations. To this end, Vasquez-Cruz et al, 2012 \cite{tomgro}, proposed a method to reduce the number of parameters in an ODE model. By taking the example of a crop growth ODE model with 17 parameters, they used a senstivity analysis (namely, eFAST and Sobol' method) to identify the most influencial parameters, and used these results to design a reduced model with only 7 free parameters. More specifically, they followed a procedure highlighted by Varela et al, 2010 [need paper], according to which parameters that account for less than 10\% of the total effects can be considered as fixed parameters. Then, using a parameter fitting algorithm, they were able to show that this reduced model could still replicate the experimental data with minimal error. Additionally, they showed that the two sensitivity analysis methods (eFAST and Sobol' methods) yield different results. Hence, to ensure that all the important parameters are detected, both methods should be used.
 
 \subsubsection{High-performance Computational Methods}
-As the estimation of the posterior distributions cannot be evaluated analytically, Luengo et al., 2020 \cite{MCMethods}, pointed out that Markov-Chains Monte Carlo approach to approximate the posterior is the only feasible approach in most applications. While many different MCMC methods exist \cite{ReviewMCMCAlgo}, it was shown by Nishio et al, 2019 \cite{NUTSvsHMCvsGibbs} that the No U-Turn Sampler (NUTS) led to lower skewness of the posterior and more decorrelated samples compared to the other two popular algorithms, Gibbs and Hamiltonian Monte Carlo samplers. However, traditional MCMC methods, including NUTS, performs badly to estimate multimodal posterior distributions, which can lead to convergence problem \cite{mcmcTrapped}. Since we hypothesised that the posterior distribution might be multimodal, we need also need a robust sampler for this case. Liu et al, 2018 \cite{liu_wang}, proposed a new sampler called Stochastic Approximation Monte Carlo (SAMC), which is based on the idea of partitioning the parameter space in a finite number of subspaces and forcing the algorithm to explore each subspace. By running the algorithm on a parameter estimation problem for an ODE model of predator-prey system (\cite{fussmann}), they showed that SAMC could successfully retrieve the correct parameter value, while traditional MCMC methods such as the Metropolis-Hastings method were stuck in local modes.
+As the estimation of the posterior distributions cannot be evaluated analytically, Luengo et al., 2020 \cite{MCMethods}, pointed out that Markov-Chains Monte Carlo approach to approximate the posterior is the only feasible approach in most applications. While many different MCMC methods exist \cite{ReviewMCMCAlgo}, it was shown by Nishio et al, 2019 \cite{NUTSvsHMCvsGibbs} that the No U-Turn Sampler (NUTS) led to lower skewness of the posterior and more decorrelated samples compared to the other two popular algorithms, Gibbs and Hamiltonian Monte Carlo samplers. However, traditional MCMC methods, including NUTS, can have convergence problem \cite{mcmcTrapped}. Since we hypothesised that the posterior distribution might be multimodal, we need also need a robust sampler for this case. Liu et al, 2018 \cite{liu_wang}, proposed a new sampler called Stochastic Approximation Monte Carlo (SAMC), which is based on the idea of partitioning the parameter space in a finite number of subspaces and forcing the algorithm to explore each subspace. By running the algorithm on a parameter estimation problem for an ODE model of predator-prey system (defined in \cite{fussmann}), they showed that SAMC could successfully retrieve the correct parameter value, while traditional MCMC methods such as the Metropolis-Hastings method were stuck in local modes.
 
 \subsubsection{Transforms}
-Another major finding from the study of predator-prey systems \cite{rosenbaum} is that log-transformation of the residuals make the inference much more robust, resulting in faster convergence and more accurate posteriors. This changes the likelihood function to the following:
+Another finding from the study of predator-prey systems \cite{rosenbaum} is that log-transformation of the residuals make the inference much more robust, resulting in faster convergence and more accurate posteriors. This changes the likelihood function to the following:
 \begin{align*}
     \mathcal{L}(\boldsymbol{\theta}_j) = \prod_{t=t_0}^{t_{max}} \frac{1}{\sigma_{err}} \exp\left(-\frac{\lbrack\ln(y_{j}(t)) - \ln(Y_j(t|\boldsymbol{\theta}_j))\rbrack^2}{2\sigma_{err}^2}\right)  
 \end{align*}
@@ -242,6 +244,10 @@ Another major finding from the study of predator-prey systems \cite{rosenbaum} i
 \section{Risk Register}
 The main risks are : 
 
+\begin{table}[!ht]
+    \caption{Table of the different risks associated with the project's objectives}
+
+    \label{tbl:hyperparams}
 \begin{longtable}{|p{3.5cm}|p{2.3cm}|p{2.3cm}|p{8cm}|}
     \hline
     \textbf{Risk} & \textbf{Likelihood} & \textbf{Impact} & \textbf{Mitigation Strategy}\\
@@ -262,12 +268,9 @@ The main risks are :
         Two alternative methods can be used in this case.
         \textbf{Approximate Bayesian Computations,} which is a approach that does not rely on a likelihood function. It is relatively easy to implement but introduces additional approximation error. \textbf{Model simplification}, an approach proposed in \cite{gelman2020bayesian}. It consists of simplifying the likelihood function, and does not introduce additional error.
         \\ \hline 
-        Model produces\newline wrong results & High & Very high & Modify the immune response model to ensure that all key interactions are translated in the mechanistic model. We especially plan to implement the positive feedback loop mentionned in Section~\ref{ssec:prevWork}. \\ \hline
-        Model does not capture bifurcation\newline behaviour & Low & ? & ? \\ \hline 
-    \caption{Table of the different risks associated with the project's objectives}
-    \label{tbl:hyperparams}
+        Model does not\newline pass validation protocol& High & Very high & Modify the immune response model to ensure that all key interactions are translated in the mechanistic model. We especially plan to implement the positive feedback loop mentionned in Section~\ref{ssec:prevWork}. \\ \hline 
 \end{longtable}
-
+\end{table}
 \section{Evaluation}\label{sec:eval}
 Below we present a list of the key components of the cancer immunotherapy project, along with a way to verify that they function correctly.
 %\textit{Mechanistic Model of the Immune Response}\\[3pt] % TODO: appendix ??
@@ -276,11 +279,11 @@ Below we present a list of the key components of the cancer immunotherapy projec
 %The performance of the mechanistic model can be assessed by two criteria. First of all, it should be able to reproduce the data obtained in the lab by Dr. Ishihara. Since this is not a hierarchical model, we propose to use a Genetic Algorithm (GA) to perform parameter fitting on individual time series, which is the method used by C. Hines in his research. This enables us to find a parameterisation of the model that leads to the best simulation, along with the Mean-Squared Error to the true data. This metric can be used to validate that the model can produce data close enough to the experimental time series. To assess the second criteria, we will use a sensitivity analysis. It enables us to check that the model is sensitive to the same quantity as shown in the lab [wording is terrible here, need to rephrase], for example to the treatment specification or to the initial tumour volume, which is not the case for the current one. \\[11pt]
 
 \textit{Bayesian Model}\\[3pt]
-To validate the Bayesian model, we will follow the Bayesian Workflow procedure outlined in \cite{gelman2020bayesian}. It consists of three different tests:
+To build and validate the Bayesian model, we will follow the Bayesian Workflow procedure outlined in \cite{gelman2020bayesian}. It consists of three different tests:
 \begin{itemize}
     \item \textbf{Prior Predictive Check:} we sample 1,000 sets of parameter from the priors and simulate tumour growth for each of them. The 95\% credible interval of the resulting collection of time series should contain our expected range of curves we can expect. Evaluation of this step is mostly qualitative.
     \item \textbf{Fake Data Check:} we first need to generate a artificial dataset using known values of parameters, and then fit the Bayesian model to these fake datasets. By comparing the results of the model (i.e. the estimated parameter value in the form of the posterior distribution) to the true values, we can conclude whether the model can successfully perform parameter estimation or not. The approach proposed by Gelman et al. \cite{gelman2020bayesian} is to verify that the 95\% credible interval of the posterior includes the true parameter value. Additionally, another possible approach detailed in \cite{rosenbaum} involves substracting the true parameter value from the posterior. This results in a ``error'' distribution that should theoretically be zero-mean. 
-    \item \textbf{Posterior Predictive Check:} this is analogous to the Prior Predictive Check, except that parameter are drawn from the marginal posterior distributions instead of the prior distributions. This results in a collection of simulated time series. The 95\% credible interval should contain the experimental time series obtined in the lab. 
+    \item \textbf{Posterior Predictive Check:} this is analogous to the prior predictive check, except that parameter are drawn from the marginal posterior distributions instead of the prior distributions. This results in a collection of simulated time series. The 95\% credible interval should contain the experimental time series obtined in the lab. 
 \end{itemize}
 \textit{Convergence of the MCMC Chains}\\[3pt]
 As mentioned above, convergence of the MCMC chains is a critical element that needs to be evaluated, as it reflects the quality of the approximation of the posterior distribution [cite T. Moins et al]. The most popular method to assess convergence is the potential scale factor reduction, usually termed $\hat{R}$, developed by Gelman et al., 1992 \cite{rhat}. It can be calculated as follows:
@@ -297,15 +300,21 @@ Once the responder profile has been characterised, its accuracy can be evaluated
 
 \subsection{Numerical Analysis}
 \subsubsection{Numerical Stability Analysis}
-[Figures are missing but they will be added soon]\\
-The very first aspect of Miyano's model that we wanted to verify was its ability to capture two specific treatment outcome: CR vs non-CR. As these behaviours can essentially be characterised by the fixed-points of the model (if the steady-state behaviour of the model converges to high values of tumour volume, it is a non-CR behaviour, and vice-versa). We opted for a grid-search stability analysis, meaning that we sample reguarly-spaced points in parameter space and classify them as either CR or non-CR. Fig.~X shows the resuls of this analysis, where each axis of corresponds to the value of a $\ln(k_6)$, $\ln(s_2)$ or $\ln(d_1)$ respectively. A can be seen, there seem the be a clear boundary between the two response modes, with very little ``mixing''. This suggests that it would be possible to predict how a given patient would respond to the treatment, by knowning on which side of the boundary he is.
 
-\subsubsection{Sensitivity Analysis}
-In order to restrict the parameter space for subsequent analysis, and also to understand to main mechanisms behind the immune response, we performed a eFAST sensitivity analysis, which is a variance decomposition method. As it can only decompose variance of a scalar metric, it does not natively support time-series. Hence we chose to apply it to the integral of the tumour growth curve simulated by Miyano's model. This metric simply reflects the cumulative tumour volume over time, which is ultimately the quantity that we want to minimse. Other metrics which capture more specific feature of the tumour growth might be considered in the future, such as the derivative of tumour growth on the last simulated day to capture the patient's potential to go into CR. Results are shown in Fig.~\ref{fig:efast}. The total height of the bar represent the fraction of the variance that is imputable to the corresponding parameter. The first observation we can make is that model is mostly sensitive to $k_6$, $d_1$, $d_7$ and $s_2$. However, we can see that the main effect indices (in blue) are almost always negligible compared to the interaction indices (orange). According to a study by Vazquez-Cruz et al. (2012), this is a typical sign of non-identifiability \cite{tomgro} that will significantly hinder Bayesian inference. Additionally, results indicate that the treatment characteristics (labelled \verb+tem+, \verb+td+ and \verb+ti+) have almost no impact on the treatment outcome, which is conflicting with the results experimentally obtained in the CBD-IL-12 study \cite{cbdil12}. 
+The very first aspect of Miyano's model that we wanted to verify was its ability to capture two specific treatment outcome: CR vs non-CR. As these behaviours can essentially be characterised by the fixed-points of the model (if the steady-state behaviour of the model converges to high values of tumour volume, it is a non-CR behaviour, and vice-versa. See definition in Section~\ref{sec:specs}). We opted for a grid-search stability analysis, meaning that we sample reguarly-spaced points in parameter space and classify them as either CR or non-CR. Fig.~\ref{fig:mcsa} shows the resuls of this analysis, where each axis of the cube corresponds to the value of a $k_6$, $s_2$ or $d_1$ respectively. A can be seen, there seem the be a clear boundary between the two response modes, with very little ``mixing''. This suggests that it would be possible to predict how a given patient would respond to the treatment, by knowning on which side of the boundary he is.
 
 \begin{figure}[!ht]
-    \centering\includegraphics[scale=0.4]{Images/batch2/eFAST_old.png}
-    \caption{Results of the eFAST sensitivity analysis on the initial model}
+    \centering\includegraphics[scale=0.5]{stability.png}
+    \caption{Stability analysis shows that there is a clear boundary in parameter space between CR and non-CR}
+    \label{fig:mcsa}
+\end{figure}
+
+\subsubsection{Sensitivity Analysis}
+In order to restrict the parameter space for subsequent analysis, and also to understand to main mechanisms behind the immune response, we performed a eFAST sensitivity analysis, which is a variance decomposition method. As it can only decompose variance of a scalar metric, it does not natively support time-series. Hence we chose to apply it to the integral of the tumour growth curve simulated by Miyano's model. This metric simply reflects the cumulative tumour volume over time, which is ultimately the quantity that we want to minimse. Other metrics which capture more specific feature of the tumour growth might be considered in the future, such as the derivative of tumour growth on the last simulated day to capture the patient's potential to go into CR. Results are shown in Fig.~\ref{fig:efast}. The total height of the bar represent the fraction of the variance that is imputable to the corresponding parameter. The first observation we can make is that model is mostly sensitive to $k_6$, $d_1$, $d_7$ and $s_2$. However, we can see that the main effect indices (in blue) are almost always negligible compared to the interaction indices (orange). According to a study by Vazquez-Cruz et al. (2012), this is a typical sign of non-identifiability \cite{tomgro} that will significantly hinder Bayesian inference. Additionally, results indicate that the treatment characteristics (labelled \verb+t_d+, \verb+t_delay+ and \verb+t_last+) have almost no impact on the treatment outcome, which is conflicting with the results experimentally obtained in the CBD-IL-12 study \cite{cbdil12}. Hence we suspect that the current model does not correctly model the immune response mechanisms. 
+
+\begin{figure}[!ht]
+    \centering\includegraphics[scale=0.07]{proutiprouta.png}
+    \caption{eFAST sensitivity analysis on Miyano's model shows that $k_6$ is the most influencial parameter by far, followed by $d_1$, $d_7$ and $s_2$. This is conflicting with findings from Ishihara group}
     \label{fig:efast}
 \end{figure}
 
@@ -356,17 +365,18 @@ Additionally, each dataset contains 10 time series. Fig.~\ref{fig:fd_1} plots th
 \end{figure}
 
 \textit{Results}\\[5pt] 
-Before checking if the estimated values match the true ones, we first assess convergence of the MCMC chains. Th $\hat{R}$ values (see Section~\ref{sec:eval}) are reported in Table.~\ref{tbl:rhat_2} as the average $\hat{R}$ value accross the 3 parameters. It must be noted that in this case, for a given inference, some chains get trapped while some are well-mixed (clearly visible by visual inspection). In that case, the $\hat{R}$ calculation excludes the trapped chains. This is indicated in the Tables by reporting the number of chains used to calculate $\hat{R}$ (out of the 5 chains). If none of the chain converged, we simply report N/A.
+Before checking if the estimated values match the true ones, we first assess convergence of the MCMC chains. Th $\hat{R}$ values (see Section~\ref{sec:eval}) are reported in Table.~\ref{tbl:rhat_2} as the average $\hat{R}$ value accross the 3 parameters. It must be noted that often, out of the 5 chains per inference, some chains  get trapped (assessed by visual inspection). In that case, they are excluded from the $\hat{R}$ calculation, and this is reported in the ``Number of Chains'' column. If all chains are exlcuded, meaning that none of them converged, we simply report N/A.
+
 \begin{table}[!h]
     \centering
     \caption{Assessement of convergence for the MCMC chains for uninformative priors (3 free parameters)}
     \begin{tabular}{c|c||c|c|c}
         \hline
         Data set & Pooling Type & $\hat{R}$ diagnostic & Number of Chains & Convergence  \\ \hline 
-        \multirow{2}{*}{A}      & None  & 116.08 & N/A & No \\
+        \multirow{2}{*}{A}      & None     & 116.08 & N/A & No \\
                                 & Complete & 298.67 & N/A & No \\ \hline 
-        \multirow{2}{*}{B}      & None  & 1.092 & 3/5 & Close to \\
-                                & Complete & 3.11 & N/A & No \\ \hline 
+        \multirow{2}{*}{B}      & None     & 1.092  & 3/5 & No \\
+                                & Complete & 3.11   & N/A & No \\ \hline 
     \end{tabular}
     \label{tbl:rhat_2}
 \end{table}
@@ -385,7 +395,7 @@ where $\theta_x$ represent the true value of parameter $x$. Convergence of this 
         Data set & Pooling Type & $\hat{R}$ diagnostic & Number of Chains & Convergence  \\ \hline 
         \multirow{2}{*}{A}      & None  & 18.15 & N/A & No \\
                                 & Complete & 45.96 & N/A & No \\ \hline 
-        \multirow{2}{*}{B}      & None  & 1.505 & 3/5 & Close to \\
+        \multirow{2}{*}{B}      & None  & 1.505 & 3/5 & No \\
                                 & Complete & 1.014 & 2/5 & Yes \\ \hline 
     \end{tabular}
     \label{tbl:rhat_3}
@@ -408,7 +418,7 @@ Convergence results are shown in Table.~\ref{tbl:rhat_4}. The main result is tha
         \multirow{2}{*}{A}      & None     & 7.387 & N/A & No \\
                                 & Complete & 39.17 & N/A & No \\ \hline 
         \multirow{2}{*}{B}      & None     & 1.066 & 3/5 & Yes \\
-                                & Complete & 1.111 & 5/5 & Close to \\ \hline 
+                                & Complete & 1.111 & 5/5 & No \\ \hline 
     \end{tabular}
     \label{tbl:rhat_4}
 \end{table}
