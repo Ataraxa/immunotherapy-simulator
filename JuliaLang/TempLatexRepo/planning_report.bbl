@@ -128,16 +128,17 @@ A.~van Elsas, A.~A. Hurwitz, and J.P. Allison.
   subcutaneous and metastatic tumors accompanied by autoimmune depigmentation.
 \newblock {\em J Exp Med}, 190:355--366, 1999.
 
-\bibitem{cbdil12}
-A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
-\newblock Collagen-binding il-12 enhances tumour inflammation and drives the
-  complete remission of established immunologically cold mouse tumours.
-\newblock {\em Nature Biomedical Engineering}, 4:531--543, 2020.
+\bibitem{cancMetric}
+N.F. Aykan and T.~Özatlı.
+\newblock Objective response rate assessment in oncology: Current situation and
+  future expectations.
+\newblock {\em World J Clin Oncol}, 11(2), 2020.
 
-\bibitem{collagenInCancer}
-Shuaishuai Xu, Huaxiang Xu, Wenquan Wang, et~al.
-\newblock The role of collagen in cancer: from bench to bedside.
-\newblock {\em J Trans Med}, 17(309), 2019.
+\bibitem{CRDef}
+L.C Villaruz and M.A. Socinski.
+\newblock The clinical viewpoint: definitions, limitations of recist, practical
+  considerations of measurement.
+\newblock {\em Clin Cancer Res}, 19(10), 2013.
 
 \bibitem{takuya}
 Takuya Miyano.
@@ -152,10 +153,27 @@ Christian Hines.
 Christian Hines.
 \newblock Positive feedback between {IL-12} and {IFN}g, 2022.
 
+\bibitem{cbdil12}
+A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
+\newblock Collagen-binding il-12 enhances tumour inflammation and drives the
+  complete remission of established immunologically cold mouse tumours.
+\newblock {\em Nature Biomedical Engineering}, 4:531--543, 2020.
+
+\bibitem{collagenInCancer}
+Shuaishuai Xu, Huaxiang Xu, Wenquan Wang, et~al.
+\newblock The role of collagen in cancer: from bench to bedside.
+\newblock {\em J Trans Med}, 17(309), 2019.
+
 \bibitem{Davidian2011}
 Marie Davidian.
 \newblock {\em Nonlinear Mixed Effects Models}, pages 947--950.
 \newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2011.
+
+\bibitem{SAEM}
+Emmanuelle Comets, Audrey Lavenu, and Marc Lavielle.
+\newblock Parameter estimation in nonlinear mixed effect models using saemix,
+  an {R} implementation of the {SAEM} algorithm.
+\newblock {\em Journal of Statistical Software}, 80(3), 2017.
 
 \bibitem{liu_wang}
 Baisen Liu, Liangliang Wang, and Jiguo Cao.
@@ -168,12 +186,6 @@ Sophie Donnet and Adeline Samson.
 \newblock A review on estimation of stochastic differential equations for
   pharmacokinetic/pharmacodynamic models.
 \newblock {\em Advanced Drug Delivery Review}, 65, 2013.
-
-\bibitem{SAEM}
-Emmanuelle Comets, Audrey Lavenu, and Marc Lavielle.
-\newblock Parameter estimation in nonlinear mixed effect models using saemix,
-  an {R} implementation of the {SAEM} algorithm.
-\newblock {\em Journal of Statistical Software}, 80(3), 2017.
 
 \bibitem{foce}
 Mary~J. Lindstrom and Douglas~M. Bates.
@@ -233,6 +245,11 @@ G.F. Fussmann, Ellner S.P., K.W. Shertze, and N.G. Hairston~Jr.
 \bibitem{gelman2020bayesian}
 Andrew Gelman et~al.
 \newblock {Bayesian Workflow}, 2020.
+
+\bibitem{moins2023use}
+Théo Moins, Julyan Arbel, Anne Dutfoy, and Stéphane Girard.
+\newblock On the use of a local $\hat{R}$ to improve mcmc convergence
+  diagnostic, 2023.
 
 \bibitem{rhat}
 Stephen~P. Brooks and Andrew Gelman.
