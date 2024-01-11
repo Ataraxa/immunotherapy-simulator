@@ -1,10 +1,8 @@
 \contentsline {section}{\numberline {1}Background}{2}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Cancer Immunotherapies}{2}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Complete Response}{3}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}A novel immunotherapy: CBD-IL-12}{3}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Experimental Data for CBD-IL-12}{3}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Previous Work on Computational Modelling}{3}{subsection.1.5}%
-\contentsline {section}{\numberline {2}Aims and Objectives}{5}{section.2}%
+\contentsline {subsection}{\numberline {1.2}A novel immunotherapy: CBD-IL-12}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Data Analysis with the Aid of Computational Modelling}{3}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Aims and Objectives}{4}{section.2}%
 \contentsline {section}{\numberline {3}Ethical Analysis}{5}{section.3}%
 \contentsline {section}{\numberline {4}Literature Review on Parameter Estimation}{5}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Definition and Notation}{5}{subsection.4.1}%
@@ -12,19 +10,19 @@
 \contentsline {subsection}{\numberline {4.3}Hierarchical Modelling}{6}{subsection.4.3}%
 \contentsline {subsubsection}{\numberline {4.3.1}Hierarchical Priors and Hyperpriors}{7}{subsubsection.4.3.1}%
 \contentsline {subsubsection}{\numberline {4.3.2}Likelihood function}{7}{subsubsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.4}Reduction of the Computational Burden}{8}{subsection.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.1}Sensitivity Analysis}{8}{subsubsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4}Reduction of the Computational Burden}{7}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Sensitivity Analysis}{7}{subsubsection.4.4.1}%
 \contentsline {subsubsection}{\numberline {4.4.2}High-performance Computational Methods}{8}{subsubsection.4.4.2}%
 \contentsline {subsubsection}{\numberline {4.4.3}Transforms}{8}{subsubsection.4.4.3}%
 \contentsline {section}{\numberline {5}Risk Register}{8}{section.5}%
-\contentsline {section}{\numberline {6}Evaluation}{9}{section.6}%
-\contentsline {section}{\numberline {7}Preliminary Results}{10}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Numerical Analysis}{10}{subsection.7.1}%
-\contentsline {subsubsection}{\numberline {7.1.1}Numerical Stability Analysis}{10}{subsubsection.7.1.1}%
+\contentsline {section}{\numberline {6}Evaluation}{8}{section.6}%
+\contentsline {section}{\numberline {7}Preliminary Results}{9}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Numerical Analysis}{9}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Numerical Stability Analysis}{9}{subsubsection.7.1.1}%
 \contentsline {subsubsection}{\numberline {7.1.2}Sensitivity Analysis}{10}{subsubsection.7.1.2}%
-\contentsline {subsection}{\numberline {7.2}Bayesian Model Validation}{11}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.2}Bayesian Model Validation}{10}{subsection.7.2}%
 \contentsline {subsubsection}{\numberline {7.2.1}Prior Predictive Check}{11}{subsubsection.7.2.1}%
 \contentsline {subsubsection}{\numberline {7.2.2}Fake Data Check}{12}{subsubsection.7.2.2}%
-\contentsline {section}{\numberline {8}Implementation Plan}{15}{section.8}%
+\contentsline {section}{\numberline {8}Implementation Plan}{14}{section.8}%
 \contentsline {section}{\numberline {A}Parameters of the Computational Model}{16}{appendix.A}%
 \contentsline {section}{References}{17}{table.caption.13}%

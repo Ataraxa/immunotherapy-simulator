@@ -32,7 +32,7 @@
         \HRule \\[0.4cm]
     { \LARGE \bfseries Bayesian Modelling to Characterise the Responder Profile to a  Novel Cancer Immunotherapy\\[0.55cm] }
     { \large Supervisors: Professor Reiko Tanaka, Dr Tara Hameed} \\
-    v2.2
+    v2.3
     \\[0.4cm]
     \HRule \\[0.5cm]
     { \large Alexandre Yann Péré \\[0.1cm]
@@ -64,32 +64,33 @@
 % Questions/comment: 
 % - Should include "optimisation of treament for CR" in aims?
 \subsection{Cancer Immunotherapies}
-Cancer is a large class of diseases that is the second leading cause of death in the United-States \cite{nchs}. While the immune system has the potential to target and eliminate cancer cells, cancer often finds ways to evade these natural defenses \cite{EvasionMech}. Traditional methods, such as chemotherapy or surgery, rely on using destructive external agents to kill the cancerous cells. However, introducing foreign agents in the body often results in heavy side effects \cite{oncologyTreatRev}. This prompted the development of immunotherapies, a type of treatment aimed at countering cancer's ability to escape immune detection, which thus has the potential to be less toxic. Several viable strategies exist for immunotherapy \cite{ReviewCPI}. We will first review the general principles behind these stratgeies.
+Cancer is a large class of diseases that is the second leading cause of death in the United-States \cite{nchs}. While the immune system has the potential to target and eliminate cancer cells, cancer often finds ways to evade these natural defenses \cite{EvasionMech}. Traditional methods, such as chemotherapy or surgery, rely on using destructive external agents to kill the cancerous cells. However, introducing foreign agents in the body often results in heavy side effects \cite{oncologyTreatRev}. This prompted the development of immunotherapies, a type of treatment aimed at countering cancer's ability to escape immune detection, which thus has the potential to be less toxic. Several viable strategies exist for immunotherapy \cite{ReviewCPI}. We will first review a specific strategy, cytokine-based therapies, as this will enable us to introduce the CBD-IL-12 treatment in the next section, which is the main focus of the project.
 
-\textit{Cytokine-based Therapies}\\[3pt]
-Cytokine-based therapies rely on the injection of specific cytokines (small proteins that act as signalling molecules during the immune response) to control tumour growth \cite{ioDef}. One of the most promising cytokine thus far is the interleukin-12 (IL-12), that was shown to have potent antitumour effects \cite{il12IsCool}. While it does not directly affect tumour cells, it mediates the production of other molecules or cells that have a more direct effect \cite{il12CytokineStorm}. First of all, it activates the production of tumour-infiltrating cytotoxic cells, mainly CD8$^+$~\cite{cd8FirstWay}. These are a type of T-lymphocytes whose main function is to carry out cytotoxic activity (i.e. killing the malignant cells) after detecting tumoural antigen~\cite{cd8Effects}. Secondly, they induce production of another type of cytokine, called interferon-$\gamma$ (IFN$\gamma$) \cite{ifnIL12}. IFN$\gamma$ in turn affects the tumour microenvironment by stimulating production of cytotoxic cells \cite{ifngNKProd}, reducing angiogenesis \cite{ifngAngiogenesis} and upregulating antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}. Lastly, IL-12 facilitates T-cell proliferation (including CD8$^+$) by reducing negative regulatory pathways that lead to immunosuppression \cite{reducImmunoSuppression}. It does so by inhibiting the effect of immune checkpoint Programmed Death 1 (PD1), following a similar strategy to checkpoint inhibitor (CPI) treatments. While these three pathways indicate that IL-12 has a very robust antitumour effect, clinical studies demonstrated that systemic injection of IL-12 is exceedingly toxic as it triggers a large immune response throughout the whole body \cite{clintriAC1}\cite{clintriAC2}. These severe treatment-related adverse effects (TRAEs) dampened research about IL-12, waiting for a safer, more localised delivery method to be found.\\[12pt]
-%
-\noindent\textit{Immune Checkpoint Inhibitors}\\[3pt]
-The usual partner of cytokine-based treatments are checkpoint inhibitors. To understand checkpoint inhibition, we must first review in more detail the negative regulatory pathways of CD8$^+$ T-cells activity. The most potent pathway involves checkpoint molecules, either Cytotoxic T-lymphocyte antigen 4 (CTLA4) or programmed cell death 1 (PD1) \cite{cpiProof}. Both molecules are membrane protein receptors that act with some delay to exhaust and deactivate T-cell functions after they are stimulated by antigen-presenting cells (APC). Both CTLA4 and PD1 function in similar ways, the main difference being the type of tissues they affect \cite{PDvsCTLA}. Although their original function was shown to be prevention of autoimmunity \cite{PD1Autoimmune}, they lead to immunosuppression in the presence of tumours. The idea behind CPI treatments is to inhibit these regulators to shift the tumour microenvironment away from immunosuppression. Clinical trials demonstrated positive results in several types of cancers , but performed poorly against immunologically cold tumours, i.e. tumour that do not normally elicit a strong immune response (they escape the immune system very effectively), such as melanoma \cite{antiCTLA4Mel}.
-
-\subsection{Complete Response}
-To measure treatment efficacy on cancer, a common metric is the complete response (CR) rate among patients \cite{cancMetric}. CR corresponds to the disappearance of all known lesions \cite{CRDef} in the long run (steady-state).
-
+Cytokine-based therapies rely on the injection of specific cytokines (small proteins that act as signalling molecules during the immune response) to control tumour growth \cite{ioDef}. One of the most promising cytokine thus far is the interleukin-12 (IL-12), that was shown to have potent antitumour effects \cite{il12IsCool}. While it does not directly affect tumour cells, it mediates the production of other molecules or cells that have a more direct effect \cite{il12CytokineStorm}.
+\begin{enumerate}
+    \item First of all, it activates the production of tumour-infiltrating cytotoxic cells, mainly CD8$^+$~\cite{cd8FirstWay}. These are a type of T-lymphocytes whose main function is to carry out cytotoxic activity (i.e. killing the malignant cells) after detecting tumoural antigen~\cite{cd8Effects}. 
+    \item Secondly, they induce production of another type of cytokine, called interferon-$\gamma$ (IFN$\gamma$) \cite{ifnIL12}. IFN$\gamma$ in turn affects the tumour microenvironment by stimulating production of cytotoxic cells \cite{ifngNKProd}, reducing angiogenesis \cite{ifngAngiogenesis} and upregulating antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}. It was also discovered by Wang et al., 2000 [cite], that IFN$\gamma$ also in turn increases production of IL-12. This positive feedback loop is called IFN$\gamma$ priming ([cite Liu 2003][cite Ma et al, 2015]).
+    \item Lastly, IL-12 facilitates T-cell proliferation (including CD8$^+$) by reducing negative regulatory pathways that lead to immunosuppression \cite{reducImmunoSuppression}.
+\end{enumerate}
+While these three pathways indicate that IL-12 has a very robust antitumour effect, clinical studies demonstrated that systemic injection of IL-12 is exceedingly toxic as it triggers a large immune response throughout the whole body \cite{clintriAC1}\cite{clintriAC2}. These severe treatment-related adverse effects dampened research about IL-12, waiting for a safer, more localised delivery method to be found.
 \subsection{A novel immunotherapy: CBD-IL-12}
-Recent endeavours in this field of immunotherapies led to the development by Ishihara group at Imperial College in 2019 \cite{cbdil12} of a new molecule, CBD-IL-12, that demonstrated promising results to treat melanoma. The CBD-IL-12  molecule consists of a collagen-binding protein (or collagen-binding domain, CBD) that is fused onto a IL-12 cytokine. The modified interleukin hence mainly accumulates in collagen-rich regions. As collagen is the main component of cancerous microenvironment \cite{collagenInCancer}, this effectively results in an enhanced delivery method that can achieve high concentration of IL-12 specifically in cancerous microenvironments. In mice tumour-models, this novel molecule achieved a CR rate of up to 67\% ($n=15$) for melanoma, and 87\% ($n=15$) for breast cancer when combined with CPI drugs (a mix of both anti-PD1 and anti-CTLA4). While these results are encouraging, the study showed that such high CR-rates could only be achieved in very specific settings (such as a tumour volume of 60mm$^3$ upon injection). Different settings (e.g. volume of 120mm$^3$) elicited little to no response. This heterogeneity of treatment outcome could not be explained by the authors.
+Recent endeavours in this field of immunotherapies led to the development by Ishihara group at Imperial College in 2019 \cite{cbdil12} of a new molecule, CBD-IL-12, that demonstrated promising results to treat melanoma. We first review how CBD-IL-12 works, and then we detail the experimental results obtained by the lab. 
 
-In order to improve the efficacy of CBD-IL-12-based treaments, the first step is thus to identify biological factors involved in the immune response that determine treatment outcome (CR vs non-CR), along with their critical value that lead to a bifurcation. This would enable us to characterise the responder profile to the treatment.
+The CBD-IL-12  molecule consists of a collagen-binding protein (or collagen-binding domain, CBD) that is fused onto a IL-12 cytokine. The modified interleukin hence mainly accumulates in collagen-rich regions. As collagen is the main component of cancerous microenvironment \cite{collagenInCancer}, this effectively results in an enhanced delivery method that can achieve high concentration of IL-12 specifically in cancerous microenvironments, which helps decreasing the toxicity of the treatment.
 
-\subsection{Experimental Data for CBD-IL-12}
-Experimental data from Ishihara group \cite{cbdil12} shows an heterogeneity of outcome, i.e. some mice exhibit CR while some do not. This is illustrated in Fig.~\ref{fig:outcomedual} for the specific protocol of injecting the treatment on day 7. Similar patterns were observed for all injection protocols.
+To measure treatment efficacy on cancer, a common metric is the complete response (CR) rate among patients \cite{cancMetric}. CR corresponds to the disappearance of all known lesions \cite{CRDef} in the long run (steady-state). Since the optimal delivery method for CBD-IL-12 is not known, the authors measured the CR-rate in various settings: injection on day 7, or on day 9, in combination with other drugs or not, etc. For this project, we focus on the specific case of CBD-IL-12 monotherapy (no other drugs are being used) injected on day 7, since this is the setting for which we have the most comprehensive set of data. For this treatment protocol, nine mice were inoculated a skin tumour on day 0. Tumour volume was then recorded at specific time points until day 27. Fig.~\ref{fig:outcomedual} plots these tumour volume evolution for each individual mouse. Tumour is successfully inhibited in all mice at different rates, up to day 20. At this point, two mice exhibited a resurgence of tumour growth, while for the remaining ones the tumour stayed inhibited (below 1mm$^3$) until the end of the experiments (day 27). We can conclude that, for this period of time at least, seven out of the nine mice experienced CR, resulting in a CR-rate of 77\%.
+
 \begin{figure}[!ht]
-    \centering\includegraphics[scale=0.4]{crnoncr2.png}
+    \centering\includegraphics[scale=0.3]{crnoncr2.png}
     \caption{Evolution of tumour volume over time for a batch of mice shows that they present two distinct behavours: CR or non-CR (each trace is an individual mouse)}
     \label{fig:outcomedual}
 \end{figure}
-\subsection{Previous Work on Computational Modelling}\label{ssec:prevWork}
 
-To have a better understanding of the immune response to CBD-IL-12, Dr Miyano, a previous  \cite{takuya}, proposed to use a computational modelling approach. Computational models are common in pharmacodynamics as they can be analysed with mathematical tools, potentially revealing key mechanisms to optimise the treatment. He developped an initial mechanistic model based on Delay-Differential Equations (DDEs), parameterised by 21 parameters representing various relevant biological factors of a given mouse, such as the tumour growth rate or the degradation rate of IFN$\gamma$ \cite{takuya}: 
+This heterogeneity of response (CR vs non-CR) could not be explained by the authors, and highlights the need to further analyse available data in order to identify the key biological parameters that can help differentiate the diverging responses.
+
+\subsection{Data Analysis with the Aid of Computational Modelling}\label{ssec:prevWork}
+
+To have a better understanding of the immune response to CBD-IL-12, Dr Miyano, a previous member of the Tanaka group \cite{takuya}, proposed to use a computational modelling approach. Computational models are common in pharmacodynamics as they can be analysed with mathematical tools, potentially revealing key mechanisms to optimise the treatment. He developped an initial mechanistic model based on Delay-Differential Equations (DDEs), parameterised by 21 parameters representing various relevant biological factors of a given mouse, such as the tumour growth rate or the degradation rate of IFN$\gamma$ \cite{takuya}: 
 \begin{align*}
     \dot{g}(t) &= k_1 + k_2 [d_{CBD}(t) + d_{12}(t)] - d_1g(t) \\ 
     \dot{c}(t,t-t_d) &= k_3 + k_4g(t-t_d)-d_2c(t) \\ 
@@ -97,19 +98,17 @@ To have a better understanding of the immune response to CBD-IL-12, Dr Miyano, a
     \dot{v}_l(t) &= k_6\left[1 - \frac{v(t)}{v_{max}} \right]v_l(t) - \left[d_5 + \frac{\frac{d_6c(t)}{1+s_1p(t)(1-d_{CPI}(t))}+d_7g(t)}{1+s_2v(t)}\right]v_l(t)\\
     \dot{v}_d(t) &= \left[d_5 + \frac{\frac{d_6c(t)}{1+s_1p(t)(1-d_{CPI}(t))}+d_7g(t)}{1+s_2v(t)}\right]v_l(t) - d_8 v_d(t)
 \end{align*}
-The five state variables ($g$, $c$, $p$, $v_l$ and $v_d$) are concentration of IFN$\gamma$, of CD8$^+$ and of PD1 along with volume of living and dead tumour, respectively. This was motivated by the fact that these are the key players in the immune response, as explained above. The meaning of each parameter is reported in the Appendix.
+The five state variables ($g$, $c$, $p$, $v_l$ and $v_d$) are concentration of IFN$\gamma$, of CD8$^+$ and of PD1 along with volume of living and dead tumour, respectively. This was motivated by the fact that these are the key players in the immune response, as explained above. The meaning of each parameter is reported in the Appendix~\ref{app}.
 
-The model was investigated by Hines, who found that the model could effectively reproduce the data, however it was not sufficient to explain outcome heterogeneity. He hypothesised that the model does not capture all the immune pathways (especially lacking an IL-12 positive feedback loop), and that the biological factors parameterising the DDE model might be bimodally distributed to account for the dual outcome (CR vs non-CR). 
+The parameters of this mechanistic model all represent biological factors that could potentially be responsible for the diverging treatment outcomes. However, these parameters are kinetic rates that cannot be measured experimentally: they can only be estimated from observable data, i.e. tumour volume. This process, called parameter estimation, was investigated and applied to the mechanistic model by Hines, another previous member of the Tanaka group. However, naive parameter estimation can only work to extract parameter from one single time series, and hence cannot be directly applied to the collection of times series obtained by the lab. Hines' approach was to fit the average curve [add figure] to the mechanistic model. This resulted in a set of parameters that can explain (i.e., reproduce) this average behaviour. However, Hines concluded in his report that this set of parameter was not sufficient to help differentiating the different drug responses, as it can only reproduce an average curve that in essence represents neither a CR outcome nor a non-CR outcome.
 
-However, to verify these hypothesises, two issues must be overcome. The first issue is that these parameters are kinetic rates that cannot be measured experimentally. We thus have to estimate them solely from the measurable data (i.e., tumour volume). This process is called parameter estimation. The other challenge is that the data collected concerns multiple mice drawn from the same population. There is hence some shared information between the mice, as well as some variability between that explain the range of output obtained in the lab. Nonlinear mixed-effects models \cite{Davidian2011} are a standard method to analyse population dataset with both shared information (called fixed-effects) and individual variability (called random-effects).
-
-
-% The model was investigated by C. Hines, who showed that the model could successfuly reproduce experimental data of \cite{cbdil12} by using a Genetic Algorithm for parameter fitting \cite{christian1}. However, C. Hines also demonstrated in a subsequent analysis that the model, due to design choices, bears difference with findings from the biologists in two ways. A positive feedback loop, where IL-12-induced IFN$\gamma$ in turn produces IL-12, is missing from the model \cite{christian2}. Additionally, C. Hines showed that the model outcome does not depend much on the initial tumour volume and treatment characteristics (day of injection, number of doses, etc.)\cite{christian1}, which is opposite to results reported in \cite{cbdil12}. Rather, he found that the model depends almost exclusively on parameter $k_6$, $d_1$ and $s_2$ (which respectively corresponds to proliferation rate of tumour; degradation rate of IFN$\gamma$ and tumour-induced immunosuppression strength). Finally, to explain the outcome heterogeneity of treatments (CR vs non-CR), C. Hines proposed the hypothesis, which we will verify, that the parameters must be bimodally distributed.
+Hines' conclusion motivates to use alternative parameter estimation methods that could help us identify the key biological factors that differentiate between CR and non-CR. To this end, we first note that there is some shared information between the mice, since they are all sampled from the same population, as well as some variability between that explain the range of output obtained in the lab. Nonlinear mixed-effects models \cite{Davidian2011} are a standard method to analyse population dataset with both shared information (called fixed-effects) and individual variability (called random-effects). This is further detailed in Section~\ref{sec:littrev}.
 
 \section{Aims and Objectives}
-\noindent The aim of this project is to improve our understanding of the immune mechanisms behind the CBD-IL-12 immunotherapy, ultimately to characterise the responder profile for the treatment.\\[8pt]
-\textbf{Objective 1:} develop a computational mixed-effect model that can reproduce the experimental data while including all the important pathways of the immune response.\\ 
-\textbf{Objective 2:} identify key biological factors in mice that determine the outcome of the treatment, along with the corresponding threshold that separates complete response (CR) from non-CR 
+\noindent The aim of this project is verify whether Takuya's mechanistic model can be extended to identify the biological factors that can differentiate between CR and non-CR.\\[8pt]
+\textbf{Objective 1:} develop a computational mixed-effect model that can reproduce the experimental data.\\ 
+\textbf{Objective 2:} compute the distributions of the model parameters and verify whether they are bimodally distributed.\\ 
+\textbf{Objective 3:} evaluate the impact of the IFN$\gamma$ priming pathway on the treatment outcome. 
 % \textbf{Objective 3:} associate key factors to potential biomarkers in mice\\ 
 % \textbf{Objective 3:} understand how the boundary between CR and non-CR depends on the treatment characteristics (number and frequency of doses, combination with other treaments, etc.)
 
@@ -250,7 +249,7 @@ Another finding from the study of predator-prey systems \cite{rosenbaum} is that
 % If genomic data is not available, means that we will have to collect it first. It is likely that the project will thus not be finishable, so will only be able to design computational/theoretical framework for biomarker identification without practical implementation.  
 
 \section{Risk Register}
-The main risks are : 
+The risks associated with the project along with a mitigation plan are described in Table~\ref{tbl:hyperparams}
 
 \begin{table}[!ht]
     \caption{Table of the different risks associated with the project's objectives}
@@ -296,7 +295,7 @@ The main risks are :
 % Where $m$ is the number of chains used to explore the posterior in parallel, $n$ is their length, $\hat{\sigma}^2_+$ is the variance of the chain with the highest variance, $\psi_{jt}$ is the value of the $j$-th chain at the $t$-th iteration, and $\bar{\psi}_j$ the mean value of the $j$-th chain. The authors additional highlight that a value close to 1 usually indicates convergence, usually the criterion is $\hat{R}<1.05$ for convergence.
 
 \textit{Objective 2: Responder Profile}\\[3pt]
-For objective 2, through the valiated basysian model we will (1) identify the paramaters that can differentiate responders from non-responders; (2) define the range of values of each of the  parameters to differentiate CR from partial responders and non responders.  An asparational outcome would be to idenfiy one or more biomarkers, e.g., PD-1, whose presense and/or its concentrations at given timepoints post intervention can reflect the responder profile parameters, hence has predictive value for future studies.
+For objective 2, through the validated bayesian model we will (1) identify the parameters that can differentiate responders from non-responders; (2) define the range of values of each of the parameters to differentiate CR from partial responders and non responders.  An asparational outcome would be to identify one or more biomarkers, e.g., PD-1, whose presence and/or its concentrations at given timepoints post intervention can reflect the responder profile parameters, hence has predictive value for future studies.
 
 \section{Preliminary Results}
 
@@ -438,10 +437,12 @@ Even with informative priors, the MCMC chains do not even converge. This suggest
 \clearpage
 \newpage
 \appendix
-\section{Parameters of the Computational Model}
+\section{Parameters of the Computational Model}\label{app}
 \begin{table}[!h]
     \centering
+    \caption{Parameters of Miyano's model along with their description}
     \begin{tabular}{c |l}
+        \hline 
         Parameter & Description \\ \hline
         $t_{delay}$ & time delay from injection timiring to deliver CBD-IL-12 to tumour \\ 
         $t_{last}$ & time duration of drug effects of CBD-IL-12 \\ 
@@ -462,7 +463,8 @@ Even with informative priors, the MCMC chains do not even converge. This suggest
         $d_6$ & elimination rate of living tumour via CD8$^+$ \\ 
         $d_7$ & elimination rate of living tumour via IFN$\gamma$ \\ 
         $d_8$ & elimination rate of dead tumour via turnover \\\hdashline
-        $s_1$ & inhibition strength of PD-1 on anti-tumour effects of CDB$^+$
+        $s_1$ & inhibition strength of PD-1 on anti-tumour effects of CDB$^+$ \\ 
+        $s_2$ & inhibition strength of tumour volume on antitumour effects of IFN$\gamma$ and CD8$^+$ cells \\ \hline
     \end{tabular}
 \end{table}
 
