@@ -39,6 +39,6 @@ for treatment in keys(processed)
     slice = processed[treatment]["vol"]
     slice = slice[:, vec(mapslices(col -> any(col .!= 0), slice, dims = 1))]
     slice = slice[vec(mapslices(col -> any(col .!= 0), slice, dims = 2)), :]    
-    display(plot(processed[treatment]["days"], slice'; title=treatment, legend=true))
+    display(plot(processed[treatment]["days"], slice'; legend=true, xlabel="Time (days)", ylabel="Tumour volume (mm³)"))
 end
 

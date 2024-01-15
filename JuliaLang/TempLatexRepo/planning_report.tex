@@ -39,7 +39,7 @@
     CID: 01938104  \\[0.1cm]
     \today \\ [0.1cm]
     \vspace{10pt}
-    Word Count: 4226}
+    Word Count: 4388ww}
     \end{center}
 \end{titlepage}
 
@@ -72,7 +72,22 @@ Cytokine-based therapies rely on the injection of specific cytokines (small prot
     \item Secondly, they induce production of another type of cytokine, called interferon-$\gamma$ (IFN$\gamma$) \cite{ifnIL12}. IFN$\gamma$ in turn affects the tumour microenvironment by stimulating production of cytotoxic cells \cite{ifngNKProd}, reducing angiogenesis \cite{ifngAngiogenesis} and upregulating antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}. It was also discovered by Wang et al., 2000 [cite], that IFN$\gamma$ also in turn increases production of IL-12. This positive feedback loop is called IFN$\gamma$ priming ([cite Liu 2003][cite Ma et al, 2015]).
     \item Lastly, IL-12 facilitates T-cell proliferation (including CD8$^+$) by reducing negative regulatory pathways that lead to immunosuppression \cite{reducImmunoSuppression}.
 \end{enumerate}
-While these three pathways indicate that IL-12 has a very robust antitumour effect, clinical studies demonstrated that systemic injection of IL-12 is exceedingly toxic as it triggers a large immune response throughout the whole body \cite{clintriAC1}\cite{clintriAC2}. These severe treatment-related adverse effects dampened research about IL-12, waiting for a safer, more localised delivery method to be found.
+While these three pathways, illustrated in Fig~\ref{fig:mech}, indicate that IL-12 has a very robust antitumour effect, clinical studies demonstrated that systemic injection of IL-12 is exceedingly toxic as it triggers a large immune response throughout the whole body \cite{clintriAC1}\cite{clintriAC2}. These severe treatment-related adverse effects dampened research about IL-12, waiting for a safer, more localised delivery method to be found.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{.49\textwidth}
+        \centering\includegraphics[scale=0.3]{immune_resp.png}
+        \caption{}        
+    \end{subfigure}
+    \begin{subfigure}{.49\textwidth}
+        \centering\includegraphics[scale=0.3]{control_process.png}    
+        \caption{}
+    \end{subfigure}
+    \caption{\textbf{(a)} Illustration of the action mechanisms of IL-12-based cytokine (such as CBD-IL-12). Processus included in the model are: (1) IL-12-induced production of IFN$\gamma$ by T-cells, (2) upregulation of CD8$^+$ T-cells proliferation by IL-12, (3) down-regulation of the PD-1 immunosuppressive pathway, (4) IFN$\gamma$-triggered production of IL-12 by dendritic cells, (5) reduced proliferation of tumour cells through suppressed angiogenesis and (6) CD8$^+$-mediated cytotoxic activity.\\
+    \textbf{(b)} ha}
+    \label{fig:mech}
+\end{figure}
 \subsection{A novel immunotherapy: CBD-IL-12}
 Recent endeavours in this field of immunotherapies led to the development by Ishihara group at Imperial College in 2019 \cite{cbdil12} of a new molecule, CBD-IL-12, that demonstrated promising results to treat melanoma. We first review how CBD-IL-12 works, and then we detail the experimental results obtained by the lab. 
 
@@ -98,11 +113,11 @@ To have a better understanding of the immune response to CBD-IL-12, Dr Miyano, a
     \dot{v}_l(t) &= k_6\left[1 - \frac{v(t)}{v_{max}} \right]v_l(t) - \left[d_5 + \frac{\frac{d_6c(t)}{1+s_1p(t)(1-d_{CPI}(t))}+d_7g(t)}{1+s_2v(t)}\right]v_l(t)\\
     \dot{v}_d(t) &= \left[d_5 + \frac{\frac{d_6c(t)}{1+s_1p(t)(1-d_{CPI}(t))}+d_7g(t)}{1+s_2v(t)}\right]v_l(t) - d_8 v_d(t)
 \end{align*}
-The five state variables ($g$, $c$, $p$, $v_l$ and $v_d$) are concentration of IFN$\gamma$, of CD8$^+$ and of PD1 along with volume of living and dead tumour, respectively. This was motivated by the fact that these are the key players in the immune response, as explained above. The meaning of each parameter is reported in the Appendix~\ref{app}.
+The five state variables ($g$, $c$, $p$, $v_l$ and $v_d$) are concentration of IFN$\gamma$, of CD8$^+$ and of PD1 along with volume of living and dead tumour, respectively. This was motivated by the fact that these are the key players in the immune response, as explained above. The meaning of each parameter is reported in the Appendix~\ref{app}. These equations are the mathematical formulation of the relations illustrated in Fig.~\ref{fig:cell}, except for the IFN$\gamma$ priming loop, which was not included in the initial mechanistic model.
 
 The parameters of this mechanistic model all represent biological factors that could potentially be responsible for the diverging treatment outcomes. However, these parameters are kinetic rates that cannot be measured experimentally: they can only be estimated from observable data, i.e. tumour volume. This process, called parameter estimation, was investigated and applied to the mechanistic model by Hines, another previous member of the Tanaka group. However, naive parameter estimation can only work to extract parameter from one single time series, and hence cannot be directly applied to the collection of times series obtained by the lab. Hines' approach was to fit the average curve [add figure] to the mechanistic model. This resulted in a set of parameters that can explain (i.e., reproduce) this average behaviour. However, Hines concluded in his report that this set of parameter was not sufficient to help differentiating the different drug responses, as it can only reproduce an average curve that in essence represents neither a CR outcome nor a non-CR outcome.
 
-Hines' conclusion motivates to use alternative parameter estimation methods that could help us identify the key biological factors that differentiate between CR and non-CR. To this end, we first note that there is some shared information between the mice, since they are all sampled from the same population, as well as some variability between that explain the range of output obtained in the lab. Nonlinear mixed-effects models \cite{Davidian2011} are a standard method to analyse population dataset with both shared information (called fixed-effects) and individual variability (called random-effects). This is further detailed in Section~\ref{sec:littrev}.
+Hines' conclusion motivates to use alternative parameter estimation methods that could help us identify the key biological factors that differentiate between CR and non-CR, by taking into account the whole dataset obtained in the lab. To this end, we first note that there is some shared information between the mice, since they are all sampled from the same population, as well as some variability between that explain the range of output obtained in the lab. Nonlinear mixed-effects models \cite{Davidian2011} are a standard method to analyse population dataset with both shared information (called fixed-effects) and individual variability (called random-effects). This is further detailed in Section~\ref{sec:littrev}.
 
 \section{Aims and Objectives}
 \noindent The aim of this project is verify whether Takuya's mechanistic model can be extended to identify the biological factors that can differentiate between CR and non-CR.\\[8pt]
@@ -295,12 +310,14 @@ The risks associated with the project along with a mitigation plan are described
 % Where $m$ is the number of chains used to explore the posterior in parallel, $n$ is their length, $\hat{\sigma}^2_+$ is the variance of the chain with the highest variance, $\psi_{jt}$ is the value of the $j$-th chain at the $t$-th iteration, and $\bar{\psi}_j$ the mean value of the $j$-th chain. The authors additional highlight that a value close to 1 usually indicates convergence, usually the criterion is $\hat{R}<1.05$ for convergence.
 
 \textit{Objective 2: Responder Profile}\\[3pt]
-For objective 2, through the validated bayesian model we will (1) identify the parameters that can differentiate responders from non-responders; (2) define the range of values of each of the parameters to differentiate CR from partial responders and non responders.  An asparational outcome would be to identify one or more biomarkers, e.g., PD-1, whose presence and/or its concentrations at given timepoints post intervention can reflect the responder profile parameters, hence has predictive value for future studies.
+For objective 2, through the validated bayesian model we will (1) identify the parameters that can differentiate responders from non-responders; (2) define the range of values of each of the parameters to differentiate CR from partial responders and non responders. To do so, we will compute the posterior distribution of the hypermean for two datasets: one with only CR data, and one with only non-CR data. If the mean of the posterior distributions are significantly different (they are not within the 95\% credible interval of each other), we can conclude that the Bayesian version of the mechanistic model can successfully help us differentiating between CR and non-CR by identifying the key biological factors. An asparational outcome would be to identify one or more biomarkers, e.g., PD-1, whose presence and/or its concentrations at given timepoints post intervention can reflect the responder profile parameters, hence has predictive value for future studies.
+
+\textit{Objective 3: Impact of IFN$\gamma$ priming}
+To evaluate the impact of the IFN$\gamma$ priming feedback loop, we will first modify the Bayesian model to include it. Once it has been validated following the same procedure as highlighted above, we will construct a new responder profile and compare it with the previously obtained profile (that does not include the feedback loop). If in each case different key parameters were identified, this means that IFN$\gamma$ cannot be neglected and needs to be included in the model.
 
 \section{Preliminary Results}
 
-\subsection{Numerical Analysis}
-\subsubsection{Numerical Stability Analysis}
+\subsection{Numerical Stability Analysis}
 
 The very first aspect of Miyano's model that we wanted to verify was its ability to capture two specific treatment outcome: CR vs non-CR. As these behaviours can essentially be characterised by the fixed-points of the model (if the steady-state behaviour of the model converges to high values of tumour volume, it is a non-CR behaviour, and vice-versa. See definition in Section~\ref{sec:specs}). We opted for a grid-search stability analysis, meaning that we sample reguarly-spaced points in parameter space and classify them as either CR or non-CR. Fig.~\ref{fig:mcsa} shows the resuls of this analysis, where each axis of the cube corresponds to the value of a $k_6$, $s_2$ or $d_1$ respectively. A can be seen, there seem the be a clear boundary between the two response modes, with very little ``mixing''. This suggests that it would be possible to predict how a given patient would respond to the treatment, by knowning on which side of the boundary he is.
 
@@ -310,7 +327,7 @@ The very first aspect of Miyano's model that we wanted to verify was its ability
     \label{fig:mcsa}
 \end{figure}
 
-\subsubsection{Sensitivity Analysis}
+\subsection{Sensitivity Analysis}
 In order to restrict the parameter space for subsequent analysis, and also to understand to main mechanisms behind the immune response, we performed a eFAST sensitivity analysis, which is a variance decomposition method. As it can only decompose variance of a scalar metric, it does not natively support time-series. Hence we chose to apply it to the integral of the tumour growth curve simulated by Miyano's model. This metric simply reflects the cumulative tumour volume over time, which is ultimately the quantity that we want to minimse. Other metrics which capture more specific feature of the tumour growth might be considered in the future, such as the derivative of tumour growth on the last simulated day to capture the patient's potential to go into CR. Results are shown in Fig.~\ref{fig:efast}. The total height of the bar represent the fraction of the variance that is imputable to the corresponding parameter. The first observation we can make is that model is mostly sensitive to $k_6$, $d_1$, $d_7$ and $s_2$. However, we can see that the main effect indices (in blue, corresponding to the direct effect of the parameter on the model) are almost always negligible compared to the total-order indices (in orange, which considers both the direct impact as well as combined interaction with other parameters). According to a study by Vazquez-Cruz et al. (2012), this is a typical sign of non-identifiability \cite{tomgro} that will significantly hinder Bayesian inference. Additionally, results indicate that the treatment characteristics (labelled \verb+t_d+, \verb+t_delay+ and \verb+t_last+) have almost no impact on the treatment outcome, which is conflicting with the results experimentally obtained in the CBD-IL-12 study \cite{cbdil12}. Hence we suspect that the current model does not correctly model the immune response mechanisms. 
 
 \begin{figure}[!ht]

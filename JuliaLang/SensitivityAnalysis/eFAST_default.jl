@@ -4,6 +4,7 @@ using Distributions
 using Plots
 using StatsPlots: groupedbar
 using Match
+using Plots.PlotMeasures
 include("../Model/treatments_lib.jl")
 include("../Model/Differential/ode_core.jl")
 include("../Model/Differential/ode_params.jl")
@@ -40,6 +41,16 @@ function scalar_metric(num_approx, time_step, metric_type)
     return output
 end 
 
+function wrapper(param_vector)
+    new_p = param_vector[1:end-1] 
+    new_u0 = [0.0084; 9.56; 4.95; param_vector[end]; 0]
+
+    sim = solve(problem; p=new_p, u0=new_u0, saveat=0.1)
+    tumour = sim[4,:] + sim[5,:]
+
+    return sum(tumour .* 0.1)
+end
+
 # Lower and upper bounds of the solution 
 vector = [_p; _u0[4];]
 width_factor = 0.5
@@ -48,18 +59,27 @@ ub = (1+width_factor)*vector
 
 # Labels must be in same order as parameter vector
 labels = [
-    "tem", "td", "tₗ", "NA", "NA",
-    "k₁", "k₂", "k₃", "k₄", "k5", "k6",
+    "t_d", "t_delay", "t_last", "t_delay12", "t_last12",
+    "k1", "k2", "k3", "k4", "k5", "k6",
     "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8",
-    "s1", "s2", "vₗ₀"
+    "s1", "s2", "v0"
     ]
-res_sens = gsa(wrapped_response, eFAST(),[[lb[i], ub[i]] for i=1:np], samples=2_000)
+res_sens = gsa(wrapper, eFAST(),[[lb[i], ub[i]] for i=1:np], samples=2000)
 # print(size(res_sens.S1))
 # scatter(1:np, (res_sens.S1+res_sens.ST)'; ticks=(1:np,labels))
 # println("n₁ : S1=$(res_sens.S1[1, 23]) | ST=$(res_sens.ST[1, 23])")
 
-groupedbar([res_sens.S1; res_sens.ST]'; 
+groupedbar([res_sens.ST;res_sens.S1]'; 
     bar_position=:stack,
+    xrotation=90,
     xticks=(1:np,labels),
-    group=repeat(["First-Order", "Total-Order"], inner=np))
+    xlabel="Model Parameters",
+    bottom_margin=7mm,
+    dpi=1000,
+    group=repeat(["Total-Order","First-Order" ], inner=np)
+)
+
+savefig("proutiprouta.png")
+
+
 

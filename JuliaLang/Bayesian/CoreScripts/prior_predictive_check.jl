@@ -53,4 +53,4 @@ plot!(my_plot, 0:0.1:27.0, median.(eachcol(simul_matrix)))
 # plot!(my_plot, 0:0.1:27, exp.(data[1,:]))
 display(my_plot)
 
-savefig(my_plot, "prout.png")
+# savefig(my_plot, "prout.png")

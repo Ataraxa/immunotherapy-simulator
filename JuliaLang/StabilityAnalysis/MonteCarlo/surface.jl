@@ -36,6 +36,11 @@ function do_simulations(n_iters=1_000, θ=25)
                     push!(all_d1, d1)
                     push!(all_s2, s2)
                     push!(colours, :red)
+                else
+                    push!(all_k6, k6)
+                    push!(all_d1, d1)
+                    push!(all_s2, s2)
+                    push!(colours, :green)
                 end
             end
         end
@@ -44,6 +49,10 @@ function do_simulations(n_iters=1_000, θ=25)
     println(typeof(all_k6))
 
     layout = Layout(
+        font=attr( 
+            size =15
+        ),
+
         scene=attr(
             xaxis_type="log",
             yaxis_type="log",
@@ -52,9 +61,14 @@ function do_simulations(n_iters=1_000, θ=25)
             xaxis_title="k6",
             yaxis_title="d1",
             zaxis_title="s2",
-            )
+            
+            xaxis_tickvals=[0.1, 1,10,100],
+            yaxis_tickvals=[0.1, 1,10,100],
+            zaxis_tickvals=[0.01,0.1, 1,10,100],
+            ),
+        
         )
-    
+        
     return plot(scatter(
         x=all_k6,
         y=all_d1,
