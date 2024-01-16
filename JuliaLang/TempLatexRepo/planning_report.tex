@@ -32,14 +32,14 @@
         \HRule \\[0.4cm]
     { \LARGE \bfseries Bayesian Modelling to Characterise the Responder Profile to a  Novel Cancer Immunotherapy\\[0.55cm] }
     { \large Supervisors: Professor Reiko Tanaka, Dr Tara Hameed} \\
-    v2.3
+    v2.4.2
     \\[0.4cm]
     \HRule \\[0.5cm]
     { \large Alexandre Yann Péré \\[0.1cm]
     CID: 01938104  \\[0.1cm]
     \today \\ [0.1cm]
     \vspace{10pt}
-    Word Count: 4388ww}
+    Word Count: 4256}
     \end{center}
 \end{titlepage}
 
@@ -63,31 +63,18 @@
 
 % Questions/comment: 
 % - Should include "optimisation of treament for CR" in aims?
-\subsection{Cancer Immunotherapies}
+\subsection{Cancer Immunotherapies}\label{sec:cancer}
 Cancer is a large class of diseases that is the second leading cause of death in the United-States \cite{nchs}. While the immune system has the potential to target and eliminate cancer cells, cancer often finds ways to evade these natural defenses \cite{EvasionMech}. Traditional methods, such as chemotherapy or surgery, rely on using destructive external agents to kill the cancerous cells. However, introducing foreign agents in the body often results in heavy side effects \cite{oncologyTreatRev}. This prompted the development of immunotherapies, a type of treatment aimed at countering cancer's ability to escape immune detection, which thus has the potential to be less toxic. Several viable strategies exist for immunotherapy \cite{ReviewCPI}. We will first review a specific strategy, cytokine-based therapies, as this will enable us to introduce the CBD-IL-12 treatment in the next section, which is the main focus of the project.
 
-Cytokine-based therapies rely on the injection of specific cytokines (small proteins that act as signalling molecules during the immune response) to control tumour growth \cite{ioDef}. One of the most promising cytokine thus far is the interleukin-12 (IL-12), that was shown to have potent antitumour effects \cite{il12IsCool}. While it does not directly affect tumour cells, it mediates the production of other molecules or cells that have a more direct effect \cite{il12CytokineStorm}.
+Cytokine-based therapies rely on the injection of specific cytokines (small proteins that act as signalling molecules during the immune response) to control tumour growth \cite{ioDef}. One of the most promising cytokine thus far is the interleukin-12 (IL-12), that was shown to have potent antitumour effects \cite{il12IsCool}. While it does not directly affect tumour cells, it mediates the production of other molecules \cite{il12CytokineStorm}, especially the cytokine interferon-$\gamma$ (IFN$\gamma$). IFN$\gamma$ has four main effects:
 \begin{enumerate}
-    \item First of all, it activates the production of tumour-infiltrating cytotoxic cells, mainly CD8$^+$~\cite{cd8FirstWay}. These are a type of T-lymphocytes whose main function is to carry out cytotoxic activity (i.e. killing the malignant cells) after detecting tumoural antigen~\cite{cd8Effects}. 
-    \item Secondly, they induce production of another type of cytokine, called interferon-$\gamma$ (IFN$\gamma$) \cite{ifnIL12}. IFN$\gamma$ in turn affects the tumour microenvironment by stimulating production of cytotoxic cells \cite{ifngNKProd}, reducing angiogenesis \cite{ifngAngiogenesis} and upregulating antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}. It was also discovered by Wang et al., 2000 [cite], that IFN$\gamma$ also in turn increases production of IL-12. This positive feedback loop is called IFN$\gamma$ priming ([cite Liu 2003][cite Ma et al, 2015]).
-    \item Lastly, IL-12 facilitates T-cell proliferation (including CD8$^+$) by reducing negative regulatory pathways that lead to immunosuppression \cite{reducImmunoSuppression}.
+    \item First of all, it stimulates the production of tumour-infiltrating cytotoxic cells, mainly CD8$^+$~\cite{ifngNKProd}\cite{ifnCD8}. These are a type of T-lymphocytes whose main function is to carry out cytotoxic activity (i.e. killing the malignant cells) after detecting tumoural antigen~\cite{cd8Effects}.     
+    \item Besides stimulating production of T-cells, it facilitates their proliferation (including CD8$^+$) by reducing negative regulatory pathways that lead to immunosuppression \cite{reducImmunoSuppression}. This involves the reduction of PD-1 concentration in CD8$^+$ cells \cite{ifnPD1}, a membrane receptor that leads to apoptosis (programmed cell death).
+    \item It slows down tumour growth by reducing angiogenesis \cite{ifngAngiogenesis} and upregulating antigen-presenting pathways within tumour cells \cite{ifngAntigenExposure}.
+    \item It was also discovered by Wang et al., 2000 \cite{wang}, that IFN$\gamma$ also in turn increases production of IL-12. This positive feedback loop is called IFN$\gamma$ priming (\cite{liuifng}\cite{ma2015}).
 \end{enumerate}
-While these three pathways, illustrated in Fig~\ref{fig:mech}, indicate that IL-12 has a very robust antitumour effect, clinical studies demonstrated that systemic injection of IL-12 is exceedingly toxic as it triggers a large immune response throughout the whole body \cite{clintriAC1}\cite{clintriAC2}. These severe treatment-related adverse effects dampened research about IL-12, waiting for a safer, more localised delivery method to be found.
+While these four pathways, illustrated in Fig~\ref{fig:mech}.a, indicate that IL-12 has a very robust antitumour effect (though IFN$\gamma$), clinical studies demonstrated that systemic injection of IL-12 is exceedingly toxic as it triggers a large immune response throughout the whole body \cite{clintriAC1}\cite{clintriAC2}. These severe treatment-related adverse effects dampened research about IL-12, waiting for a safer, more localised delivery method to be found.
 
-\begin{figure}
-    \centering
-    \begin{subfigure}{.49\textwidth}
-        \centering\includegraphics[scale=0.3]{immune_resp.png}
-        \caption{}        
-    \end{subfigure}
-    \begin{subfigure}{.49\textwidth}
-        \centering\includegraphics[scale=0.3]{control_process.png}    
-        \caption{}
-    \end{subfigure}
-    \caption{\textbf{(a)} Illustration of the action mechanisms of IL-12-based cytokine (such as CBD-IL-12). Processus included in the model are: (1) IL-12-induced production of IFN$\gamma$ by T-cells, (2) upregulation of CD8$^+$ T-cells proliferation by IL-12, (3) down-regulation of the PD-1 immunosuppressive pathway, (4) IFN$\gamma$-triggered production of IL-12 by dendritic cells, (5) reduced proliferation of tumour cells through suppressed angiogenesis and (6) CD8$^+$-mediated cytotoxic activity.\\
-    \textbf{(b)} ha}
-    \label{fig:mech}
-\end{figure}
 \subsection{A novel immunotherapy: CBD-IL-12}
 Recent endeavours in this field of immunotherapies led to the development by Ishihara group at Imperial College in 2019 \cite{cbdil12} of a new molecule, CBD-IL-12, that demonstrated promising results to treat melanoma. We first review how CBD-IL-12 works, and then we detail the experimental results obtained by the lab. 
 
@@ -96,16 +83,33 @@ The CBD-IL-12  molecule consists of a collagen-binding protein (or collagen-bind
 To measure treatment efficacy on cancer, a common metric is the complete response (CR) rate among patients \cite{cancMetric}. CR corresponds to the disappearance of all known lesions \cite{CRDef} in the long run (steady-state). Since the optimal delivery method for CBD-IL-12 is not known, the authors measured the CR-rate in various settings: injection on day 7, or on day 9, in combination with other drugs or not, etc. For this project, we focus on the specific case of CBD-IL-12 monotherapy (no other drugs are being used) injected on day 7, since this is the setting for which we have the most comprehensive set of data. For this treatment protocol, nine mice were inoculated a skin tumour on day 0. Tumour volume was then recorded at specific time points until day 27. Fig.~\ref{fig:outcomedual} plots these tumour volume evolution for each individual mouse. Tumour is successfully inhibited in all mice at different rates, up to day 20. At this point, two mice exhibited a resurgence of tumour growth, while for the remaining ones the tumour stayed inhibited (below 1mm$^3$) until the end of the experiments (day 27). We can conclude that, for this period of time at least, seven out of the nine mice experienced CR, resulting in a CR-rate of 77\%.
 
 \begin{figure}[!ht]
-    \centering\includegraphics[scale=0.3]{crnoncr2.png}
+    \centering\includegraphics[scale=0.3]{crnoncr3.png}
     \caption{Evolution of tumour volume over time for a batch of mice shows that they present two distinct behavours: CR or non-CR (each trace is an individual mouse)}
     \label{fig:outcomedual}
 \end{figure}
 
-This heterogeneity of response (CR vs non-CR) could not be explained by the authors, and highlights the need to further analyse available data in order to identify the key biological parameters that can help differentiate the diverging responses.
+While these are promising results, the heterogeneity of response (CR vs non-CR) could not be explained by the authors, and highlights the need to further analyse available data in order to identify the key biological parameters that can help differentiate the diverging outcomes.
 
 \subsection{Data Analysis with the Aid of Computational Modelling}\label{ssec:prevWork}
 
-To have a better understanding of the immune response to CBD-IL-12, Dr Miyano, a previous member of the Tanaka group \cite{takuya}, proposed to use a computational modelling approach. Computational models are common in pharmacodynamics as they can be analysed with mathematical tools, potentially revealing key mechanisms to optimise the treatment. He developped an initial mechanistic model based on Delay-Differential Equations (DDEs), parameterised by 21 parameters representing various relevant biological factors of a given mouse, such as the tumour growth rate or the degradation rate of IFN$\gamma$ \cite{takuya}: 
+To have a better understanding of the immune response to CBD-IL-12, Dr Miyano, a previous member of the Tanaka group \cite{takuya}, proposed to use a computational modelling approach. Computational models are common in pharmacodynamics as they can be analysed with mathematical tools, potentially revealing key mechanisms to optimise the treatment without having to resort to extensive animal tests. He developped a mechanistic model (Fig.~\ref{fig:mech}b) based on our current model of the immune processes outlined in Section~\ref{sec:cancer} (see Fig.~\ref{fig:mech}a). This mechanistic model can predict tumour growth given a treatment, along with the concentration of IFN$\gamma$, CBD$^+$ and PD-1. The meaning of each model parameter is shown in Appendix~\ref{app}. 
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}{.49\textwidth}
+        \centering\includegraphics[scale=0.3]{finalBM.png}
+        \caption{}        
+    \end{subfigure}
+    \begin{subfigure}{.49\textwidth}
+        \centering\includegraphics[scale=0.3]{finalCP.png}    
+        \caption{}
+    \end{subfigure}
+    \caption{Mechanistic model of the IL-12-enhanced immune response. Numbers in the figures are to identify corresponding processes. \\
+    \textbf{(a)} Illustration of the action mechanisms of IL-12-based cytokine (such as CBD-IL-12). Processus included in the model are: (1) IL-12-induced production of IFN$\gamma$ by T-cells, (2) upregulation of CD8$^+$ T-cells proliferation by IFN$\gamma$, (3) down-regulation of the PD-1 immunosuppressive pathway, (4) IFN$\gamma$-triggered production of IL-12 by dendritic cells, (5) reduced proliferation of tumour cells through suppressed angiogenesis and (6) CD8$^+$-mediated cytotoxic activity.\\
+    \textbf{(b)} Diagram of the molecular interactions in the tumour microenvironment. Green boxes represent the input variables (drugs) and blue boxes represent the five state variables. All kinetic rates, corresponding to model parameters, are shown next to the corresponding process. Note that the IFN$\gamma$-priming process is missing, as the current mechanistic model does not include the feedback loop.}
+    \label{fig:mech}
+\end{figure}
+
+This model can be represented by the following equations \cite{takuya}: 
 \begin{align*}
     \dot{g}(t) &= k_1 + k_2 [d_{CBD}(t) + d_{12}(t)] - d_1g(t) \\ 
     \dot{c}(t,t-t_d) &= k_3 + k_4g(t-t_d)-d_2c(t) \\ 
@@ -113,16 +117,15 @@ To have a better understanding of the immune response to CBD-IL-12, Dr Miyano, a
     \dot{v}_l(t) &= k_6\left[1 - \frac{v(t)}{v_{max}} \right]v_l(t) - \left[d_5 + \frac{\frac{d_6c(t)}{1+s_1p(t)(1-d_{CPI}(t))}+d_7g(t)}{1+s_2v(t)}\right]v_l(t)\\
     \dot{v}_d(t) &= \left[d_5 + \frac{\frac{d_6c(t)}{1+s_1p(t)(1-d_{CPI}(t))}+d_7g(t)}{1+s_2v(t)}\right]v_l(t) - d_8 v_d(t)
 \end{align*}
-The five state variables ($g$, $c$, $p$, $v_l$ and $v_d$) are concentration of IFN$\gamma$, of CD8$^+$ and of PD1 along with volume of living and dead tumour, respectively. This was motivated by the fact that these are the key players in the immune response, as explained above. The meaning of each parameter is reported in the Appendix~\ref{app}. These equations are the mathematical formulation of the relations illustrated in Fig.~\ref{fig:cell}, except for the IFN$\gamma$ priming loop, which was not included in the initial mechanistic model.
 
-The parameters of this mechanistic model all represent biological factors that could potentially be responsible for the diverging treatment outcomes. However, these parameters are kinetic rates that cannot be measured experimentally: they can only be estimated from observable data, i.e. tumour volume. This process, called parameter estimation, was investigated and applied to the mechanistic model by Hines, another previous member of the Tanaka group. However, naive parameter estimation can only work to extract parameter from one single time series, and hence cannot be directly applied to the collection of times series obtained by the lab. Hines' approach was to fit the average curve [add figure] to the mechanistic model. This resulted in a set of parameters that can explain (i.e., reproduce) this average behaviour. However, Hines concluded in his report that this set of parameter was not sufficient to help differentiating the different drug responses, as it can only reproduce an average curve that in essence represents neither a CR outcome nor a non-CR outcome.
+The parameters of this mechanistic model all represent biological factors that could potentially be responsible for the diverging treatment outcomes. However, these parameters are kinetic rates that cannot be measured experimentally: they can only be estimated from observable data, i.e. tumour volume. This process, called parameter estimation, was investigated and applied to the mechanistic model by Hines, another previous member of the Tanaka group. However, naive parameter estimation can only work to extract parameter from one single time series, and hence cannot be directly applied to the collection of times series obtained by the lab. Hines' approach was to fit the mechanistic model to the average growth curve. This resulted in a set of parameters that can explain (i.e., reproduce) this average behaviour. However, Hines concluded in his report that this set of parameter was not sufficient to help differentiating the different drug responses, as it can only reproduce an average curve that in essence represents neither a CR outcome nor a non-CR outcome. Additionally, he also mentioned that a key biological process, the IFN$\gamma$-priming feedback loop, was missing from the mechanistic model, which could potentially impact its accuracy and reliability.
 
-Hines' conclusion motivates to use alternative parameter estimation methods that could help us identify the key biological factors that differentiate between CR and non-CR, by taking into account the whole dataset obtained in the lab. To this end, we first note that there is some shared information between the mice, since they are all sampled from the same population, as well as some variability between that explain the range of output obtained in the lab. Nonlinear mixed-effects models \cite{Davidian2011} are a standard method to analyse population dataset with both shared information (called fixed-effects) and individual variability (called random-effects). This is further detailed in Section~\ref{sec:littrev}.
+Hines' conclusion motivates us to use alternative parameter estimation methods that could help us identify the key biological factors that differentiate between CR and non-CR, by taking into account the whole dataset obtained in the lab. To this end, we first note that there is some shared information between the mice, since they are all sampled from the same population, as well as some variability between that explain the range of output obtained in the lab. Nonlinear mixed-effects models \cite{Davidian2011} are a standard method to analyse population dataset with both shared information (called fixed-effects) and individual variability (called random-effects). This is further detailed in Section~\ref{sec:littrev}.
 
 \section{Aims and Objectives}
 \noindent The aim of this project is verify whether Takuya's mechanistic model can be extended to identify the biological factors that can differentiate between CR and non-CR.\\[8pt]
 \textbf{Objective 1:} develop a computational mixed-effect model that can reproduce the experimental data.\\ 
-\textbf{Objective 2:} compute the distributions of the model parameters and verify whether they are bimodally distributed.\\ 
+\textbf{Objective 2:} compute the probability distributions of the model parameters and verify whether they are bimodally distributed (to explain the two outcomes).\\ 
 \textbf{Objective 3:} evaluate the impact of the IFN$\gamma$ priming pathway on the treatment outcome. 
 % \textbf{Objective 3:} associate key factors to potential biomarkers in mice\\ 
 % \textbf{Objective 3:} understand how the boundary between CR and non-CR depends on the treatment characteristics (number and frequency of doses, combination with other treaments, etc.)
@@ -146,10 +149,13 @@ Let the general definition of a DDE model be:
     \diff{X_i}{t} = f_i(t, \boldsymbol{X}(t), \boldsymbol{X}(t-\tau)| \boldsymbol{\theta}), \qquad t \in [t_0, t_{max}], i = 1, \ldots, I
 \end{align*}
 
-where $\tau$ denotes a constant delay, so that the rate of change of state $X_i$ depends on both the present state $\boldsymbol{X}(t)$ and a past state $\boldsymbol{X}(t-\tau)$. The subscript \textit{i} indexes the different state variables of interest, and $\boldsymbol{\theta}$ is the (unknown) vector of the parameters for the DDE model. This parameter vector is different for each treated mouse, as it uniquely characterises its treatement response, and hence we denote with $\boldsymbol{\theta}_j$ the parameter vector that characterises the $j$-th mouse. The experimentally observed tumour evolution for the $j$-th mouse is denoted by $\boldsymbol{y}_j$, and each of its elements is the tumour volume observed at a given time, noted $y_{j}(t)$. The aim of parameter estimation is to retrieve the parameter vector that can reproduce the observed data. Mathematically, this can be expressed as maximising the likelihood of the observations $\mathcal{L}(\theta;\boldsymbol{y})$, where $\eta_j$ is the random effect for individual $j$ \cite{SAEM}. 
-\begin{align*}
-    \mathcal{L}(\boldsymbol{\theta};\boldsymbol{y})=\prod_{j} \mathcal{L}(\theta;\boldsymbol{y}_j)=\prod_j p(\boldsymbol{y}_j\vert \boldsymbol{\theta})=\prod_j \int p(\boldsymbol{y}_j\vert \eta_i,\boldsymbol{\theta})p(\eta_j\vert \boldsymbol{\theta}) \,d\eta_j
-\end{align*}
+where $\tau$ denotes a constant delay, so that the rate of change of state $X_i$ depends on both the present state $\boldsymbol{X}(t)$ and a past state $\boldsymbol{X}(t-\tau)$. The subscript \textit{i} indexes the different state variables of interest, and $\boldsymbol{\theta}$ is the (unknown) vector of the parameters for the DDE model. This parameter vector is different for each treated mouse, as it uniquely characterises its treatement response, and hence we denote with $\boldsymbol{\theta}_j$ the parameter vector that characterises the $j$-th mouse. The experimentally observed tumour evolution for the $j$-th mouse is denoted by $\boldsymbol{y}_j$, and each of its elements is the tumour volume observed at a given time, noted $y_{j}(t)$. The aim of parameter estimation is to retrieve the parameter vector $\boldsymbol{\theta}_j$ that can reproduce the observed data $\boldsymbol{y}_j$. 
+
+%Mathematically, this can be expressed as maximising the likelihood of the observations $\mathcal{L}(\theta;\boldsymbol{y})$, where $\eta_j$ is the random effect for individual $j$ \cite{SAEM}. 
+
+% \begin{align*}
+%     \mathcal{L}(\boldsymbol{\theta};\boldsymbol{y})=\prod_{j} \mathcal{L}(\theta;\boldsymbol{y}_j)=\prod_j p(\boldsymbol{y}_j\vert \boldsymbol{\theta})=\prod_j \int p(\boldsymbol{y}_j\vert \eta_i,\boldsymbol{\theta})p(\eta_j\vert \boldsymbol{\theta}) \,d\eta_j
+% \end{align*}
 
 Many statistical approaches have been developed to perform parameter estimation on differential equation models from noisy data \cite{liu_wang}. However, most of them cannot be applied to mixed-effect models. In the context of pharmacodynamics model , Donnet et al, 2013 \cite{revParamEst} reviewed different techniques available to perform parameter estimation. For analysis of population data with observational noise, only two methods are available: Expectation-Maximisation (either Stochastic \cite{SAEM} or using First-Order Condition \cite{foce}) and Bayesian parameter estimation \cite{rosenbaum}. The authors concluded that Bayesian modelling in particular is the most flexible method, since it does not rely on assumptions and hence work for both individual or population datasets, with or without noise, which is not the case for alternative methods. Additionally, it benefits from theoretical validity although at the cost of being more computationally intensive, whereas the First-Order Conditon method was not proven to always converge to the true posterior. Another relevant advantage is that Bayesian approach do not provide point estimate, but rather distributions, which could be key to explain outcome heterogeneity. Hence the Bayesian modelling approach seems to be the most relevant for the project. 
 
@@ -212,10 +218,10 @@ Where $Y_j(t|\boldsymbol{\theta}_j)$ is the simulated time series using the DDE 
 
 \subsection{Reduction of the Computational Burden}
 \subsubsection{Sensitivity Analysis}
-As pharmacodynamics models can generally contain a high number of parameters, the Bayesian approach, which is computationally intensive \cite{revParamEst}, can result in intractable computations. To this end, Vasquez-Cruz et al, 2012 \cite{tomgro}, proposed a method to reduce the number of parameters in an ODE model. By taking the example of a crop growth ODE model with 17 parameters, they used a senstivity analysis (namely, eFAST and Sobol' method) to identify the most influencial parameters, and used these results to design a reduced model with only 7 free parameters. All the other parameters with a negligible influence were seet to a fixed value. Then, using a parameter fitting algorithm, they were able to show that this reduced model could still replicate the experimental data with minimal error. Additionally, they showed that the two sensitivity analysis methods (eFAST and Sobol' methods) yield different results. Hence, to ensure that all the important parameters are detected, both methods should be used.
+As pharmacodynamics models can generally contain a high number of parameters, the Bayesian approach, which is computationally intensive \cite{revParamEst}, can result in intractable computations. To this end, Vasquez-Cruz et al, 2012 \cite{tomgro}, proposed a method to reduce the number of parameters in an ODE model. By taking the example of a crop growth ODE model with 17 parameters, they used a senstivity analysis (namely, eFAST and Sobol' method) to identify the most influencial parameters, and used these results to design a reduced model with only 7 free parameters. All the other parameters with a negligible influence were seet to a fixed value. Then, using a parameter fitting algorithm, they were able to show that this reduced model could still replicate the experimental data with minimal error.
 
-\subsubsection{High-performance Computational Methods}
-As the estimation of the posterior distributions cannot be evaluated analytically, Luengo et al., 2020 \cite{MCMethods}, pointed out that Markov-Chains Monte Carlo approach to approximate the posterior is the only feasible approach in most applications. While many different MCMC methods exist \cite{ReviewMCMCAlgo}, it was shown by Nishio et al, 2019 \cite{NUTSvsHMCvsGibbs} that the No U-Turn Sampler (NUTS) led to lower skewness of the posterior and more decorrelated samples compared to the other two popular algorithms, Gibbs and Hamiltonian Monte Carlo samplers. However, traditional MCMC methods, including NUTS, can have convergence problem \cite{mcmcTrapped}. Since we hypothesised that the posterior distribution might be multimodal, we need also need a robust sampler for this case. Liu et al, 2018 \cite{liu_wang}, proposed a new sampler called Stochastic Approximation Monte Carlo (SAMC), which is based on the idea of partitioning the parameter space in a finite number of subspaces and forcing the algorithm to explore each subspace. By running the algorithm on a parameter estimation problem for an ODE model of predator-prey system (defined in \cite{fussmann}), they showed that SAMC could successfully retrieve the correct parameter value, while traditional MCMC methods such as the Metropolis-Hastings method were stuck in local modes.
+% \subsubsection{High-performance Computational Methods}
+% As the estimation of the posterior distributions cannot be evaluated analytically, Luengo et al., 2020 \cite{MCMethods}, pointed out that Markov-Chains Monte Carlo approach to approximate the posterior is the only feasible approach in most applications. While many different MCMC methods exist \cite{ReviewMCMCAlgo}, it was shown by Nishio et al, 2019 \cite{NUTSvsHMCvsGibbs} that the No U-Turn Sampler (NUTS) led to lower skewness of the posterior and more decorrelated samples compared to the other two popular algorithms, Gibbs and Hamiltonian Monte Carlo samplers. However, traditional MCMC methods, including NUTS, can have convergence problem \cite{mcmcTrapped}. Since we hypothesised that the posterior distribution might be multimodal, we need also need a robust sampler for this case. Liu et al, 2018 \cite{liu_wang}, proposed a new sampler called Stochastic Approximation Monte Carlo (SAMC), which is based on the idea of partitioning the parameter space in a finite number of subspaces and forcing the algorithm to explore each subspace. By running the algorithm on a parameter estimation problem for an ODE model of predator-prey system (defined in \cite{fussmann}), they showed that SAMC could successfully retrieve the correct parameter value, while traditional MCMC methods such as the Metropolis-Hastings method were stuck in local modes.
 
 \subsubsection{Transforms}
 Another finding from the study of predator-prey systems \cite{rosenbaum} is that log-transformation of the residuals make the inference much more robust, resulting in faster convergence and more accurate posteriors. This changes the likelihood function to the following:
@@ -298,7 +304,7 @@ The risks associated with the project along with a mitigation plan are described
     The first objective of the project is to design a hierarchical Bayesian model. To validate it and proceed to the next objective, we will follow the validation procedure outlined in \cite{gelman2020bayesian}. It consists of three different tests that must each be passed:
 \begin{itemize}
     \item \textbf{Prior Predictive Check:} we sample 1,000 sets of parameter from the priors and simulate tumour growth for each of them. The 95\% credible interval of the resulting collection of time series should contain our expected range of curves we can expect, otherwise the test is not passed.
-    \item \textbf{Fake Data Check:} we first need to generate a artificial dataset using known values of parameters, and then fit the Bayesian model to these fake datasets. If the 95\% credible interval of the posterior distributions each include the corresponding true parameter value, then the model passes the test.
+    \item \textbf{Fake Data Check:} we first need to generate a artificial dataset using known values of parameters, and then fit the Bayesian model to these fake datasets. If the 95\% credible interval of the posterior distributions each include the corresponding true parameter value, then the model passes the test. Additionally, to ensure that the posterior distributions are reliable, we must verify that the MCMC chains converge (otherwise, it means that we cannot make inference from the posteriors). To evaluate their convergence, we use the potential scale factor reduction, usually termed $\hat{R}$, developed by Gelman et al., 1992 \cite{rhat}. For a group of MCMC chains, a $\hat{R}$ below 1.05 indicates good convergence.
     \item \textbf{Posterior Predictive Check:} this is analogous to the prior predictive check, except that parameter are drawn from the marginal posterior distributions instead of the prior distributions. This results in a collection of simulated time series. The criterion for the model to pass the test is that the 95\% credible interval should contain the experimental time series obtined in the lab. 
 \end{itemize}
 % \textit{Convergence of the MCMC Chains}\\[3pt]
@@ -310,16 +316,16 @@ The risks associated with the project along with a mitigation plan are described
 % Where $m$ is the number of chains used to explore the posterior in parallel, $n$ is their length, $\hat{\sigma}^2_+$ is the variance of the chain with the highest variance, $\psi_{jt}$ is the value of the $j$-th chain at the $t$-th iteration, and $\bar{\psi}_j$ the mean value of the $j$-th chain. The authors additional highlight that a value close to 1 usually indicates convergence, usually the criterion is $\hat{R}<1.05$ for convergence.
 
 \textit{Objective 2: Responder Profile}\\[3pt]
-For objective 2, through the validated bayesian model we will (1) identify the parameters that can differentiate responders from non-responders; (2) define the range of values of each of the parameters to differentiate CR from partial responders and non responders. To do so, we will compute the posterior distribution of the hypermean for two datasets: one with only CR data, and one with only non-CR data. If the mean of the posterior distributions are significantly different (they are not within the 95\% credible interval of each other), we can conclude that the Bayesian version of the mechanistic model can successfully help us differentiating between CR and non-CR by identifying the key biological factors. An asparational outcome would be to identify one or more biomarkers, e.g., PD-1, whose presence and/or its concentrations at given timepoints post intervention can reflect the responder profile parameters, hence has predictive value for future studies.
+For objective 2, through the validated bayesian model we will (1) identify the parameters that can differentiate responders from non-responders; (2) define the range of values of each of the parameters to differentiate CR from partial responders and non responders. To do so, we will compute the posterior distribution of the hypermean for two datasets: one with only CR data, and one with only non-CR data. If the mean of the posterior distributions are distinct (they are not within the 95\% credible interval of each other), we can conclude that the Bayesian version of the mechanistic model can successfully help us differentiating between CR and non-CR by identifying the key biological factors. Potential future work would be to identify one or more biomarkers, e.g., PD-1, whose presence and/or its concentrations at given timepoints post intervention can reflect the responder profile parameters, hence has predictive value for future studies.
 
-\textit{Objective 3: Impact of IFN$\gamma$ priming}
+\textit{Objective 3: Impact of IFN$\gamma$ priming}\\[3pt]
 To evaluate the impact of the IFN$\gamma$ priming feedback loop, we will first modify the Bayesian model to include it. Once it has been validated following the same procedure as highlighted above, we will construct a new responder profile and compare it with the previously obtained profile (that does not include the feedback loop). If in each case different key parameters were identified, this means that IFN$\gamma$ cannot be neglected and needs to be included in the model.
 
 \section{Preliminary Results}
 
-\subsection{Numerical Stability Analysis}
+\subsection{Verifying the Dynamics of the Mechanistic Model}
 
-The very first aspect of Miyano's model that we wanted to verify was its ability to capture two specific treatment outcome: CR vs non-CR. As these behaviours can essentially be characterised by the fixed-points of the model (if the steady-state behaviour of the model converges to high values of tumour volume, it is a non-CR behaviour, and vice-versa. See definition in Section~\ref{sec:specs}). We opted for a grid-search stability analysis, meaning that we sample reguarly-spaced points in parameter space and classify them as either CR or non-CR. Fig.~\ref{fig:mcsa} shows the resuls of this analysis, where each axis of the cube corresponds to the value of a $k_6$, $s_2$ or $d_1$ respectively. A can be seen, there seem the be a clear boundary between the two response modes, with very little ``mixing''. This suggests that it would be possible to predict how a given patient would respond to the treatment, by knowning on which side of the boundary he is.
+Before extending the mechanistic model to a Bayesian model (objective 1), the very first aspect of the mechanistic model that we wanted to verify was its ability to capture two specific treatment outcome: CR vs non-CR. The is a necessary feature whithout which we would not be enable to differentiate between the different outcomes observed in the lab. As these behaviours can essentially be characterised by the fixed-points of the model (if the steady-state behaviour of the model converges to high values of tumour volume, it is a non-CR behaviour, and vice-versa). We opted for a grid-search stability analysis, meaning that we sample reguarly-spaced points in parameter space and classify them as either CR or non-CR. To avoid sampling in a 21-dimensional parameter space, which would be too computationally heavy, we used Hines' findings, according to which the DDE model is mostly sensitive to three parameters: $k_6$, $s_2$ and $d_1$ \cite{christian1}. Fig.~\ref{fig:mcsa} shows the resuls of this analysis, where each axis of the cube corresponds to the value of the parameter $k_6$, $s_2$ or $d_1$ respectively. A can be seen, there seem the be a clear boundary between the two response modes, with very little ``mixing''. This suggests that it would be possible to predict how a given patient would respond to the treatment, by knowning on which side of the boundary he is.
 
 \begin{figure}[!ht]
     \centering\includegraphics[scale=0.5]{stability.png}
@@ -327,34 +333,36 @@ The very first aspect of Miyano's model that we wanted to verify was its ability
     \label{fig:mcsa}
 \end{figure}
 
-\subsection{Sensitivity Analysis}
-In order to restrict the parameter space for subsequent analysis, and also to understand to main mechanisms behind the immune response, we performed a eFAST sensitivity analysis, which is a variance decomposition method. As it can only decompose variance of a scalar metric, it does not natively support time-series. Hence we chose to apply it to the integral of the tumour growth curve simulated by Miyano's model. This metric simply reflects the cumulative tumour volume over time, which is ultimately the quantity that we want to minimse. Other metrics which capture more specific feature of the tumour growth might be considered in the future, such as the derivative of tumour growth on the last simulated day to capture the patient's potential to go into CR. Results are shown in Fig.~\ref{fig:efast}. The total height of the bar represent the fraction of the variance that is imputable to the corresponding parameter. The first observation we can make is that model is mostly sensitive to $k_6$, $d_1$, $d_7$ and $s_2$. However, we can see that the main effect indices (in blue, corresponding to the direct effect of the parameter on the model) are almost always negligible compared to the total-order indices (in orange, which considers both the direct impact as well as combined interaction with other parameters). According to a study by Vazquez-Cruz et al. (2012), this is a typical sign of non-identifiability \cite{tomgro} that will significantly hinder Bayesian inference. Additionally, results indicate that the treatment characteristics (labelled \verb+t_d+, \verb+t_delay+ and \verb+t_last+) have almost no impact on the treatment outcome, which is conflicting with the results experimentally obtained in the CBD-IL-12 study \cite{cbdil12}. Hence we suspect that the current model does not correctly model the immune response mechanisms. 
-
-\begin{figure}[!ht]
-    \centering\includegraphics[scale=0.07]{proutiprouta.png}
-    \caption{eFAST sensitivity analysis on Miyano's model shows that $k_6$ is the most influencial parameter by far, followed by $d_1$, $d_7$ and $s_2$. This is conflicting with findings from Ishihara group}
-    \label{fig:efast}
-\end{figure}
-
-\subsection{Bayesian Model Validation}
+\subsection{Construction and Validation of the Bayesian Model (Objective 1)}
 In this section we show how the Bayesian model was validated, following the procedure highlighted in Section~\ref{sec:eval}. We focus on a reduced model with only three free parameters, $k_6$, $d_1$, $s_2$, which were identified by C.~Hines are the most impactful ones \cite{christian1}. All other parameters of the model were fixed to their respective value estimated by C. Hines to model the mean response curve. This ensures that each parameter is assigned a realistic yet arbitrary value.
 
+\textit{Note:} to represent a distribution truncated at 0, we use either a ``+'' (positive half) or ``-'' (negative half) superscript. For example: $X \sim  \text{Cauchy}^- \Rightarrow - \infty < X < 0$.
+
 \subsubsection{Prior Predictive Check}
-In this case, we do not have much data on the typical values of the parameters since it is impossible to measure it (we only know that it is a positive number whose typical value is between 0 and 1, as evidenced by \cite{christian1}), so we aim to design an uninformative prior. Fig.~\ref{fig:ppc_1} shows a plot of 1,000 tumour growth time-series. Each of them was simulated using a set of parameters drawn from the following prior distribution:
+In this case, we do not have much data on the typical values of the parameters since it is impossible to measure it, so we aim to design an uninformative prior. Fig.~\ref{fig:ppc_1} shows a plot of 1,000 tumour growth time-series. Each of them was simulated using a set of parameters drawn from the following prior distributions:
 \begin{align*}
     \ln(k_6) \sim \text{Cauchy}^-(0, 1) \\ 
     \ln(d_1) \sim \text{Cauchy}^+(0, 1) \\ 
     \ln(s_2) \sim \text{Cauchy}^-(0, 1) \\ 
 \end{align*} 
-We chose Cauchy distributions since that carry less information that standard Gaussian distributions, allowing for value far from their center of mass. This is critical since we do not have information about the true values of the parameters. As we exponentiate the Cauchy distribution, it means that $0 < k_6 < 1$. The blue shade represents the 95\% credible interval, and the dark green line is the median growth curve. As we can see, the 95\% credible interval is can virtually contain our expected range of curves, since it ranges from 0 (minimum volume) to 600 (maximum possible volume according to the equation), meaning that they are relatively uninformative priors. The median curve has the shape of the typical growth curve, as observed in the labs. Hence, we can say that the prior distribution is satisfying, as it could explain any potential growth curve while restricting the values of the parameters to a smaller subset of $\mathbb{R}$.
+We chose Cauchy distributions since they are less informative that standard Gaussian distributions, allowing for values far from their center of mass. This is critical since we do not have much information about the true values of the parameters. The parameters are log-Cauchy distributed to ensure that they are strictly positive, a necessary condition since they are biologial parameters. Additional, the Cauchy distributions were truncated to ensure that the parameters are either below 1 (for $k_6$ and $s_2$) or above 1 (for $d_1$). This is to avoid numerical instability.
+
+In Fig.~\ref{fig:ppc_1}, the blue shade represents the 95\% credible interval, and the red line is the median growth curve. As we can see, the 95\% credible interval is can virtually contain our expected range of curves, since it ranges from 0 (minimum volume) to 600 (maximum possible volume according to the equation), meaning that they are relatively uninformative priors. The median curve has the shape of the typical growth curve, as observed in the labs. Hence, we can say that the prior distribution is satisfying, as it could explain any potential growth curve while restricting the values of the parameters to a smaller subset of $\mathbb{R}$.
     \begin{figure}[!ht]
-        \centering\includegraphics[scale=0.4]{model_validation/prout1.png}
-        \caption{ODE solution for 1,000 parameter values sampled from the prior ($\boldsymbol{\theta} \in \mathbb{R}^1$)}
+        \centering\includegraphics[scale=0.7]{LOGprout.png}
+        \caption{DDE solutions (grey lines) for 1,000 parameter vectors $\boldsymbol{\theta}$ sampled from the priors. The 95\% credible interval for the tumour volume at each timestep (blue shade) shows that the model passes the prior predictive check: it contains our expected range of curves. The median grwoth curve (red line) confirms this, as it is very similary to the growth curve observed in the lab.}
         \label{fig:ppc_1}
     \end{figure}
 
+% log10 y tumour growth 
+% distinct instead of significant
+% potential future work instead of aspirational outcome (due to time constraints)
+
 \subsubsection{Fake Data Check}
-Each fake growth curve was generated by sampling a value of $\theta$ from the prior distribution, and then simulating the tumour growth in the same way as for the Prior Predictive Check. However, as biological data is always noisy, we also added some noise to make the fake dataset closer to what we would actually expect from the labs. This was done in two different ways, resulting in two distinct datasets. For dataset~A, we simply added a white standard Gaussian noise to the simulation. For dataset B, we use added white noise to the log of the simulated curve (i.e. multiplicative noise). Using a standard Gaussian would result in too large noise values, so we chose a standard deviation of 0.3 to achieve similar levels of noise compared to datasete A. The generation process is summarized in Table~\ref{tbl:genproc}, where $x_*$ denotes a noiseless data point. The reason for using two different noise generation is that we observed, in the experimental data from the labs, that data points are usually more dispersed when they have a high value, suggesting an exponential relationship.\\ 
+For the fake data check, we first generate artificial datasets using known parameter values, and then fit the Bayesian model to these fake datasets. By comparing the results of the model (i.e., the estimated parameter value in the form of the posterior distribution) to the true values, we can conclude whether the model can successfuly perform parameter estimation or not. 
+
+\textit{Data Generation}\\[5pt]
+Each fake growth curve was generated by sampling a value of $\boldsymbol{\theta}$ from the prior distributions (shown in the previous subsection), and then simulating the tumour growth in the same way as for the Prior Predictive Check. However, as biological data is always noisy, we also added some noise to make the fake dataset closer to what we would actually expect from the labs. This was done in two different ways, resulting in two distinct datasets. For dataset~A, we simply added a white standard Gaussian noise to the simulation. For dataset B, we use added white noise to the log of the simulated curve (i.e. multiplicative noise). Using a standard Gaussian would result in too large noise values, so we chose a standard deviation of 0.3 to achieve similar levels of noise compared to datasete A. The generation process is summarized in Table~\ref{tbl:genproc}, where $x_*$ denotes a noiseless data point. The reason for using two different noise generation is that we observed, in the experimental data from the labs, that data points are usually more dispersed when they have a high value, suggesting an exponential relationship.\\ 
 Additionally, each dataset contains 10 time series. Fig.~\ref{fig:fd_1} plots the fake data points against the original curve. For clarity, only 5 time series, selected at random, were shown.\\
 \begin{table}[h!]
     \centering
@@ -368,6 +376,7 @@ Additionally, each dataset contains 10 time series. Fig.~\ref{fig:fd_1} plots th
     \end{tabular}
     \label{tbl:genproc}
 \end{table}
+
 \begin{figure}[!h]
     \centering
     \begin{subfigure}{.5\linewidth}
@@ -378,16 +387,16 @@ Additionally, each dataset contains 10 time series. Fig.~\ref{fig:fd_1} plots th
         \centering\includegraphics[scale=0.4]{model_validation/fd_2.png}
         \caption{Dataset B}
     \end{subfigure}
-    \caption{Plot of the fake data points (colored lines and scatter plot) along with the original growth curve (dashed line)}
+    \caption{Fake data sets (scatter plot and colored lines) generated from a baseline growth curve (dashed line), either with \textbf{(a)} additive noise or \textbf{(b)} multiplicative noise. Baseline curves were obtained by solving the DDE model parameterised by a vector $\boldsymbol{\theta}$ sampled from the prior distributions.}
     \label{fig:fd_1}
 \end{figure}
 
-\textit{Results}\\[5pt] 
-Before checking if the estimated values match the true ones, we first assess convergence of the MCMC chains. Th $\hat{R}$ values (see Section~\ref{sec:eval}) are reported in Table.~\ref{tbl:rhat_2} as the average $\hat{R}$ value accross the 3 parameters. It must be noted that often, out of the 5 chains per inference, some chains  get trapped (assessed by visual inspection). In that case, they are excluded from the $\hat{R}$ calculation, and this is reported in the ``Number of Chains'' column. If all chains are exlcuded, meaning that none of them converged, we simply report N/A.
+\textit{Fitting the model to the fake datasets}\\[5pt] 
+Before checking if the estimated values match the true ones, we first assess convergence of the MCMC chains. The $\hat{R}$ values (see Section~\ref{sec:eval}) are reported in Table.~\ref{tbl:rhat_2} as the average $\hat{R}$ value accross the 3 parameters. It must be noted that often, out of the 5 chains per inference, some chains  get trapped (assessed by visual inspection). In that case, they are excluded from the $\hat{R}$ calculation, and this is reported in the ``Number of Chains'' column. If all chains are exlcuded, meaning that none of them converged, we simply report N/A.
 
 \begin{table}[!h]
     \centering
-    \caption{Assessement of convergence for the MCMC chains for uninformative priors (3 free parameters)}
+    \caption{Assessement of convergence for the MCMC chains for uninformative priors}
     \begin{tabular}{c|c||c|c|c}
         \hline
         Data set & Pooling Type & $\hat{R}$ diagnostic & Number of Chains & Convergence  \\ \hline 
@@ -404,10 +413,10 @@ Looking at Table~\ref{tbl:rhat_2}, we can hence conclude that the chains did not
     \ln(d_1) \sim \text{Cauchy}^+(\theta_{d_1}, 1) \\ 
     \ln(s_2) \sim \text{Cauchy}^-(\theta_{s_2}, 1) \\ 
 \end{align*} 
-where $\theta_x$ represent the true value of parameter $x$. Convergence of this new set of inferences is shown in Table~\ref{tbl:rhat_3}. As we can see, convergence of the MCMC chains are still very poor, even with highly informative priors centered on the true parameter values.
+where $\theta_x$ represent the true value of parameter $x$, used to generate the fake datasets. Convergence of this new set of inferences is shown in Table~\ref{tbl:rhat_3}. As we can see, convergence of the MCMC chains are still very poor, even with highly informative priors centered on the true parameter values.
 \begin{table}[!h]
     \centering
-    \caption{Assessement of convergence for the MCMC chains for uninformative priors (3 free parameters)}
+    \caption{Assessement of convergence for the MCMC chains for informative Cauchy priors}
     \begin{tabular}{c|c||c|c|c}
         \hline
         Data set & Pooling Type & $\hat{R}$ diagnostic & Number of Chains & Convergence  \\ \hline 
@@ -425,11 +434,11 @@ It might be objected that Cauchy distributions are by definition not too informa
     \ln(d_1) \sim \mathcal{N}^+(\theta_{d_1}, 0.3) \\ 
     \ln(s_2) \sim \mathcal{N}^-(\theta_{s_2}, 0.3) \\ 
 \end{align*}
-Convergence results are shown in Table.~\ref{tbl:rhat_4}. The main result is that chains converged or were close to convergence only for dataset D, showing that a log-normal transformation is key to make exploration of the posterior easier to perform. Whilst the overall convergence rate is still very low given the informative normal priors, this series of fake data checks for the case of three free parameters highlighted the key role of the log-transformation.
+Convergence results are shown in Table.~\ref{tbl:rhat_4}. The main result is that chains converged or were close to convergence only for dataset B, showing that a log-normal transformation is key to make exploration of the posterior easier to perform.
 
 \begin{table}[!h]
     \centering
-    \caption{Assessement of convergence for the MCMC chains for uninformative priors (3 free parameters)}
+    \caption{Assessement of convergence for the MCMC chains for informative Normal priors}
     \begin{tabular}{c|c||c|c|c}
         \hline
         Data set & Pooling Type & $\hat{R}$ diagnostic & Number of Chains & Convergence  \\ \hline 
@@ -448,7 +457,7 @@ Even with informative priors, the MCMC chains do not even converge. This suggest
 \section{Implementation Plan}\label{sec:plan}
 
 \begin{figure}[!ht]
-    \centering\includegraphics[scale=0.32]{gantt.png}
+    \centering\includegraphics[scale=0.32]{testo.png}
 \end{figure}
 
 \clearpage

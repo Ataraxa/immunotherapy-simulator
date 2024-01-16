@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: planning_report.aux
+The style file: unsrt.bst
+Database file #1: biblio.bib
+Warning--entry type for "christian1" isn't style-file defined
+--line 94 of file biblio.bib
+Warning--entry type for "takuya" isn't style-file defined
+--line 102 of file biblio.bib
+Warning--can't use both author and editor fields in Davidian2011
+Warning--empty publisher in tbk_gelman
+You've used 36 entries,
+            1791 wiz_defined-function locations,
+            680 strings with 10416 characters,
+and the built_in function-call counts, 7297 in all, are:
+= -- 585
+> -- 427
+< -- 1
++ -- 156
+- -- 120
+* -- 491
+:= -- 1261
+add.period$ -- 105
+call.type$ -- 36
+change.case$ -- 35
+chr.to.int$ -- 0
+cite$ -- 38
+duplicate$ -- 306
+empty$ -- 677
+format.name$ -- 120
+if$ -- 1591
+int.to.chr$ -- 0
+int.to.str$ -- 36
+missing$ -- 35
+newline$ -- 180
+num.names$ -- 36
+pop$ -- 66
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 147
+stack$ -- 0
+substring$ -- 320
+swap$ -- 46
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 52
+width$ -- 38
+write$ -- 388
+(There were 4 warnings)

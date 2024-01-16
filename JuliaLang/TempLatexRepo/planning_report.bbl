@@ -45,12 +45,17 @@ J.E. Portielje, C.H. Lamers, W.H. Kruit, A.~Sparreboom, R.L. Bolhuis,
   tumor necrosis factor-alpha, {IL-6}, and {IL-8} responses.
 \newblock {\em Clin Cancer Res}, 9, 76-83.
 
-\bibitem{cd8FirstWay}
-A.~Mukhopadhyay, J.~Wright, S.~Shirley, D.A. Canton, C.~Burkart, R.J. Connolly,
-  et~al.
-\newblock Characterization of abscopal effects of intratumoral
-  electroporation-mediated {IL-12} gene therapy.
-\newblock {\em Gene Ther.}, 26:1--15, 2019.
+\bibitem{ifngNKProd}
+L.K. Chen, B.~Tourvieille, G.F. Burns, F.H. Bach, D.~Mathieu-Mahul,
+  M.~Sasportes, and other.
+\newblock Interferon: a cytotoxic {T lymphocyte} differentiation signal.
+\newblock {\em Eur J Immunol}, 17, 767-70.
+
+\bibitem{ifnCD8}
+Jason~K. Whitmire, Joyce~T. Tan, and J.~Lindsay Whitton.
+\newblock {{Interferong acts directly on CD8+ T cells to increase their
+  abundance during virus infection} }.
+\newblock {\em Journal of Experimental Medicine}, 201(7):1053--1059, 04 2005.
 
 \bibitem{cd8Effects}
 B.V. Kumar, T.J. Connors, and D.L. Farber.
@@ -58,19 +63,18 @@ B.V. Kumar, T.J. Connors, and D.L. Farber.
   life.
 \newblock {\em Immunity}, 48:202--213, 2018.
 
-\bibitem{ifnIL12}
-J.E. Portielje, C.H. Lamers, Kruit W.H., A.~Sparreboom, R.L. Bolhuis,
-  G.~Stoter, et~al.
-\newblock Repeated administration of interleukin {IL}-12 are associated with
-  persistently elevated plasma levels of {IL}-10 and declining ifn-gamma,
-  tumour necrosis factor-alpha, {IL}-6 and {IL-8} responses.
-\newblock {\em Clin Cancer Res}, 9:76--83, 2003.
+\bibitem{reducImmunoSuppression}
+S.A. Rosenberg, B.S. Packard, P.M. Aebersold, D.~Solomon, S.L. Topalian, S.T.
+  Toy, et~al.
+\newblock Use of tumor-infiltrating lymphocytes and interleukin-2 in the
+  immunotherapy of patients with metastatic melanoma.
+\newblock {\em N Engl J Med}, 319:1676--80, 1988.
 
-\bibitem{ifngNKProd}
-L.K. Chen, B.~Tourvieille, G.F. Burns, F.H. Bach, D.~Mathieu-Mahul,
-  M.~Sasportes, and other.
-\newblock Interferon: a cytotoxic {T lymphocyte} differentiation signal.
-\newblock {\em Eur J Immunol}, 17, 767-70.
+\bibitem{ifnPD1}
+G.~Ding, T.~Shen, C.~Yan, et~al.
+\newblock {IFNg down-regulates the PD-1 expression and assist nivolumab in
+  PD-1-blockade effect on CD8+ T-lymphocytes in pancreatic cancer}.
+\newblock {\em BMC Cancer}, 19(1053), 2019.
 
 \bibitem{ifngAngiogenesis}
 Y.~Hayakawa, K.~Takeda, H.~Yagita, M.J. Smyth, L.~Van~Kaern, K.~Okumura, et~al.
@@ -84,12 +88,24 @@ F.M. Rosa, M.M. Cochet, and M.~Fellous.
   analyse eukaryotic gene regulation?
 \newblock {\em Interferon}, 7:47--87, 1986.
 
-\bibitem{reducImmunoSuppression}
-S.A. Rosenberg, B.S. Packard, P.M. Aebersold, D.~Solomon, S.L. Topalian, S.T.
-  Toy, et~al.
-\newblock Use of tumor-infiltrating lymphocytes and interleukin-2 in the
-  immunotherapy of patients with metastatic melanoma.
-\newblock {\em N Engl J Med}, 319:1676--80, 1988.
+\bibitem{wang}
+I.M. Wang, C.~Contursi, A.~Masumi, X.~Ma, G.~Trinchieri, and Ozato K.
+\newblock An {IFN}-gamma-inducible transcription factor, ifn consensus sequence
+  binding protein {(ICSBP)}, stimulates {IL-12} p40 expression in macrophages.
+\newblock {\em J Immunol}, 165:271--279, 2000.
+
+\bibitem{liuifng}
+J.~Liu, S.~Cao, LM. Herman, and X~Ma.
+\newblock Differential regulation of interleukin {(IL)-12} p35 and p40 gene
+  expression and interferon {(IFN)-gamma-primed IL-12} production by {IFN}
+  regulatory factor 1.
+\newblock {\em J Exp Med}, 198:1265--1276, 2003.
+
+\bibitem{ma2015}
+X.~Ma, W.~Yan, Q.~Zheng, H. nd~Du, L.~Zhang, Y.~Ban, et~al.
+\newblock Regulation of {IL-10 and IL-12 }production and function in
+  macrophages and dendritic cells.
+\newblock {\em F1000Res}, 4, 2015.
 
 \bibitem{clintriAC1}
 D.R. Leach, M.F. Krummel, and J.P. Allision.
@@ -102,31 +118,16 @@ E.D. Kwon et~al.
   immunotherapy of prostate cancer.
 \newblock {\em Proc. Natl Acad. Sci. USA}, 94:8099--8103, 1997.
 
-\bibitem{cpiProof}
-B.T. Fife and J.~A Bluestone.
-\newblock Control of peripheral {T-cell} tolerance and autoimmunity via the
-  {CTLA-4} and {PD-1} pathways.
-\newblock {\em Immunol. Rev}, 224:166--182, 2008.
+\bibitem{cbdil12}
+A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
+\newblock Collagen-binding il-12 enhances tumour inflammation and drives the
+  complete remission of established immunologically cold mouse tumours.
+\newblock {\em Nature Biomedical Engineering}, 4:531--543, 2020.
 
-\bibitem{PDvsCTLA}
-B.T. Fife and J.A. Bluesone.
-\newblock Control of peripheral {T-cell} tolerance and autoimmunity via the
-  {CTLA-4} and {PD-1} pathways.
-\newblock {\em Immunol. Rev.}, 224, 166-182.
-
-\bibitem{PD1Autoimmune}
-H.~Nishimura, N.~Minato, T.~Nakano, and T.~Honjo.
-\newblock Immunological studies on {PD-1} deficient mice: implication of {PD-1}
-  as a negative regulator for {B} cell responses.
-\newblock {\em Int Immunol}, 10:1563--72, 1998.
-
-\bibitem{antiCTLA4Mel}
-A.~van Elsas, A.~A. Hurwitz, and J.P. Allison.
-\newblock Combination immunotherapy of {B16} melanoma using anti-cytotoxic {T}
-  lymphocyte-associated antigen 4 {(CTLA-4)} and granulocyte/macrophage
-  colony-stimulating factor {(GM-CSF)}-producing vaccines induces rejection of
-  subcutaneous and metastatic tumors accompanied by autoimmune depigmentation.
-\newblock {\em J Exp Med}, 190:355--366, 1999.
+\bibitem{collagenInCancer}
+Shuaishuai Xu, Huaxiang Xu, Wenquan Wang, et~al.
+\newblock The role of collagen in cancer: from bench to bedside.
+\newblock {\em J Trans Med}, 17(309), 2019.
 
 \bibitem{cancMetric}
 N.F. Aykan and T.~Özatlı.
@@ -145,35 +146,10 @@ Takuya Miyano.
 \newblock Mathematical modeling of complete remission of immunologically cold
   tumor by tumor-matrix targeted interleukin-12, 2019.
 
-\bibitem{christian1}
-Christian Hines.
-\newblock Cancer immunotherapy meeting notes, 2022.
-
-\bibitem{christian2}
-Christian Hines.
-\newblock Positive feedback between {IL-12} and {IFN}g, 2022.
-
-\bibitem{cbdil12}
-A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
-\newblock Collagen-binding il-12 enhances tumour inflammation and drives the
-  complete remission of established immunologically cold mouse tumours.
-\newblock {\em Nature Biomedical Engineering}, 4:531--543, 2020.
-
-\bibitem{collagenInCancer}
-Shuaishuai Xu, Huaxiang Xu, Wenquan Wang, et~al.
-\newblock The role of collagen in cancer: from bench to bedside.
-\newblock {\em J Trans Med}, 17(309), 2019.
-
 \bibitem{Davidian2011}
 Marie Davidian.
 \newblock {\em Nonlinear Mixed Effects Models}, pages 947--950.
 \newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2011.
-
-\bibitem{SAEM}
-Emmanuelle Comets, Audrey Lavenu, and Marc Lavielle.
-\newblock Parameter estimation in nonlinear mixed effect models using saemix,
-  an {R} implementation of the {SAEM} algorithm.
-\newblock {\em Journal of Statistical Software}, 80(3), 2017.
 
 \bibitem{liu_wang}
 Baisen Liu, Liangliang Wang, and Jiguo Cao.
@@ -186,6 +162,12 @@ Sophie Donnet and Adeline Samson.
 \newblock A review on estimation of stochastic differential equations for
   pharmacokinetic/pharmacodynamic models.
 \newblock {\em Advanced Drug Delivery Review}, 65, 2013.
+
+\bibitem{SAEM}
+Emmanuelle Comets, Audrey Lavenu, and Marc Lavielle.
+\newblock Parameter estimation in nonlinear mixed effect models using saemix,
+  an {R} implementation of the {SAEM} algorithm.
+\newblock {\em Journal of Statistical Software}, 80(3), 2017.
 
 \bibitem{foce}
 Mary~J. Lindstrom and Douglas~M. Bates.
@@ -216,44 +198,17 @@ M.A. Vazquez-Cruz, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
   calibration of reduced state-variable tomgro model using genetic algorithms.
 \newblock {\em Computers and Electronics in Agriculture}, 100, 2014.
 
-\bibitem{MCMethods}
-D.~Luengo, L.~Martino, M.~Bugallo, et~al.
-\newblock A survey of monte carlo methods for parameter estimation.
-\newblock {\em EURASIP J. Adv. Signal Process}, 25, 2020.
-
-\bibitem{ReviewMCMCAlgo}
-C.P. Robert and W.~Changye.
-\newblock Markov chain monte carlo methods, a survey with some frequent
-  misunderstandings, 2020.
-
-\bibitem{NUTSvsHMCvsGibbs}
-Motohide Nishio and Aisaku Arakawa.
-\newblock Performance of hamiltonian monte carlo and no-u-turn sampler for
-  estimating genetic parameters and breeding values.
-\newblock {\em Genetics Selection Evolution}, 51(73), 2019.
-
-\bibitem{mcmcTrapped}
-S.~Kirkpatrick, C.~D. Gelatt, and M.~P. Vecchi.
-\newblock Optimization by simulated annealing.
-\newblock {\em Science}, 220(4598):671--680, 1983.
-
-\bibitem{fussmann}
-G.F. Fussmann, Ellner S.P., K.W. Shertze, and N.G. Hairston~Jr.
-\newblock {Crossing the Hopf bifurcation in a live predatory-prey system}.
-\newblock {\em Science}, 290(5495):1358--60, 2000.
-
 \bibitem{gelman2020bayesian}
 Andrew Gelman et~al.
 \newblock {Bayesian Workflow}, 2020.
-
-\bibitem{moins2023use}
-Théo Moins, Julyan Arbel, Anne Dutfoy, and Stéphane Girard.
-\newblock On the use of a local $\hat{R}$ to improve mcmc convergence
-  diagnostic, 2023.
 
 \bibitem{rhat}
 Stephen~P. Brooks and Andrew Gelman.
 \newblock General methods for monitoring convergence of iterative simulations.
 \newblock {\em Journal of Computational and Graphical Statistics}, 7(4), 1992.
+
+\bibitem{christian1}
+Christian Hines.
+\newblock Cancer immunotherapy meeting notes, 2022.
 
 \end{thebibliography}

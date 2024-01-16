@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.7)  15 JAN 2024 13:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.7)  16 JAN 2024 22:06
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -432,70 +432,104 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 <to be read again> 
                    \relax 
 l.61 \section
-             {Background}\label{sec:specs} [1]
-<./Images/immune_resp.png, id=169, 776.14969pt x 426.84468pt>
-File: ./Images/immune_resp.png Graphic file (type png)
-<use ./Images/immune_resp.png>
-Package pdftex.def Info: ./Images/immune_resp.png  used on input line 80.
+             {Background}\label{sec:specs} [1] [2]
+<./Images/crnoncr3.png, id=199, 987.69pt x 655.44875pt>
+File: ./Images/crnoncr3.png Graphic file (type png)
+<use ./Images/crnoncr3.png>
+Package pdftex.def Info: ./Images/crnoncr3.png  used on input line 86.
+(pdftex.def)             Requested size: 296.30928pt x 196.63614pt.
+<./Images/finalBM.png, id=206, 776.14969pt x 426.84468pt>
+File: ./Images/finalBM.png Graphic file (type png)
+<use ./Images/finalBM.png>
+Package pdftex.def Info: ./Images/finalBM.png  used on input line 99.
 (pdftex.def)             Requested size: 232.8467pt x 128.05438pt.
-<./Images/control_process.png, id=171, 795.72281pt x 542.025pt>
-File: ./Images/control_process.png Graphic file (type png)
-<use ./Images/control_process.png>
-Package pdftex.def Info: ./Images/control_process.png  used on input line 84.
+<./Images/finalCP.png, id=207, 795.72281pt x 542.025pt>
+File: ./Images/finalCP.png Graphic file (type png)
+<use ./Images/finalCP.png>
+Package pdftex.def Info: ./Images/finalCP.png  used on input line 103.
 (pdftex.def)             Requested size: 238.71867pt x 162.60875pt.
- [2]
-<./Images/crnoncr2.png, id=206, 845.1575pt x 563.10374pt>
-File: ./Images/crnoncr2.png Graphic file (type png)
-<use ./Images/crnoncr2.png>
-Package pdftex.def Info: ./Images/crnoncr2.png  used on input line 99.
-(pdftex.def)             Requested size: 253.54921pt x 168.93242pt.
- [3 <./Images/immune_resp.png> <./Images/control_process.png>]
-
-LaTeX Warning: Reference `fig:cell' on page 4 undefined on input line 116.
-
-[4 <./Images/crnoncr2.png>] [5] [6] [7]
-Overfull \hbox (5.60553pt too wide) in alignment at lines 273--277
+ [3 <./Images/crnoncr3.png>] [4 <./Images/finalBM.png> <./Images/finalCP.png>] [5] [6] [7]
+Overfull \hbox (5.60553pt too wide) in alignment at lines 279--283
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 277--281
+Overfull \hbox (5.60553pt too wide) in alignment at lines 283--287
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 281--285
+Overfull \hbox (5.60553pt too wide) in alignment at lines 287--291
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 285--287
+Overfull \hbox (5.60553pt too wide) in alignment at lines 291--293
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 287--294
+Overfull \hbox (5.60553pt too wide) in alignment at lines 293--300
  [] [] [] [] 
  []
 
 [8] [9]
-<./Images/stability.png, id=307, 411.5375pt x 374.39874pt>
+<./Images/stability.png, id=297, 411.5375pt x 374.39874pt>
 File: ./Images/stability.png Graphic file (type png)
 <use ./Images/stability.png>
-Package pdftex.def Info: ./Images/stability.png  used on input line 325.
+Package pdftex.def Info: ./Images/stability.png  used on input line 331.
 (pdftex.def)             Requested size: 205.76825pt x 187.19891pt.
  [10 <./Images/stability.png>]
-<./Images/proutiprouta.png, id=317, 6022.5pt x 3874.475pt>
-File: ./Images/proutiprouta.png Graphic file (type png)
-<use ./Images/proutiprouta.png>
-Package pdftex.def Info: ./Images/proutiprouta.png  used on input line 334.
-(pdftex.def)             Requested size: 421.61809pt x 271.24097pt.
- [11 <./Images/proutiprouta.png>]
-<./Images/model_validation/prout1.png, id=329, 602.25pt x 401.5pt>
-File: ./Images/model_validation/prout1.png Graphic file (type png)
-<use ./Images/model_validation/prout1.png>
-Package pdftex.def Info: ./Images/model_validation/prout1.png  used on input line 351.
-(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
-<./Images/model_validation/fd_1.png, id=332, 602.25pt x 401.5pt>
+<./Images/LOGprout.png, id=309, 433.62pt x 289.08pt>
+File: ./Images/LOGprout.png Graphic file (type png)
+<use ./Images/LOGprout.png>
+Package pdftex.def Info: ./Images/LOGprout.png  used on input line 352.
+(pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
+ [11]
+<./Images/model_validation/fd_1.png, id=319, 602.25pt x 401.5pt>
 File: ./Images/model_validation/fd_1.png Graphic file (type png)
-<use ./Im
+<use ./Images/model_validation/fd_1.png>
+Package pdftex.def Info: ./Images/model_validation/fd_1.png  used on input line 383.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+<./Images/model_validation/fd_2.png, id=320, 602.25pt x 401.5pt>
+File: ./Images/model_validation/fd_2.png Graphic file (type png)
+<use ./Images/model_validation/fd_2.png>
+Package pdftex.def Info: ./Images/model_validation/fd_2.png  used on input line 387.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[12 <./Images/LOGprout.png>] [13 <./Images/model_validation/fd_1.png> <./Images/model_validation/fd_2.png>]
+<./Images/testo.png, id=339, 1558.82375pt x 522.95375pt>
+File: ./Images/testo.png Graphic file (type png)
+<use ./Images/testo.png>
+Package pdftex.def Info: ./Images/testo.png  used on input line 460.
+(pdftex.def)             Requested size: 498.8338pt x 167.34862pt.
+ [14 <./Images/testo.png>] [15
+
+] (./planning_report.bbl [16
+
+] [17]) [18] (./planning_report.aux)
+Package rerunfilecheck Info: File `planning_report.out' has not changed.
+(rerunfilecheck)             Checksum: 8FFBBA2C516BB41FF8B144F3E7BD3200;4761.
+ ) 
+Here is how much of TeX's memory you used:
+ 12400 strings out of 480247
+ 203162 string characters out of 5896151
+ 588061 words of memory out of 5000000
+ 30054 multiletter control sequences out of 15000+600000
+ 479881 words of font info for 65 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 68i,14n,77p,1492b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/alex/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on planning_report.pdf (19 pages, 2277044 bytes).
+PDF statistics:
+ 456 PDF objects out of 1000 (max. 8388607)
+ 387 compressed objects within 4 object streams
+ 98 named destinations out of 1000 (max. 500000)
+ 241 words of extra memory for PDF output out of 10000 (max. 10000000)
+
