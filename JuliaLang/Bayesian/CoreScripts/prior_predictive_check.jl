@@ -9,6 +9,7 @@ using Turing
 using StatsBase: percentile, mode, median
 using Distributions
 using DelimitedFiles
+using Plots.PlotMeasures
 
 include("../../Model/Differential/ode_core.jl")
 include("../../Model/Differential/ode_restricted.jl")
@@ -47,10 +48,16 @@ plot!(
     alpha = 0
     )
 
-plot!(my_plot, 0:0.1:27.0, median.(eachcol(simul_matrix)))
+plot!(my_plot, 0:0.1:27.0, median.(eachcol(simul_matrix)); 
+    yaxis=:lin,
+    xlabel="Time (days)",
+    ylabel="Tumour volume (mm³)",
+    colour=:red,
+    left_margin=10mm,
+    dpi=600)
 
 # data = readdlm("Data/fakeOde2/trajectories-0.csv", ',')
 # plot!(my_plot, 0:0.1:27, exp.(data[1,:]))
 display(my_plot)
 
-# savefig(my_plot, "prout.png")
+savefig(my_plot, "LOGprout.png")

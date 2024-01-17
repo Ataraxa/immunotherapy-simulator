@@ -1,5 +1,5 @@
 using DelimitedFiles
-using Plots: plot, scatter
+using Plots: plot, scatter, plot!
 
 data = readdlm("Data/experimental/tumour_vol_data.csv", ',')
 processed = Dict()
@@ -38,7 +38,13 @@ end
 for treatment in keys(processed)
     slice = processed[treatment]["vol"]
     slice = slice[:, vec(mapslices(col -> any(col .!= 0), slice, dims = 1))]
-    slice = slice[vec(mapslices(col -> any(col .!= 0), slice, dims = 2)), :]    
-    display(plot(processed[treatment]["days"], slice'; legend=true, xlabel="Time (days)", ylabel="Tumour volume (mm³)"))
+    slice = slice[vec(mapslices(col -> any(col .!= 0), slice, dims = 2)), :]
+    # scatter(processed[treatment]["days"], slice'; legend=true, xlabel="Time (days)", ylabel="Tumour volume (mm³)")   
+    display(plot(processed[treatment]["days"], slice'; 
+        legend=false,
+        xlabel="Time (days)",
+        ylabel="Tumour volume (mm³)",
+        markershape = :circle,
+        linealpha=0.5))
 end
 

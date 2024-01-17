@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.7)  16 JAN 2024 22:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.7)  17 JAN 2024 10:20
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -433,43 +433,43 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
                    \relax 
 l.61 \section
              {Background}\label{sec:specs} [1] [2]
-<./Images/crnoncr3.png, id=199, 987.69pt x 655.44875pt>
+<./Images/crnoncr3.png, id=200, 987.69pt x 655.44875pt>
 File: ./Images/crnoncr3.png Graphic file (type png)
 <use ./Images/crnoncr3.png>
 Package pdftex.def Info: ./Images/crnoncr3.png  used on input line 86.
 (pdftex.def)             Requested size: 296.30928pt x 196.63614pt.
-<./Images/finalBM.png, id=206, 776.14969pt x 426.84468pt>
+<./Images/finalBM.png, id=207, 776.14969pt x 426.84468pt>
 File: ./Images/finalBM.png Graphic file (type png)
 <use ./Images/finalBM.png>
 Package pdftex.def Info: ./Images/finalBM.png  used on input line 99.
 (pdftex.def)             Requested size: 232.8467pt x 128.05438pt.
-<./Images/finalCP.png, id=207, 795.72281pt x 542.025pt>
+<./Images/finalCP.png, id=208, 795.72281pt x 542.025pt>
 File: ./Images/finalCP.png Graphic file (type png)
 <use ./Images/finalCP.png>
 Package pdftex.def Info: ./Images/finalCP.png  used on input line 103.
 (pdftex.def)             Requested size: 238.71867pt x 162.60875pt.
  [3 <./Images/crnoncr3.png>] [4 <./Images/finalBM.png> <./Images/finalCP.png>] [5] [6] [7]
-Overfull \hbox (5.60553pt too wide) in alignment at lines 279--283
+Overfull \hbox (5.60553pt too wide) in alignment at lines 290--294
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 283--287
+Overfull \hbox (5.60553pt too wide) in alignment at lines 294--298
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 287--291
+Overfull \hbox (5.60553pt too wide) in alignment at lines 298--302
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 291--293
+Overfull \hbox (5.60553pt too wide) in alignment at lines 302--304
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.60553pt too wide) in alignment at lines 293--300
+Overfull \hbox (5.60553pt too wide) in alignment at lines 304--311
  [] [] [] [] 
  []
 
@@ -477,59 +477,60 @@ Overfull \hbox (5.60553pt too wide) in alignment at lines 293--300
 <./Images/stability.png, id=297, 411.5375pt x 374.39874pt>
 File: ./Images/stability.png Graphic file (type png)
 <use ./Images/stability.png>
-Package pdftex.def Info: ./Images/stability.png  used on input line 331.
+Package pdftex.def Info: ./Images/stability.png  used on input line 342.
 (pdftex.def)             Requested size: 205.76825pt x 187.19891pt.
- [10 <./Images/stability.png>]
+ [10]
 <./Images/LOGprout.png, id=309, 433.62pt x 289.08pt>
 File: ./Images/LOGprout.png Graphic file (type png)
 <use ./Images/LOGprout.png>
-Package pdftex.def Info: ./Images/LOGprout.png  used on input line 352.
+Package pdftex.def Info: ./Images/LOGprout.png  used on input line 363.
 (pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
- [11]
-<./Images/model_validation/fd_1.png, id=319, 602.25pt x 401.5pt>
+ [11 <./Images/stability.png>]
+<./Images/model_validation/fd_1.png, id=318, 602.25pt x 401.5pt>
 File: ./Images/model_validation/fd_1.png Graphic file (type png)
 <use ./Images/model_validation/fd_1.png>
-Package pdftex.def Info: ./Images/model_validation/fd_1.png  used on input line 383.
+Package pdftex.def Info: ./Images/model_validation/fd_1.png  used on input line 394.
 (pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
-<./Images/model_validation/fd_2.png, id=320, 602.25pt x 401.5pt>
+<./Images/model_validation/fd_2.png, id=319, 602.25pt x 401.5pt>
 File: ./Images/model_validation/fd_2.png Graphic file (type png)
 <use ./Images/model_validation/fd_2.png>
-Package pdftex.def Info: ./Images/model_validation/fd_2.png  used on input line 387.
+Package pdftex.def Info: ./Images/model_validation/fd_2.png  used on input line 398.
 (pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+[12 <./Images/LOGprout.png>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[12 <./Images/LOGprout.png>] [13 <./Images/model_validation/fd_1.png> <./Images/model_validation/fd_2.png>]
+[13 <./Images/model_validation/fd_1.png> <./Images/model_validation/fd_2.png>]
 <./Images/testo.png, id=339, 1558.82375pt x 522.95375pt>
 File: ./Images/testo.png Graphic file (type png)
 <use ./Images/testo.png>
-Package pdftex.def Info: ./Images/testo.png  used on input line 460.
+Package pdftex.def Info: ./Images/testo.png  used on input line 471.
 (pdftex.def)             Requested size: 498.8338pt x 167.34862pt.
- [14 <./Images/testo.png>] [15
+ [14] [15 <./Images/testo.png>] [16
 
-] (./planning_report.bbl [16
+] (./planning_report.bbl [17
 
-] [17]) [18] (./planning_report.aux)
+] [18]) [19] (./planning_report.aux)
 Package rerunfilecheck Info: File `planning_report.out' has not changed.
-(rerunfilecheck)             Checksum: 8FFBBA2C516BB41FF8B144F3E7BD3200;4761.
+(rerunfilecheck)             Checksum: 68D3656CA2C3ECBBD34B867BE6E9B2FC;5081.
  ) 
 Here is how much of TeX's memory you used:
- 12400 strings out of 480247
- 203162 string characters out of 5896151
- 588061 words of memory out of 5000000
- 30054 multiletter control sequences out of 15000+600000
+ 12405 strings out of 480247
+ 203211 string characters out of 5896151
+ 589061 words of memory out of 5000000
+ 30055 multiletter control sequences out of 15000+600000
  479881 words of font info for 65 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  68i,14n,77p,1492b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/alex/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on planning_report.pdf (19 pages, 2277044 bytes).
+Output written on planning_report.pdf (20 pages, 2277817 bytes).
 PDF statistics:
- 456 PDF objects out of 1000 (max. 8388607)
- 387 compressed objects within 4 object streams
- 98 named destinations out of 1000 (max. 500000)
- 241 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 463 PDF objects out of 1000 (max. 8388607)
+ 393 compressed objects within 4 object streams
+ 102 named destinations out of 1000 (max. 500000)
+ 249 words of extra memory for PDF output out of 10000 (max. 10000000)
 
