@@ -28,7 +28,7 @@ setup = ABCRejection(
 )
 
 smc = runabc(setup, targetdata)
-a = plot(smc; title = "géfékk")
+a = plot(smc; title = "Test")
 a = plot!(Beta(n-Y + 1, Y + 1))
 
 

@@ -16,3 +16,7 @@ function read_data(selected_days, num_experiments, step_size, set=val_set)
 
     return(data_matrix)
 end
+
+function select_days(time_series, day_array, step)
+    return time_series[day_array*trunc(Int, 1/step) .+ 1]
+end

@@ -10,8 +10,9 @@ structure.
 Returns a Tuple (p, u0)
 """
 function repack_params(
-    restricted::Union{updateParams1, updateParams3},
+    restricted::Union{updateParams1, updateParams3};
     base::baseParams = christian,
+    do_split::Boolean = false
     )
 
     # Update the default parameters, to be passed to the DDE model
@@ -21,6 +22,6 @@ function repack_params(
     end
 
     # Return base structure converted to vector
-    return struct_split(base)
+    return do_split ? struct_split(base) : base
 end
 

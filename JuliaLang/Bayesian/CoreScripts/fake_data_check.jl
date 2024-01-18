@@ -19,7 +19,7 @@ using DelimitedFiles: readdlm
 include("../../CommonLibrary/data_extractor.jl")
 include("../../Model/Differential/ode_core.jl")
 include("../BayesModels/individual_restricted.jl")
-include("../Approximate/distance_functions.jl")
+include("../Approximate/distance.jl")
 
 ### Script Settings
 DotEnv.config() # Loads content from .env file
@@ -58,9 +58,9 @@ open("Data/fakeData/params.txt") do f
     lines = readlines(f)
     for line in lines 
         if string(line[1]) == string(data_set)
-            rhs = split(line, ':')[2]
+            rhs = @pipe split(line, ':')[2]
             rhs2 = strip.(split(rhs, '|'))
-            rhs3 = filter(x -> x != "N/A", rhs2)
+            rhs3 = filter(x -> x != "N/A", rhs2) # List of parameteryyy
             # rhs = @pipe split(line, ':')[2] |> strip.(split(_, '|')) |> filter(x -> x != "N/A", _)
             global parsed_vec = [parse(Float64, x) for x in rhs3]
             break
