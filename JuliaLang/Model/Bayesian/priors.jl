@@ -39,7 +39,7 @@ function gen_priors(
     base::Vector{Float64}=christian_true_params
     )
 
-    return [distro((is_info ? ln(par) : 0), std) for par in base]
+    return [distro((is_info ? log(par) : 0), std) for par in base]
 end
 
 priors = gen_priors(Cauchy,1.,false)

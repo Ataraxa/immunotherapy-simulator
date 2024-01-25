@@ -28,7 +28,7 @@ model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
 prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ?               (ARGS[6]) : 1
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 0
-prior_acc      = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
+prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
 
 path = "Data/fakeDataNew"
 ### Settings autoloading
@@ -49,8 +49,7 @@ println("σ=$(σ_err) | space=$(space) | log_norm=$(log_norm)")
 
 ### Generate priors 
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
-pase
-priors_vec = gen_priors(distro, prior_acc,Bool(inform_priors))
+priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors))
 
 ### Main 
 # Data Extraction 
