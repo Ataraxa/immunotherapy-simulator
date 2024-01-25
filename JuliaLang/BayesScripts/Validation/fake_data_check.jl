@@ -25,10 +25,10 @@ n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
 model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
-input_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
-inform_priors   = (length(ARGS) >= 6) ?               (ARGS[6]) : "true"
+prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
+inform_priors   = (length(ARGS) >= 6) ?               (ARGS[6]) : 1
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 0
-prior_acc     = (length(ARGS) >= 8) ? parse(Float64, (ARGS[8])) : 1.0
+prior_acc      = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
 
 path = "Data/fakeDataNew"
 ### Settings autoloading
@@ -48,7 +48,9 @@ log_norm = unparsed_settings[4]
 println("σ=$(σ_err) | space=$(space) | log_norm=$(log_norm)")
 
 ### Generate priors 
-priors_vec = gen_priors(Normal, 1.,false)
+distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
+pase
+priors_vec = gen_priors(distro, prior_acc,Bool(inform_priors))
 
 ### Main 
 # Data Extraction 
@@ -104,7 +106,7 @@ end
 summary = "Summary for $filename: \n 
     MCMC parameters:       n_iters=$n_iters | n_threads=$n_threads \n
     Parameter space:       space=$space  \n
-    Priors:                type=$input_distro | std=$prior_acc | isinform=$inform_priors \n
+    Priors:                type=$prior_distro | std=$prior_acc | isinform=$inform_priors \n
     Likelihood parameters: model=$model | σ_noise=$σ_err \n 
     Pooling:               n_exp=$num_experiments \n
     Dataset:               set=$data_set \n 
