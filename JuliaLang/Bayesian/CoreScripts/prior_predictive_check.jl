@@ -5,7 +5,7 @@ User must specify both the priors and likelihood.
 =#
 
 using Plots: plot, plot!, savefig, pyplot
-using Turing
+# using Turing
 using StatsBase: percentile, mode, median
 using Distributions
 using DelimitedFiles
@@ -15,15 +15,15 @@ include("../../Model/Differential/ode_core.jl")
 include("../../Model/Differential/ode_restricted.jl")
 
 ### Script Settings
-pyplot()
+# pyplot()
 num_samples = 1000
 simul_matrix = Matrix{Float64}(undef, num_samples, 271) # (undef, row, col)
 problem = create_problem()
 
 ### Priors 
-ln_k₆_prior = truncated(Cauchy(0, 1); lower=-5, upper=0)
-ln_d₁_prior = truncated(Cauchy(0, 1); lower=0, upper=7)
-ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=0)
+ln_k₆_prior = truncated(Cauchy(0, 1); lower=-100, upper=)
+ln_d₁_prior = truncated(Cauchy(0, 1); lower=-3, upper=7)
+ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=7)
 
 ### Main
 ln₍k₆₎ = rand(ln_k₆_prior, num_samples)
@@ -31,10 +31,10 @@ ln₍d₁₎ = rand(ln_d₁_prior, num_samples)
 ln₍s₂₎ = rand(ln_s₂_prior, num_samples)
 
 for i in 1:num_samples
-    # p = [ln₍k₆₎[i], ln₍d₁₎[i], ln₍s₂₎[i]] .|> exp 
-    p = [ln₍k₆₎[i]] .|> exp
+    p = [ln₍k₆₎[i], ln₍d₁₎[i], ln₍s₂₎[i]] .|> exp 
+    # p = [ln₍k₆₎[i]] .|> exp
 
-    re_p, u0 = repack_params(updateParams1(p...))
+    re_p, u0 = repack_params(updateParams3(p...); do_split=true)
     predictions = solve(problem; p=re_p, saveat=0.1)
     simul_matrix[i,:] = predictions[4,:] + predictions[5,:]
 end

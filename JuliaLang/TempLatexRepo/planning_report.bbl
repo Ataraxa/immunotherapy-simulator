@@ -17,6 +17,11 @@ V.~Schirrmacher.
   to reduce the side effects of systemic cancer treament (review).
 \newblock {\em Int J Oncol.}, 54(2), 2019.
 
+\bibitem{toxicImmuno}
+A.~Sosa, Cadena~E. Lopez, Olive~C. Simon, Karachaliou N., and Rosell R.
+\newblock Clinical assessment of immune-related adverse events.
+\newblock {\em Ther Adv Med Oncol}, 10, 2018.
+
 \bibitem{ReviewCPI}
 Alex~D. Waldman, Jill~M. Fritz, and Michael~J. Lenardo.
 \newblock A guide to cancer immunotherapy: from {T} cell basic science to
@@ -63,18 +68,10 @@ B.V. Kumar, T.J. Connors, and D.L. Farber.
   life.
 \newblock {\em Immunity}, 48:202--213, 2018.
 
-\bibitem{reducImmunoSuppression}
-S.A. Rosenberg, B.S. Packard, P.M. Aebersold, D.~Solomon, S.L. Topalian, S.T.
-  Toy, et~al.
-\newblock Use of tumor-infiltrating lymphocytes and interleukin-2 in the
-  immunotherapy of patients with metastatic melanoma.
-\newblock {\em N Engl J Med}, 319:1676--80, 1988.
-
-\bibitem{ifnPD1}
-G.~Ding, T.~Shen, C.~Yan, et~al.
-\newblock {IFNg down-regulates the PD-1 expression and assist nivolumab in
-  PD-1-blockade effect on CD8+ T-lymphocytes in pancreatic cancer}.
-\newblock {\em BMC Cancer}, 19(1053), 2019.
+\bibitem{exhaustionPD1}
+Y.~iang, Y.~Li, and B.~Zhu.
+\newblock T-cell exhaustion in the tumor microenvironment.
+\newblock {\em Cell Death Dis}, 6, 2015.
 
 \bibitem{ifngAngiogenesis}
 Y.~Hayakawa, K.~Takeda, H.~Yagita, M.J. Smyth, L.~Van~Kaern, K.~Okumura, et~al.
@@ -112,11 +109,11 @@ D.R. Leach, M.F. Krummel, and J.P. Allision.
 \newblock Enhancement of antitumor immunity by {CTLA-4} blockade.
 \newblock {\em Science}, 271:1734--1736, 1996.
 
-\bibitem{clintriAC2}
-E.D. Kwon et~al.
-\newblock Manipulation of {T} cell costimulatory and inhibitory signals for
-  immunotherapy of prostate cancer.
-\newblock {\em Proc. Natl Acad. Sci. USA}, 94:8099--8103, 1997.
+\bibitem{clintriAC3}
+Z.~Jia, D.~Ragoonanan, KM. Mahadeo, J.~Gill, R.~Gorlick, E.~Shpal, and S~Li.
+\newblock {IL12 }immune therapy clinical trial review: Novel strategies for
+  avoiding {CRS-associated} cytokines.
+\newblock {\em Front Immunol.}, 13, 2022.
 
 \bibitem{cbdil12}
 A.~Mansurov, J.~Ishihara, P.~Hosseinchi, et~al.
@@ -141,44 +138,27 @@ L.C Villaruz and M.A. Socinski.
   considerations of measurement.
 \newblock {\em Clin Cancer Res}, 19(10), 2013.
 
+\bibitem{reviewImmunoMelanoma}
+A.~Knight, L.~Karapetyan, and J.M. Kirkwood.
+\newblock Immunotherapy in melanoma: Recent advances and future directions.
+\newblock {\em Cancers}, 15(4), 2023.
+
 \bibitem{takuya}
 Takuya Miyano.
 \newblock Mathematical modeling of complete remission of immunologically cold
   tumor by tumor-matrix targeted interleukin-12, 2019.
 
-\bibitem{Davidian2011}
-Marie Davidian.
-\newblock {\em Nonlinear Mixed Effects Models}, pages 947--950.
-\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2011.
+\bibitem{bistable}
+Ferrell~JE Jr.
+\newblock Self-perpetuating states in signal transduction: positive feedback,
+  double-negative feedback and bistability.
+\newblock {\em Curr Opin Cell Biol.}, 14(2), 2002.
 
-\bibitem{liu_wang}
-Baisen Liu, Liangliang Wang, and Jiguo Cao.
-\newblock Bayesian estimation of ordinary differential equation models when the
-  likelihood has multiple local modes.
-\newblock {\em Monte Carlo Methods and Applications}, 24(2):117--127, 2018.
-
-\bibitem{revParamEst}
-Sophie Donnet and Adeline Samson.
-\newblock A review on estimation of stochastic differential equations for
-  pharmacokinetic/pharmacodynamic models.
-\newblock {\em Advanced Drug Delivery Review}, 65, 2013.
-
-\bibitem{SAEM}
-Emmanuelle Comets, Audrey Lavenu, and Marc Lavielle.
-\newblock Parameter estimation in nonlinear mixed effect models using saemix,
-  an {R} implementation of the {SAEM} algorithm.
-\newblock {\em Journal of Statistical Software}, 80(3), 2017.
-
-\bibitem{foce}
-Mary~J. Lindstrom and Douglas~M. Bates.
-\newblock Nonlinear mixed effects models for repeated measures data.
-\newblock {\em Biometrics}, 46(3), 1990.
-
-\bibitem{rosenbaum}
-B.~Rosenbaum, M.~Raats, et~al.
-\newblock Estimating parameters from multiple time series of population
-  dynamics using bayesian inference.
-\newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
+\bibitem{toniPHD}
+Tina Toni.
+\newblock {\em Approximate {Bayesian} computation for parameter inference and
+  model selection in systems biology}.
+\newblock PhD thesis, Imperial College London, 2010.
 
 \bibitem{tbk_gelman}
 Andrew Gelman, John~B Carlin, Hal~S. Stern, David~B. Dunson, Aki Vehtari, and
@@ -186,11 +166,50 @@ Andrew Gelman, John~B Carlin, Hal~S. Stern, David~B. Dunson, Aki Vehtari, and
 \newblock {\em Bayesian Data Analysis}.
 \newblock 3rd edition, 2021.
 
+\bibitem{rosenbaum}
+B.~Rosenbaum, M.~Raats, et~al.
+\newblock Estimating parameters from multiple time series of population
+  dynamics using bayesian inference.
+\newblock {\em Frontiers in Ecology and Evolution}, 6(234), 2019.
+
+\bibitem{liu_wang}
+Baisen Liu, Liangliang Wang, and Jiguo Cao.
+\newblock Bayesian estimation of ordinary differential equation models when the
+  likelihood has multiple local modes.
+\newblock {\em Monte Carlo Methods and Applications}, 24(2):117--127, 2018.
+
 \bibitem{likelihood_2}
 Valderrama-Bahamóndez, Gloria I., and Holger Fröhlich.
 \newblock Mcmc techniques for parameter estimation of ode based models in
   systems biology.
 \newblock {\em Frontiers in Applied Mathematics and Statistics}, 5, 2019.
+
+\bibitem{mcmcTuto}
+Don van Ravenzwaaij, Pete Cassey, and Scott~D. Brown.
+\newblock A simple introduction to {Markov Chain Monte–Carlo} sampling.
+\newblock {\em Psychon Bull Rev}, 25:134--154, 2016.
+
+\bibitem{moins2023use}
+Théo Moins, Julyan Arbel, Anne Dutfoy, and Stéphane Girard.
+\newblock On the use of a local $\hat{R}$ to improve mcmc convergence
+  diagnostic, 2023.
+
+\bibitem{rhat}
+Stephen~P. Brooks and Andrew Gelman.
+\newblock General methods for monitoring convergence of iterative simulations.
+\newblock {\em Journal of Computational and Graphical Statistics}, 7(4), 1992.
+
+\bibitem{revParamEst}
+Sophie Donnet and Adeline Samson.
+\newblock A review on estimation of stochastic differential equations for
+  pharmacokinetic/pharmacodynamic models.
+\newblock {\em Advanced Drug Delivery Review}, 65, 2013.
+
+\bibitem{varellaEFAT}
+Hubert Varella, Samuel Buis, Marie Launay, and Martine Guérif.
+\newblock Global sensitivity analysis for choosing the main soil parameters of
+  a crop model to be determined.
+\newblock {\em Agricultural Sciences}, 3(7), 2012.
 
 \bibitem{tomgro}
 M.A. Vazquez-Cruz, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
@@ -201,11 +220,6 @@ M.A. Vazquez-Cruz, R.~Guzman-Cruz, I.L. Lopez-Cruz, et~al.
 \bibitem{gelman2020bayesian}
 Andrew Gelman et~al.
 \newblock {Bayesian Workflow}, 2020.
-
-\bibitem{rhat}
-Stephen~P. Brooks and Andrew Gelman.
-\newblock General methods for monitoring convergence of iterative simulations.
-\newblock {\em Journal of Computational and Graphical Statistics}, 7(4), 1992.
 
 \bibitem{christian1}
 Christian Hines.

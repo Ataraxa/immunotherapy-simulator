@@ -92,7 +92,7 @@ end
     pred_vol = predictions[4,:] + predictions[5,:]
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
-    ## Likelihoods
+    ## Likelihood
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
             data[exp, i] ~ Normal(transform(sliced_pred[i]),  σ_likelihood)

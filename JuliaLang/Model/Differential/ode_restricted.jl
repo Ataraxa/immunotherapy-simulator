@@ -12,7 +12,7 @@ Returns a Tuple (p, u0)
 function repack_params(
     restricted::Union{updateParams1, updateParams3};
     base::baseParams = christian,
-    do_split::Boolean = false
+    do_split::Bool = false
     )
 
     # Update the default parameters, to be passed to the DDE model

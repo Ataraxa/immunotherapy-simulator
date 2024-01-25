@@ -7,7 +7,7 @@ include("../Model/Differential/ode_params.jl")
 include("../Model/treatments_lib.jl")
 
 what_to_plot = "ga_res"
-filename = "Results/hpc-ga_opt-0.jld2"
+filename = "Results/ga_opt-0.jld2"
 
 # Extract paramater vector from files
 if what_to_plot == "ga_res"

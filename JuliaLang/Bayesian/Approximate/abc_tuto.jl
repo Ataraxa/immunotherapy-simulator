@@ -1,34 +1,71 @@
-#=
-Julai implementation the Approximate Bayesian Compuation (ABC) tutorial from the
-paper https://doi.org/10.1016/j.jmp.2012.02.005
-=#
-using Distributions
-using ApproxBayes
-using Plots: plot, xlims!, Axis
-using StatsPlots: plot
+using GpABC, OrdinaryDiffEq, Distances, Distributions, Plots, StatsBase, Printf
 
-n = 100
-function dist(params, constants,  targetdata)
-    p = params[1]
-    simulation = [(rand(Uniform(0,1)) >= p) for _ in 1:n]
-    Y = sum(simulation)
-    X = sum(targetdata)
-    distance = 1/n * abs(Y - X), 1
-    return distance
+#
+# ABC settings
+#
+true_params =  [2.0, 1.0, 15.0, 1.0, 1.0, 1.0, 100.0, 1.0, 1.0, 1.0] # nominal parameter values
+priors = [Uniform(0.2, 5.), Uniform(0.2, 5.), Uniform(10., 20.),
+          Uniform(0.2, 2.), Uniform(0.2, 2.), Uniform(0.2, 2.),
+          Uniform(75., 125.), Uniform(0.2, 2.), Uniform(0.2, 2.), 
+          Uniform(0.2, 2.)]
+param_indices = [1, 3, 9]  #indices of the parameters we want to estimate
+priors = priors[param_indices]
+
+#
+# ODE solver settings
+#
+Tspan = (0.0, 10.0)
+x0 = [3.0, 2.0, 1.0]
+solver = RK4()
+saveat = 0.1
+
+#
+# Returns the solution to the toy model as solved by OrdinaryDiffEq
+#
+GeneReg = function(params::AbstractArray{Float64,1},
+    Tspan::Tuple{Float64,Float64}, x0::AbstractArray{Float64,1},
+    solver::OrdinaryDiffEq.OrdinaryDiffEqAlgorithm, saveat::Float64)
+
+  if size(params,1) != 10
+    throw(ArgumentError("GeneReg needs 10 parameters, $(size(params,1)) were provided"))
+  end
+
+  function ODE_3GeneReg(dx, x, par, t)
+    dx[1] = par[1]/(1+par[7]*x[3]) - par[4]*x[1]
+    dx[2] = par[2]*par[8]*x[1]/(1+par[8]*x[1]) - par[5]*x[2]
+    dx[3] = par[3]*par[9]*x[1]*par[10]*x[2]./(1+par[9]*x[1])./(1+par[10]*x[2]) - par[6]*x[3]
+  end
+
+  prob = ODEProblem(ODE_3GeneReg, x0 ,Tspan, params)
+  Obs = solve(prob, solver, saveat=saveat)
+
+  return hcat(Obs.u...)
 end
 
-targetdata = [(rand() >= 0.7) for _ in 1:n]
-Y=sum(targetdata)
+#
+# A function that simulates the model 
+#
+function simulator_function(var_params)
+    params = copy(true_params)
+    params[param_indices] .= var_params
+    GeneReg(params, Tspan, x0, solver, saveat)
+end
 
-setup = ABCRejection(
-    dist,
-    1,
-    1e-10,
-    Prior([Beta(1,1)])
-)
-
-smc = runabc(setup, targetdata)
-a = plot(smc; title = "Test")
-a = plot!(Beta(n-Y + 1, Y + 1))
+# _________________________________________________________________
+#
+# Get reference data and plot it
+#
+reference_data = simulator_function(true_params[param_indices])
+plot(reference_data', xlabel="t", ylabel="C(t)", linewidth=2, labels=["u1(t)" "u2(t)" "u3(t)"])
 
 
+
+#
+# Simulation
+#
+n_particles = 2000
+threshold = 1.0
+sim_result = SimulatedABCRejection(reference_data, simulator_function, priors, threshold, n_particles;
+    max_iter=convert(Int, 2e6),
+    write_progress=false)
+plot(sim_result)
