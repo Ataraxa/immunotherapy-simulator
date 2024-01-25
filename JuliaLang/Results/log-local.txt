@@ -138,3 +138,19 @@ Summary for local-individual-1-5.h5:
  
     Transformation:        transform=logn_noise 
  
+Summary for local-individual-1-2.h5: 
+ 
+    MCMC parameters:       n_iters=1000 | n_threads=1 
+
+    Parameter space:       space=(3,)  
+
+    Priors:                type=Normal | std=1.0 | isinform=true 
+
+    Likelihood parameters: model=takuya | σ_noise=1.0 
+ 
+    Pooling:               n_exp=1 
+
+    Dataset:               set=0 
+ 
+    Transformation:        transform=none 
+ 

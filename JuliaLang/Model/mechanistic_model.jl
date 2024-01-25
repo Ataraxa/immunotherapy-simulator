@@ -1,9 +1,8 @@
 using DifferentialEquations
 using Match
 
-include("./ode_params.jl")
-include("../treatments_lib.jl")
-include("../../CommonLibrary/struct_manipulation.jl")
+include("./treatments_lib.jl")
+include("./Bayesian/priors.jl")
 
 function check_active(t::Float64, t_in_vector, delay::Float64, last::Float64, is_injected::Bool)
     is_active = false
@@ -61,18 +60,19 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
             end
         end
 
-        "w/feedback" => begin
+        "w/feedback" => begin 
         immune_resp = function(du, u, h, p, t)
             tr = treatment
-            p = p[1:end]
+            p = p[1:21]
             
             # Model parameters.
             t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
             k1, k2, k3, k4, k5, k6,
             d1, d2, d3, d4, d5, d6, d7, d8,
-            s1, s2,
-            n₁ = p
+            s1, s2 = p
             v_max=600
+
+            new = 8
         
             # Current state.
             g, c, pd1, vl, vd = u
@@ -85,15 +85,15 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
             # d_cpi = 0 
         
             # Evaluate differential equations.
-            du[1] = k1 + k2 * (d_cbd + d_12) + (n₁-d1)*g # g(t)=IFNγ
-            du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c # c(t)=CD8+
-            du[3] = k5 - (d3+d4*g)*pd1 # p(t)=PD-1
+            du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g + new * g
+            du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
+            du[3] = k5 - (d3+d4*g)*pd1 
             du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
             du[5] = (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
         
             return du
         end
-        end
+    end
     end
 
     return immune_resp
@@ -102,13 +102,13 @@ end
 function create_problem(; 
         model="takuya", 
         treatment::Treatment=CBD_IL_12_ver7, 
-        param_struct=christian,
+        params=christian_true_params,
         max_day::Float64 = 27.0
         )
     
     model=model_factory(model=model, treatment=treatment)
-    p, u0 = struct_split(param_struct)
-    u0 = [u0; 0]
+    p = params[1:21]
+    u0 = [params[22:end]; 0]
     h(p, t; idxs::Int) = 0.0
     t_span = (0.0, max_day)
 

@@ -4,9 +4,8 @@ using Base.Threads
 using ForwardDiff: Dual 
 using ForwardDiff
 
-include("../../Model/Differential/ode_core.jl")
-include("../../Model/Differential/ode_params.jl")
-include("../../Model/Differential/ode_restricted.jl")
+include("../../Model/mechanistic_model.jl")
+include("../../Model/Bayesian/priors.jl")
 
 """
 Statistical model to estimate only the sensitive parameters of a mouse, given an
@@ -23,7 +22,7 @@ Inputs:
     - σ_likelihood: standard deviation of the likelihood distribution
 """
 @model function fit_individual_restricted1(
-        data, problem, selected_days, s, σ_likelihood, 
+        data, problem, selected_days, s, σ_err, 
         log_norm::SubString{String},
         distro::Vector{T} where T <: ContinuousDistribution ; 
         num_experiments = 1)
@@ -47,7 +46,8 @@ Inputs:
     end
 
     ## Solve DDE model  
-    repacked_p = repack_params(updateParams1(float_p...) )
+    params = copy(christian_true_params)
+    params
     predictions = solve(problem; p=repacked_p[1], saveat=0.1)
     pred_vol = predictions[4,:] + predictions[5,:]
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
@@ -55,29 +55,30 @@ Inputs:
     ## Likelihoods
     for exp in 1:num_experiments
         for i in eachindex(sliced_pred)
-            data[exp, i] ~ (Normal(transform(sliced_pred[i]),  σ_likelihood))
+            data[exp, i] ~ (Normal(transform(sliced_pred[i]),  σ_err))
         end
     end 
 end
 
 @model function fit_individual_restricted3(
-    data, problem, selected_days, s, σ_likelihood, 
+    data, problem, selected_days, s, σ_err, 
     log_norm::SubString{String},
-    distro::Vector{T} where T <: ContinuousDistribution ; 
+    distro::Vector{T} where T <: ContinuousDistribution,
+    var_params_index; 
     num_experiments = 1)
 
     # Process the transform 
     @match log_norm begin 
-        "norm_noise" => global transform = (x -> x)
-        "logn_noise" => global transform = (x -> log(x))
+        "none" => global transform = (x -> x)
+        "loga" => global transform = (x -> log(x))
     end
     # Process data matrix
     data = transform.(data)
         
     ## Regular priors
-    ln_k6 ~ truncated(distro[1]; lower=-100, upper=0) # Negative half-Cauchy
-    ln_d1 ~ truncated(distro[2]; lower=0,    upper=7) # Positive half-Cauchy
-    ln_s2 ~ truncated(distro[3]; lower=-100, upper=0)
+    ln_k6 ~ truncated(distro[1]; lower=-100, upper=7) # Negative half-Cauchy
+    ln_d1 ~ truncated(distro[2]; lower=-5,   upper=7) # Positive half-Cauchy
+    ln_s2 ~ truncated(distro[3]; lower=-100, upper=7)
 
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6, ln_d1, ln_s2] .|> exp
@@ -87,15 +88,19 @@ end
     end
 
     ## Solve DDE model  
-    repacked_p = repack_params(updateParams3(float_p...) )
-    predictions = solve(problem; p=repacked_p[1], saveat=0.1)
-    pred_vol = predictions[4,:] + predictions[5,:]
-    sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
+    params = copy(christian_true_params)
+    params[var_params_index] .= float_p
+    pred = solve(problem; p=params, saveat=s)
+    v = pred[4,:]+pred[5,:]
+    combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
+    sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
 
     ## Likelihood
     for exp in 1:num_experiments
-        for i in eachindex(sliced_pred)
-            data[exp, i] ~ Normal(transform(sliced_pred[i]),  σ_likelihood)
+        for qty in 1:4 # range g > c > p > v
+            for i in eachindex(sliced_pred[1,:])
+                data[qty,i,exp] ~ Normal(transform(sliced_pred[qty,i]),  σ_err)
+            end
         end
     end 
 end

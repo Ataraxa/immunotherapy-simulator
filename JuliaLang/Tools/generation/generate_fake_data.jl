@@ -1,69 +1,51 @@
 using Distributions
-using DelimitedFiles
-using Plots: plot, plot!, scatter!
-using Match
 
-include("../../Model/Differential/ode_core.jl")
-include("../../Model/Differential/ode_restricted.jl")
+using JLD
+using Pipe
+using Match
+using Plots: plot, plot!, scatter!
+
+include("../../Model/mechanistic_model.jl")
+include("../../Model/Bayesian/priors.jl")
 
 # Settings
 do_overwrite_prev = true
-distro_name = "normal" 
-space = "restr3"
-noise = "logn_noise"
+var_params_idx = [11, 12, 21]
+distro = Normal
+std = 1.
+is_info=false
+noise = "none"
 
-# Process Settings
-@match distro_name begin 
-    "cauchy" => global distro = Cauchy(0,1)
-    "normal" => global distro = Normal(0,1)
-end
-
-# Priors to sample from 
-ln_k₆_prior = truncated(distro; lower=-100, upper=0)
-ln_d₁_prior = truncated(distro; lower=0, upper=7)
-ln_s₂_prior = truncated(distro; lower=-100, upper=0)
-σ_prior     = Normal()
-
-# Sample from priors 
-ln₍k₆₎ = rand(ln_k₆_prior)
-ln₍d₁₎ = rand(ln_d₁_prior)
-ln₍s₂₎ = rand(ln_s₂_prior)
-σ = 0.3
+# Sample from prior 
+priors = gen_priors(distro,std,is_info)[var_params_idx]
+sampled_set = [rand(prior) for prior in priors] .|> exp
+param_vector = copy(christian_true_params)
+param_vector[var_params_idx] .= sampled_set
 
 # Create and solve 
-problem = create_problem()
+problem = create_problem(; 
+    model="takuya",
+    params=param_vector
+    )
+pred = solve(problem; saveat=0.1) # 5x271 matrix
+v = pred[4,:]+pred[5,:]
+combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
+stacked_pred = repeat(combined_pred, 1, 1, 10)
 
-@match space begin 
-    "restr1" => begin  
-        # p = [ln₍k₆₎] .|> exp
-        p = [exp(-0.8733718288575096)]
-        global re_p, _ = repack_params(updateParams1(p...))
-    end
-
-    "restr3" => begin
-        p = [ln₍k₆₎, ln₍d₁₎, ln₍s₂₎] .|> exp
-
-        global re_p, _ = repack_params(updateParams3(p...))
-    end
-end
-
-# p = [ln₍k₆₎[i], ln₍d₁₎[i], ln₍s₂₎[i]] .|> exp 
-# p = [ln₍k₆₎] .|> exp
-
-# re_p, u0 = repack_params(updateParams1(p...))
-predictions = solve(problem; p=re_p, saveat=0.1)
-mean_growth = predictions[4,:] + predictions[5,:] 
-stacked_growth = repeat(mean_growth, 1, 10)'
-
+# Add noise
 @match noise begin 
-    "norm_noise" => begin
-        noise = rand(Normal(0, 1), 10, size(stacked_growth)[2])
-        global noisy_growth = stacked_growth .+ noise
+    "additive" => begin
+        noise = rand(Normal(0, 1), 4, size(stacked_pred)[2], 10)
+        global noisy_growth = stacked_pred .+ noise
     end 
 
     "logn_noise" => begin
-        noise = rand(Normal(0, 0.2), 10, size(stacked_growth)[2])   
-        global noisy_growth = (log.(stacked_growth) + noise) .|> exp
+        noise = rand(Normal(0, 0.2), 4, size(stacked_pred)[2], 10)   
+        global noisy_growth = (log.(stacked_pred) + noise) .|> exp
+    end
+
+    "none" => begin
+        global noisy_growth = stacked_pred
     end
 end
 
@@ -74,35 +56,40 @@ function data_rectifier(x, thresh)
 end
 data_rectifier.(noisy_growth, 1e-6)
 
-my_plot = plot(predictions.t, mean_growth)
-plot!(my_plot, predictions.t, noisy_growth')
-display(my_plot)
+# Plotting result
+num_series = 4
+series = ["IFNγ", "CD8+", "PD-1", "Tumour volume"]
+layout = plot(layout=(2,2))
+for i in 1:4
+    plot!(layout, pred.t, noisy_growth[i,:,1:num_series];
+    sp=i,
+    xlabel="Time (day)",
+    title=series[i],
+    frame=:box)
+end
+display(layout)
 
 ### Save predictions to file
 file_i = 0
-filename = "trajectories-$file_i.csv"
-while isfile("Data/fakeData/$filename")
+path = "Data/fakeDataNew"
+filename = "trajectories-$file_i.jld"
+while isfile("$path/$filename")
     global file_i+=1
-    global filename = "trajectories-$file_i.csv"
+    global filename = "trajectories-$file_i.jld"
 end
 if do_overwrite_prev
-    filename = "trajectories-$(file_i-1).csv"
+    filename = "trajectories-$(file_i-1).jld"
     global file_i -= 1
 end
-writedlm("Data/fakeData/$filename", noisy_growth, ',')
+save("$path/$filename", "M", noisy_growth)
 
-summary = "$(file_i) -> $(distro_name) | $(space) | $(σ) | $(noise)\n"
-open("Data/fakeData/log.txt", "a") do f 
+summary = "$(file_i) -> $(distro) | $(size(var_params_idx)) | $(std) | $(noise)\n"
+open("$path/log.txt", "a") do f 
     write(f, summary)
 end
 
-@match space begin 
-    "restr1" => global param_list = "$file_i: $ln₍k₆₎ | N/A | N/A\n"
-    "restr3" => global param_list = "$file_i: $ln₍k₆₎ | $ln₍d₁₎ | $ln₍s₂₎\n"
-end
-
-open("Data/fakeData/params.txt", "a") do f 
-    write(f, param_list)
+open("$path/params.txt", "a") do f 
+    write(f, "$(file_i) -> "*join(string.(sampled_set), " | ")*"\n")
 end
 
 println("Successfully created file at $(filename)")
