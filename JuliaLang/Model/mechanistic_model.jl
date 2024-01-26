@@ -63,13 +63,13 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
         "w/feedback" => begin 
         immune_resp = function(du, u, h, p, t)
             tr = treatment
-            p = p[1:21]
             
             # Model parameters.
             t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
             k1, k2, k3, k4, k5, k6,
             d1, d2, d3, d4, d5, d6, d7, d8,
-            s1, s2 = p
+            s1, s2,
+            n1 = p
             v_max=600
 
             new = 8
@@ -85,7 +85,7 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
             # d_cpi = 0 
         
             # Evaluate differential equations.
-            du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g + new * g
+            du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g + n1 * g
             du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
             du[3] = k5 - (d3+d4*g)*pd1 
             du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl

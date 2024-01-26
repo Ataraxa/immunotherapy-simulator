@@ -30,6 +30,7 @@ christian_true_params = [
     8.851474387488993, # c (CD8+)
     5.999229998549251, # p (PD-1)
     5.573047884761726  # v (Living tumour)
+    # ⟹ Total: 25 params
 ]
 
 function gen_priors(

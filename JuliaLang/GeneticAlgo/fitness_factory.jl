@@ -1,5 +1,5 @@
 using Match
-include("../Model/Differential/ode_core.jl")
+include("../Model/mechanistic_model.jl")
 
 function create_fitness(; model="takuya")
 

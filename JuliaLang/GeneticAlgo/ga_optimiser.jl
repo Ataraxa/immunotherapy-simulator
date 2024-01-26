@@ -2,22 +2,33 @@ using Evolutionary
 using JLD2
 using DifferentialEquations
 using DotEnv
+using Match
 
 include("./fitness_factory.jl")
-include("../Model/Differential/ode_core.jl")
-include("../Model/Differential/ode_params.jl")
+include("../Model/Bayesian/priors.jl")
 
 DotEnv.config() # Loads content from .env file
 n_iters      = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 100
 n_iter_tol   = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 10
+input_model  = (length(ARGS) >= 3) ?                ARGS[3]  : "w/feedback"
 
 # Fetch known fit parameters for BoxConstraints
-p, u0 = struct_split(new_christ) # u0 has 4 params, p has 21 params
-target = [p; u0...] # 1x25 vector
+@match input_model begin
+    "takuya" => begin
+        global p  = christian_true_params[1:21]
+        global u0 = [christian_true_params[22:end]; 0]
+    end
+
+    "w/feedback" => begin
+        global p  = [christian_true_params[1:21]; 1] # last element is n1
+        global u0 = [christian_true_params[22:end]; 0]
+    end
+end
+target = [p; u0...] # 1x25 or 1x26 vector
 width_factor = 0.25
 lower = (1 - width_factor) .* target  # Add unknown params at the end
 upper = (1 + width_factor) .* target
-fitness = create_fitness(model="w/feedback")
+fitness = create_fitness(model=input_model)
 
 # Perform optimisation
 params = Evolutionary.optimize(
