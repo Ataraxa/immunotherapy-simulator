@@ -3,8 +3,8 @@ using Distributions
 using StatsPlots
 using ForwardDiff: Dual
 
-include("../Model/Differential/dde_to_bayesian.jl")
-include("../Library/optimisation_lib.jl")
+include("../Model/mechanistic_model.jl")
+include("../Model/Bayesian/priors.jl")
 
 pb = restricted_dde_space()
 init_k6 = 0.4524371106042169
