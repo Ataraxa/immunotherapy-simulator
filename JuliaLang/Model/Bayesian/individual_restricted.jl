@@ -86,15 +86,17 @@ end
     for (i, param) in enumerate(p) 
         float_p[i] = (typeof(param) <: Dual) ? param.value : param
     end
-
     ## Solve DDE model  
     params = copy(christian_true_params)
     params[var_params_index] .= float_p
     pred = solve(problem; p=params, saveat=s)
     v = pred[4,:]+pred[5,:]
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
+    if size(combined_pred, 2) != 271
+        println("Houchas gatsias!")
+    end
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
-    print("Houchas gatsias!")
+    
     ## Likelihood
     for exp in 1:num_experiments
         for qty in 1:4 # range g > c > p > v
