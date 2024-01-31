@@ -11,8 +11,9 @@ using Distributions
 using DelimitedFiles
 using Plots.PlotMeasures
 
-include("../../Model/Differential/ode_core.jl")
-include("../../Model/Differential/ode_restricted.jl")
+include("../../Model/mechanistic_model.jl")
+include("../../Model/Bayesian/priors.jl")
+
 
 ### Script Settings
 # pyplot()
@@ -21,8 +22,8 @@ simul_matrix = Matrix{Float64}(undef, num_samples, 271) # (undef, row, col)
 problem = create_problem()
 
 ### Priors 
-ln_k₆_prior = truncated(Cauchy(0, 1); lower=-100, upper=)
-ln_d₁_prior = truncated(Cauchy(0, 1); lower=-3, upper=7)
+ln_k₆_prior = truncated(Cauchy(0, 1); lower=-100, upper=7)
+ln_d₁_prior = truncated(Cauchy(0, 1); lower=-100,  upper=7)
 ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=7)
 
 ### Main
@@ -34,8 +35,9 @@ for i in 1:num_samples
     p = [ln₍k₆₎[i], ln₍d₁₎[i], ln₍s₂₎[i]] .|> exp 
     # p = [ln₍k₆₎[i]] .|> exp
 
-    re_p, u0 = repack_params(updateParams3(p...); do_split=true)
-    predictions = solve(problem; p=re_p, saveat=0.1)
+    params = christian_true_params
+    params[[11, 12, 21]] .= p
+    predictions = solve(problem; p=params, saveat=0.1)
     simul_matrix[i,:] = predictions[4,:] + predictions[5,:]
 end
 
@@ -49,7 +51,7 @@ plot!(
     )
 
 plot!(my_plot, 0:0.1:27.0, median.(eachcol(simul_matrix)); 
-    yaxis=:lin,
+    yaxis=:linear,
     xlabel="Time (days)",
     ylabel="Tumour volume (mm³)",
     colour=:red,

@@ -10,7 +10,7 @@ include("../Model/Bayesian/priors.jl")
 DotEnv.config() # Loads content from .env file
 n_iters      = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 100
 n_iter_tol   = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 10
-input_model  = (length(ARGS) >= 3) ?                ARGS[3]  : "w/feedback"
+input_model  = (length(ARGS) >= 3) ?                ARGS[3]  : "takuya"
 
 # Fetch known fit parameters for BoxConstraints
 @match input_model begin

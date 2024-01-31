@@ -44,4 +44,12 @@ function gen_priors(
          for par in base]
 end
 
-priors = gen_priors(Cauchy,1.,false)
+# Priors for standard inference
+uninfo    = gen_priors(Cauchy,.3,false)
+part_info = gen_priors(Cauchy,.3,true)
+info_p      = gen_priors(Normal,.3,true)
+
+# Regularisation priors
+tau = 0.5
+ridge  = gen_priors(Laplace, tau, false) # => L1 Regularisation
+lasso  = gen_priors(Normal , tau, false) # => L2 Regularisation

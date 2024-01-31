@@ -12,12 +12,12 @@ include("../../Model/Bayesian/priors.jl")
 do_overwrite_prev = true
 var_params_idx = [11, 12, 21]
 distro = Normal
-std = 1.
+noise_std = 1.
 is_info=false
 noise = "none"
 
 # Sample from prior 
-priors = gen_priors(distro,std,is_info)[var_params_idx]
+priors = info_p[var_params_idx]
 sampled_set = [rand(prior) for prior in priors] .|> exp
 param_vector = copy(christian_true_params)
 param_vector[var_params_idx] .= sampled_set
@@ -35,12 +35,12 @@ stacked_pred = repeat(combined_pred, 1, 1, 10)
 # Add noise
 @match noise begin 
     "additive" => begin
-        noise = rand(Normal(0, 1), 4, size(stacked_pred)[2], 10)
+        noise = rand(Normal(0, 1)*noise_std, 4, size(stacked_pred)[2], 10)
         global noisy_growth = stacked_pred .+ noise
     end 
 
     "logn_noise" => begin
-        noise = rand(Normal(0, 0.2), 4, size(stacked_pred)[2], 10)   
+        noise = rand(Normal(0, 0.2)*noise_std, 4, size(stacked_pred)[2], 10)   
         global noisy_growth = (log.(stacked_pred) + noise) .|> exp
     end
 
@@ -83,7 +83,7 @@ if do_overwrite_prev
 end
 save("$path/$filename", "M", noisy_growth)
 
-summary = "$(file_i) -> $(distro) | $(size(var_params_idx)) | $(std) | $(noise)\n"
+summary = "$(file_i) -> $(distro) | $(size(var_params_idx)) | $(noise_std) | $(noise)\n"
 open("$path/log.txt", "a") do f 
     write(f, summary)
 end

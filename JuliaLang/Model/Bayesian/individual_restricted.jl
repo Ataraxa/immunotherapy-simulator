@@ -94,7 +94,7 @@ end
     v = pred[4,:]+pred[5,:]
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
-
+    print("Houchas gatsias!")
     ## Likelihood
     for exp in 1:num_experiments
         for qty in 1:4 # range g > c > p > v

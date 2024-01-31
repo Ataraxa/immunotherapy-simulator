@@ -4,13 +4,14 @@ include("../Model/mechanistic_model.jl")
 function create_fitness(; model="takuya")
 
     initial_prob = create_problem(model=model)
+    shift = (model == "w/feedback")
 
     "Argument format = u0 DOES NOT contain the 0"
     function fitness(params)
         ### Variable initialisation
         prob = initial_prob
-        p = params[1:end-4]
-        u0 = [params[end-3:end]; 0]
+        p = params[1:21+shift]
+        u0 = params[(22+shift):end]
         debug_data = Vector{Vector{Tuple}}(undef, 6) # this is simply for debug purpose - will remove later
         error_per_treatment = zeros(6)
         j = 1

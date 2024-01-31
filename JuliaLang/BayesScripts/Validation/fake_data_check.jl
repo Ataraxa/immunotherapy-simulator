@@ -29,8 +29,16 @@ prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 0
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
+space           = (length(ARGS) >= 9) ?               (ARGS[9]) : "auto"
 
+# Manual settings
 path = "Data/fakeDataNew"
+space_selection = Dict(
+    "restr1" => [1],
+    "restr3" => [11, 12, 21],
+    "full"   =>  [1:25]
+)
+
 ### Settings autoloading
 open("$path/log.txt") do f 
     lines = readlines(f)

@@ -2,7 +2,7 @@
 using JLD
 using Plots
 using GpABC
-using Distances
+using Distances: euclidean, sqeuclidean, peuclidean
 using Distributions
 using DifferentialEquations
 
@@ -36,13 +36,6 @@ function simulator(var_params)
     pred = solve(dde_problem; p=p, u0=u0, verbose=true, saveat=0.1)
     v = pred[4,:]+pred[5,:]
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
-
-    # Debug zone
-    # println(var_params)
-    # println(size(combined_pred))
-    # println(size(pred))
-    # println("____________________________________")
-
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
 
     return sliced_pred
@@ -52,15 +45,19 @@ end
 mse(x,y) = mean((x-y).^2)
 
 # Simulation 
-n_particles = 200
-threshold_schedule = [1000., 500., 250., 100., 50., 40., 10.] # Design choice!
-population_colors=["#FF2F4E", "#D0001F", "#A20018", "#990017", "#800013"]
-sim_abcsmc_res = SimulatedABCSMC(reference_data,
+n_particles = 200 # Design choice as well
+threshold_schedule = [5000, 1000,500., 250., 100., 50., 40., 25., 10., 5.] # Design choice!
+population_colors=["#FFCCD4","#FF667D","#FF2F4E", "#D0001F", "#A20018", 
+    "#990017","#800013"]
+sim_abcsmc_res = SimulatedABCSMC(
+    reference_data,
     simulator,
     priors,
     threshold_schedule,
     n_particles; 
-    distance_function = euclidean,
-    summary_statistic = "keep_all",
-    write_progress=false)
+
+    summary_statistic = "keep_all", # Design choice!
+    distance_function = euclidean, # Design choice!
+    max_iter=50*n_particles,
+    write_progress=true)
 plot(sim_abcsmc_res, population_colors=population_colors)
