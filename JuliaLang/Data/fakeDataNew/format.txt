@@ -1,0 +1,5 @@
+Files are 3D tensors
+
+First dim: cycles through species (IFNg > CD8+ > PD1 > Tumour)
+Second dim : time
+Third dim: mice index

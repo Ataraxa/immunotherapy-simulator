@@ -21,6 +21,6 @@
 \contentsline {subsection}{\numberline {7.2}Construction and Validation of the Bayesian Model (Objective 1)}{12}{subsection.7.2}%
 \contentsline {subsubsection}{\numberline {7.2.1}Prior Predictive Check}{12}{subsubsection.7.2.1}%
 \contentsline {subsubsection}{\numberline {7.2.2}Fake Data Check}{13}{subsubsection.7.2.2}%
-\contentsline {section}{\numberline {8}Implementation Plan}{15}{section.8}%
-\contentsline {section}{\numberline {A}Parameters of the Computational Model}{18}{appendix.A}%
-\contentsline {section}{References}{19}{table.caption.13}%
+\contentsline {section}{\numberline {8}Implementation Plan}{16}{section.8}%
+\contentsline {section}{\numberline {A}Parameters of the Computational Model}{17}{appendix.A}%
+\contentsline {section}{References}{18}{table.caption.13}%

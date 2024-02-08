@@ -9,12 +9,12 @@ include("../../Model/Bayesian/priors.jl")
 
 gr()
 params = christian_true_params
-params[[11, 12, 21]] .= [0.750931634423773, 12.12018890305648, 0.2708004008833685]
+params[[11, 12, 21]] .= ([0.7101520729546427, 6.501722280004717, 0.6352031173041087])
 
 pred = solve(create_problem(
     max_day=27.0,
     treatment=CBD_IL_12_ver7,
-    model="takuya",
+    model="ode",
     params=params
     ))
 v = pred[4,:]+pred[5,:]

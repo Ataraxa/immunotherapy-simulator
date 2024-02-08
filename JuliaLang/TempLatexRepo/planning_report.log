@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.7)  26 JAN 2024 08:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.2.2)  2 FEB 2024 14:42
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -416,7 +416,7 @@ Package caption Info: End \AtBeginDocument code.
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./planning_report.toc
+{/home/alex/.texlive2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./planning_report.toc
 LaTeX Font Info:    Trying to load font information for U+msa on input line 2.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -448,7 +448,7 @@ File: ./Images/finalCP.png Graphic file (type png)
 <use ./Images/finalCP.png>
 Package pdftex.def Info: ./Images/finalCP.png  used on input line 92.
 (pdftex.def)             Requested size: 238.71867pt x 162.60875pt.
- [3 <./Images/crnoncr3.png>] [4 <./Images/finalBM.png> <./Images/finalCP.png>] [5] [6] [7] [8]
+ [3 <./Images/crnoncr3.png>] [4 <./Images/finalBM.png> <./Images/finalCP.png>] [5] [6] [7] [8] [9]
 Overfull \hbox (5.60553pt too wide) in alignment at lines 228--232
  [] [] [] [] 
  []
@@ -473,66 +473,56 @@ Overfull \hbox (5.60553pt too wide) in alignment at lines 242--249
  [] [] [] [] 
  []
 
-[9] [10]
-<./Images/stability.png, id=317, 411.5375pt x 374.39874pt>
+[10] [11]
+<./Images/stability.png, id=323, 411.5375pt x 374.39874pt>
 File: ./Images/stability.png Graphic file (type png)
 <use ./Images/stability.png>
 Package pdftex.def Info: ./Images/stability.png  used on input line 284.
 (pdftex.def)             Requested size: 205.76825pt x 187.19891pt.
- [11] [12 <./Images/stability.png>]
+ [12 <./Images/stability.png>]
 <LOGprout.png, id=334, 3613.5pt x 2409.0pt>
 File: LOGprout.png Graphic file (type png)
 <use LOGprout.png>
 Package pdftex.def Info: LOGprout.png  used on input line 305.
-(pdftex.def)             Requested size: 2529.43283pt x 1686.28854pt.
-
-Overfull \hbox (2028.94884pt too wide) in paragraph at lines 305--306
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 1126.43509pt on input line 308.
-
-<./Images/model_validation/fd_1.png, id=337, 602.25pt x 401.5pt>
+(pdftex.def)             Requested size: 361.37117pt x 240.91411pt.
+ [13 <./LOGprout.png>]
+<./Images/model_validation/fd_1.png, id=341, 602.25pt x 401.5pt>
 File: ./Images/model_validation/fd_1.png Graphic file (type png)
 <use ./Images/model_validation/fd_1.png>
 Package pdftex.def Info: ./Images/model_validation/fd_1.png  used on input line 336.
 (pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
-<./Images/model_validation/fd_2.png, id=338, 602.25pt x 401.5pt>
+<./Images/model_validation/fd_2.png, id=342, 602.25pt x 401.5pt>
 File: ./Images/model_validation/fd_2.png Graphic file (type png)
 <use ./Images/model_validation/fd_2.png>
 Package pdftex.def Info: ./Images/model_validation/fd_2.png  used on input line 340.
 (pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[13] [14]
-<./Images/testo.png, id=357, 1558.82375pt x 522.95375pt>
+ [14 <./Images/model_validation/fd_1.png> <./Images/model_validation/fd_2.png>] [15]
+<./Images/testo.png, id=361, 1558.82375pt x 522.95375pt>
 File: ./Images/testo.png Graphic file (type png)
 <use ./Images/testo.png>
 Package pdftex.def Info: ./Images/testo.png  used on input line 413.
 (pdftex.def)             Requested size: 498.8338pt x 167.34862pt.
- [15] [16 <./LOGprout.png>] [17 <./Images/model_validation/fd_1.png> <./Images/model_validation/fd_2.png> <./Images/testo.png>] [18
+ [16 <./Images/testo.png>] [17
 
-] (./planning_report.bbl [19
+] (./planning_report.bbl [18
 
-] [20]) [21] (./planning_report.aux)
+] [19]) [20] (./planning_report.aux)
 Package rerunfilecheck Info: File `planning_report.out' has not changed.
 (rerunfilecheck)             Checksum: D0E6E15BD0168DE062F6069371F5C74C;5475.
  ) 
 Here is how much of TeX's memory you used:
- 12417 strings out of 480247
- 203326 string characters out of 5896151
- 592769 words of memory out of 5000000
+ 12416 strings out of 480247
+ 203319 string characters out of 5896152
+ 592771 words of memory out of 5000000
  30062 multiletter control sequences out of 15000+600000
  479881 words of font info for 65 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  68i,14n,77p,2065b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/alex/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on planning_report.pdf (22 pages, 3054743 bytes).
+Output written on planning_report.pdf (21 pages, 3054355 bytes).
 PDF statistics:
- 484 PDF objects out of 1000 (max. 8388607)
- 411 compressed objects within 5 object streams
- 107 named destinations out of 1000 (max. 500000)
+ 480 PDF objects out of 1000 (max. 8388607)
+ 408 compressed objects within 5 object streams
+ 106 named destinations out of 1000 (max. 500000)
  249 words of extra memory for PDF output out of 10000 (max. 10000000)
 

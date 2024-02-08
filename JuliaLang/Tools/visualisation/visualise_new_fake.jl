@@ -2,7 +2,7 @@ using JLD
 using Plots: plot, plot!
 # Settings
 num_series = 4
-i = 0
+i = 1
 data_mat = load("Data/fakeDataNew/trajectories-$i.jld", "M")
 
 # Plotting 

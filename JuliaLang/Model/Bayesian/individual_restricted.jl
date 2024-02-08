@@ -93,7 +93,7 @@ end
     v = pred[4,:]+pred[5,:]
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     if size(combined_pred, 2) != 271
-        println("Houchas gatsias!")
+        println(float_p)
     end
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
     

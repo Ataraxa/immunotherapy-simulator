@@ -22,9 +22,9 @@ simul_matrix = Matrix{Float64}(undef, num_samples, 271) # (undef, row, col)
 problem = create_problem()
 
 ### Priors 
-ln_k₆_prior = truncated(Cauchy(0, 1); lower=-100, upper=7)
-ln_d₁_prior = truncated(Cauchy(0, 1); lower=-100,  upper=7)
-ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=7)
+ln_k₆_prior = truncated(Cauchy(0, 1); lower=-100, upper=4)
+ln_d₁_prior = truncated(Cauchy(0, 1); lower=-100,  upper=4)
+ln_s₂_prior = truncated(Cauchy(0, 1); lower=-100, upper=4)
 
 ### Main
 ln₍k₆₎ = rand(ln_k₆_prior, num_samples)

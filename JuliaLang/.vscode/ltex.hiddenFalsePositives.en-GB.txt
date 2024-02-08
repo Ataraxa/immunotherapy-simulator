@@ -1,0 +1,1 @@
+{"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QPriors Priors were chosen to be uninformative \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\QCauchy \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q Reference Data Fake data was generated using the protocol of Dataset A described in the previous report: additive Gaussian noise of variance \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}

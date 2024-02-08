@@ -9,12 +9,12 @@ include("../../Model/mechanistic_model.jl")
 include("../../Model/Bayesian/priors.jl")
 
 # Settings
-do_overwrite_prev = true
 var_params_idx = [11, 12, 21]
-distro = Normal
 noise_std = 1.
-is_info=false
 noise = "none"
+model_name="takuya"
+
+do_overwrite_prev = false
 
 # Sample from prior 
 priors = info_p[var_params_idx]
@@ -24,11 +24,12 @@ param_vector[var_params_idx] .= sampled_set
 
 # Create and solve 
 problem = create_problem(; 
-    model="takuya",
+    model=model_name,
     params=param_vector
     )
 pred = solve(problem; saveat=0.1) # 5x271 matrix
-v = pred[4,:]+pred[5,:]
+# v = pred[4,:]+pred[5,:]
+v = pred[4,:]
 combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
 stacked_pred = repeat(combined_pred, 1, 1, 10)
 
@@ -83,7 +84,7 @@ if do_overwrite_prev
 end
 save("$path/$filename", "M", noisy_growth)
 
-summary = "$(file_i) -> $(distro) | $(size(var_params_idx)) | $(noise_std) | $(noise)\n"
+summary = "$(file_i) -> $(size(var_params_idx)) | $(noise_std) | $(noise) | $(model_name)\n"
 open("$path/log.txt", "a") do f 
     write(f, summary)
 end

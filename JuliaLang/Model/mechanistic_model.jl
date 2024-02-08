@@ -57,47 +57,139 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
                 du[5] = (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
             
                 return du
-            end
-        end
+            end # closes model
+        end # closes begin loop
 
         "w/feedback" => begin 
-        immune_resp = function(du, u, h, p, t)
-            tr = treatment
-            
-            # Model parameters.
-            t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
-            k1, k2, k3, k4, k5, k6,
-            d1, d2, d3, d4, d5, d6, d7, d8,
-            s1, s2,
-            n1 = p
-            v_max=600
+            immune_resp = function(du, u, h, p, t)
+                tr = treatment
+                
+                # Model parameters.
+                t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
+                k1, k2, k3, k4, k5, k6,
+                d1, d2, d3, d4, d5, d6, d7, d8,
+                s1, s2,
+                n1 = p
+                v_max=600
 
-            new = 8
-        
-            # Current state.
-            g, c, pd1, vl, vd = u
-        
-            # Check if treatments are active at time t
-            d_cbd = check_active(t, tr.t_in, t_delay, t_last, (tr.t_in != 0))
-            d_12 = check_active(t, tr.t_in12, t_delay12, t_last12, (tr.t_in12 != 0))
+                new = 8
             
-            d_cpi = ((tr.t_inCPI) < t && (tr.t_inCPI != 0))
-            # d_cpi = 0 
-        
-            # Evaluate differential equations.
-            du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g + n1 * g
-            du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
-            du[3] = k5 - (d3+d4*g)*pd1 
-            du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
-            du[5] = (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
-        
-            return du
-        end
-    end
-    end
+                # Current state.
+                g, c, pd1, vl, vd = u
+            
+                # Check if treatments are active at time t
+                d_cbd = check_active(t, tr.t_in, t_delay, t_last, (tr.t_in != 0))
+                d_12 = check_active(t, tr.t_in12, t_delay12, t_last12, (tr.t_in12 != 0))
+                
+                d_cpi = ((tr.t_inCPI) < t && (tr.t_inCPI != 0))
+                # d_cpi = 0 
+            
+                # Evaluate differential equations.
+                du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g + n1 * g
+                du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
+                du[3] = k5 - (d3+d4*g)*pd1 
+                du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
+                du[5] = (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
+            
+                return du
+            end # closes function
+        end #closes begin loop
+
+        "odeNnon" => begin
+            immune_resp = function(du, u, p, t)
+                tr = treatment
+                p = p[1:21]
+                
+                # Model parameters.
+                t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
+                k1, k2, k3, k4, k5, k6,
+                d1, d2, d3, d4, d5, d6, d7, d8,
+                s1, s2 = p
+                v_max=600
+            
+                # Current state.
+                g, c, pd1, vl, vd = u
+            
+                # Check if treatments are active at time t
+                d_cbd = check_active(t, tr.t_in, t_delay, t_last, (tr.t_in != 0))
+                d_12 = check_active(t, tr.t_in12, t_delay12, t_last12, (tr.t_in12 != 0))
+                
+                d_cpi = ((tr.t_inCPI) < t && (tr.t_inCPI != 0))
+            
+                # Evaluate differential equations.
+                du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g
+                du[2] = k3 + k4*g - d2 * c
+                du[3] = k5 - (d3+d4*g)*pd1 
+                du[4] = k6*(1-(vl+vd)/v_max)*vl - (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl
+                du[5] = (d5 + (d6*c/(1+s1*pd1*(1-d_cpi)) + d7*g)/(1+s2*(vl+vd)))*vl - d8*vd
+            
+                return du
+            end # closes function block
+        end # closes specific case statement
+
+        "odeNfullyObs" => begin
+            immune_resp = function(du, u, p, t)
+                tr = treatment
+                p = p[1:21]
+                
+                # Model parameters.
+                t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
+                k1, k2, k3, k4, k5, k6,
+                d1, d2, d3, d4, d5, d6, d7, d8,
+                s1, s2 = p
+                v_max=600
+            
+                # Current state.
+                g, c, pd1, vl = u
+            
+                # Check if treatments are active at time t
+                d_cbd = check_active(t, tr.t_in, t_delay, t_last, (tr.t_in != 0))
+                d_12 = check_active(t, tr.t_in12, t_delay12, t_last12, (tr.t_in12 != 0))
+                
+                d_cpi = ((tr.t_inCPI) < t && (tr.t_inCPI != 0))
+            
+                # Evaluate differential equations.
+                du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g
+                du[2] = k3 + k4*pd1 - d2 * c
+                du[3] = k5 - (d3+d4*g)*pd1 
+                du[4] = k6*(1-(vl)/v_max)*vl - (d5 + d7*g + d6*c - s1*pd1)
+                return du
+            end # closes function block
+        end # closes specific case statement
+
+        "ddeNfullyObs" => begin
+            immune_resp = function(du, u, h, p, t)
+                tr = treatment
+                p = p[1:21]
+                
+                # Model parameters.
+                t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
+                k1, k2, k3, k4, k5, k6,
+                d1, d2, d3, d4, d5, d6, d7, d8,
+                s1, s2 = p
+                v_max=600
+            
+                # Current state.
+                g, c, pd1, vl = u
+            
+                # Check if treatments are active at time t
+                d_cbd = check_active(t, tr.t_in, t_delay, t_last, (tr.t_in != 0))
+                d_12 = check_active(t, tr.t_in12, t_delay12, t_last12, (tr.t_in12 != 0))
+                
+                d_cpi = ((tr.t_inCPI) < t && (tr.t_inCPI != 0))
+            
+                # Evaluate differential equations.
+                du[1] = k1 + k2 * (d_cbd + d_12) - d1 * g
+                du[2] = k3 + k4*h(p, t - t_d; idxs=1) - d2 * c
+                du[3] = k5 - (d3+d4*g)*pd1 
+                du[4] = k6*(1-(vl)/v_max)*vl - (d5 + d7*g + d6*c - s1*pd1)
+                return du
+            end # closes function block
+        end # closes specific case statement
+    end #closes match statement
 
     return immune_resp
-end
+end # closes factory function
 
 function create_problem(; 
         model="takuya", 
@@ -106,11 +198,19 @@ function create_problem(;
         max_day::Float64 = 27.0
         )
     
-    model=model_factory(model=model, treatment=treatment)
+    model_obj=model_factory(model=model, treatment=treatment)
     p = params[1:21]
     u0 = [params[22:end]; 0]
     h(p, t; idxs::Int) = 0.0
     t_span = (0.0, max_day)
 
-    return DDEProblem(model, u0, h, t_span, p)
+    if model=="odeNnon"
+        return ODEProblem(model_obj, u0, t_span, p)
+    elseif model=="odeNfullyObs"
+        return ODEProblem(model_obj, u0[1:4], t_span, p) # no vd
+    elseif model=="ddeNfullyObs"
+        return DDEProblem(model_obj, u0[1:4], h, t_span, p)
+    else
+        return DDEProblem(model_obj, u0, h, t_span, p)
+    end
 end

@@ -24,7 +24,7 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
-model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
+model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "ode&non"
 prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 0
@@ -50,21 +50,37 @@ open("$path/log.txt") do f
         end
     end
 end
-space = unparsed_settings[2]
-σ_err = parse(Float64, unparsed_settings[3])
-log_norm = unparsed_settings[4]
-println("σ=$(σ_err) | space=$(space) | log_norm=$(log_norm)")
+space = unparsed_settings[1]
+σ_err = parse(Float64, unparsed_settings[2]) # We assume we know the noise level
+log_norm = unparsed_settings[3]
+println("σ=$(σ_err) | space=$(space) | transform=$(log_norm)")
 
 ### Generate priors 
+open("Data/fakeDataNew/params.txt") do f 
+    lines = readlines(f)
+    for line in lines 
+        if string(line[1]) == string(data_set)
+            rhs = @pipe split(line, '>')[2]
+            rhs2 = strip.(split(rhs, '|'))
+            rhs3 = filter(x -> x != "N/A", rhs2) # List of parameters
+            global rhs4 = parse.(Float64, rhs3)
+            # rhs = @pipe split(line, ':')[2] |> strip.(split(_, '|')) |> filter(x -> x != "N/A", _)
+            break
+        end
+    end
+end
+base = christian_true_params
+base[[11,12,21]] .= rhs4
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
-priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors))
+priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
+println.(priors_vec[[11,12,21]])
 
 ### Main 
 # Data Extraction 
 # Please refer to convention file to understand the format of csv files
 selected_days = [0,7,8,9,11,14,17,20]
 data_mat = load("$path/trajectories-$data_set.jld", "M")
-data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] # slice pred
+data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] #slice pred
 
 # Problem Definition 
 problem = create_problem(model=model)
@@ -72,7 +88,8 @@ problem = create_problem(model=model)
 model_args = [data_mat, problem, selected_days, step_size, σ_err,
     log_norm, priors_vec, [11, 12, 21]]
 
-fitted_model = fit_individual_restricted3(model_args...; num_experiments = num_experiments)
+fitted_model = fit_individual_restricted3(model_args...; 
+    num_experiments = num_experiments)
 
 # @match space begin
 #     "full" => global fitted_model = fit_individual_full(model_args...)
@@ -86,10 +103,12 @@ fitted_model = fit_individual_restricted3(model_args...; num_experiments = num_e
 # println("HERE: $(length(parsed_vec))")
 if ENV["MACHINE_TYPE"] == "hpc"
     println("Going into the remote computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), n_iters, n_threads; progress=false)
+    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), n_iters, 
+        n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; progress=false)
+    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; 
+        progress=false)
 end
 display(gelmandiag(chain_dde))
 
