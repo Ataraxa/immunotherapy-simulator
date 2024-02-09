@@ -14,9 +14,9 @@ params[[11, 12, 21]] .= ([0.7101520729546427, 6.501722280004717, 0.6352031173041
 pred = solve(create_problem(
     max_day=27.0,
     treatment=CBD_IL_12_ver7,
-    model="ode",
+    model="odeNnon",
     params=params
-    ))
+    ); saveat=0.1)
 v = pred[4,:]+pred[5,:]
 combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
 # my_plot = plot(pred.t, pred[4,:] + pred[5,:]; label="Posterior Prediction")

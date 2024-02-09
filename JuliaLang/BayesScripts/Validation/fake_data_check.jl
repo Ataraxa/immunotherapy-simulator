@@ -24,7 +24,7 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
-model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "ode&non"
+model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "odeNnon"
 prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 0

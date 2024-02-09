@@ -89,8 +89,11 @@ end
     ## Solve DDE model  
     params = copy(christian_true_params)
     params[var_params_index] .= float_p
-    pred = solve(problem; p=params, saveat=s)
-    v = pred[4,:]+pred[5,:]
+    pred = Array{Float64}(undef, 5, 10)
+    while size(pred)[2] != 271
+        pred = solve(problem; p=params, saveat=s)
+    end
+    v = sum(pred[4:end,:], dims=1)
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     if size(combined_pred, 2) != 271
         println(float_p)
