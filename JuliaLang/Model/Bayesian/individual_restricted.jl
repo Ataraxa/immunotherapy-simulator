@@ -70,27 +70,29 @@ end
     # Process the transform 
     @match log_norm begin 
         "none" => global transform = (x -> x)
-        "loga" => global transform = (x -> log(x))
+        "loga" => global transform = (x -> log(x)) # logan paul?
     end
     # Process data matrix
     data = transform.(data)
         
-    ## Regular priors
-    ln_k6 ~ truncated(distro[1]; lower=-100, upper=7) # Negative half-Cauchy
-    ln_d1 ~ truncated(distro[2]; lower=-5,   upper=7) # Positive half-Cauchy
-    ln_s2 ~ truncated(distro[3]; lower=-100, upper=7)
-
-    ## Convert ForwardDiff to Float64 (bad type interface)
-    p = [ln_k6, ln_d1, ln_s2] .|> exp
-    float_p = Vector{Float64}(undef, length(p))
-    for (i, param) in enumerate(p) 
-        float_p[i] = (typeof(param) <: Dual) ? param.value : param
-    end
-    ## Solve DDE model  
-    params = copy(christian_true_params)
-    params[var_params_index] .= float_p
+    # While-loop to avoi stiff paramert combinations
     pred = Array{Float64}(undef, 5, 10)
     while size(pred)[2] != 271
+        ## Regular priors
+        ln_k6 ~ truncated(distro[1]; lower=-100, upper=7) # Negative half-Cauchy
+        ln_d1 ~ truncated(distro[2]; lower=-5,   upper=7) # Positive half-Cauchy
+        ln_s2 ~ truncated(distro[3]; lower=-100, upper=7)
+
+        ## Convert ForwardDiff to Float64 (bad type interface)
+        p = [ln_k6, ln_d1, ln_s2] .|> exp
+        float_p = Vector{Float64}(undef, length(p))
+        for (i, param) in enumerate(p) 
+            float_p[i] = (typeof(param) <: Dual) ? param.value : param
+        end
+        ## Solve DDE model  
+        params = copy(christian_true_params)
+        params[var_params_index] .= float_p
+    
         pred = solve(problem; p=params, saveat=s)
     end
     v = sum(pred[4:end,:], dims=1)
