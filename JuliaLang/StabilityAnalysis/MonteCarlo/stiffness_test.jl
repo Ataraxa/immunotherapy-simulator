@@ -18,7 +18,7 @@ function do_simulations(n_iters=1_000)
 
     ## Problem definition
     problem = create_problem(; 
-        model="odeNnon",
+        model="odeNfullyObs",
         max_day=27.0)
     
     params = copy(christian_true_params)
