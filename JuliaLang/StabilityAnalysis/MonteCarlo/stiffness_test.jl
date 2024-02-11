@@ -18,13 +18,13 @@ function do_simulations(n_iters=1_000)
 
     ## Problem definition
     problem = create_problem(; 
-        model="odeNfullyObs",
+        model="ddeNfullyObs",
         max_day=27.0)
     
     params = copy(christian_true_params)
     for k6 in range(start=10, stop=40, length=edge_len)
         for d1 in range(start=20, stop=50, length=edge_len)
-            for s2 in [2]
+            for s2 in range(start=1, stop=50, length=edge_len)
                 params[[11,12,21]] .= exp.([k6, d1, s2])
                 sol = solve(problem; p=params, saveat=0.1)
 
@@ -33,11 +33,11 @@ function do_simulations(n_iters=1_000)
                     push!(all_d1, d1)
                     push!(all_s2, s2)
                     push!(colours, :red)
-                else
-                    push!(all_k6, k6)
-                    push!(all_d1, d1)
-                    push!(all_s2, s2)
-                    push!(colours, :green)
+                # else
+                #     push!(all_k6, k6)
+                #     push!(all_d1, d1)
+                #     push!(all_s2, s2)
+                #     push!(colours, :green)
                 end
             end
         end
