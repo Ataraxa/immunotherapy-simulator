@@ -56,23 +56,24 @@ log_norm = unparsed_settings[3]
 println("σ=$(σ_err) | space=$(space) | transform=$(log_norm)")
 
 ### Generate priors 
-open("Data/fakeDataNew/params.txt") do f 
-    lines = readlines(f)
-    for line in lines 
-        if string(line[1]) == string(data_set)
-            rhs = @pipe split(line, '>')[2]
-            rhs2 = strip.(split(rhs, '|'))
-            rhs3 = filter(x -> x != "N/A", rhs2) # List of parameters
-            global rhs4 = parse.(Float64, rhs3)
-            # rhs = @pipe split(line, ':')[2] |> strip.(split(_, '|')) |> filter(x -> x != "N/A", _)
-            break
-        end
-    end
-end
-base = christian_true_params
-base[[11,12,21]] .= rhs4
-distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
-priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
+# open("Data/fakeDataNew/params.txt") do f 
+#     lines = readlines(f)
+#     for line in lines 
+#         if string(line[1]) == string(data_set)
+#             rhs = @pipe split(line, '>')[2]
+#             rhs2 = strip.(split(rhs, '|'))
+#             rhs3 = filter(x -> x != "N/A", rhs2) # List of parameters
+#             global rhs4 = parse.(Float64, rhs3)
+#             # rhs = @pipe split(line, ':')[2] |> strip.(split(_, '|')) |> filter(x -> x != "N/A", _)
+#             break
+#         end
+#     end
+# end
+# base = christian_true_params
+# base[[11,12,21]] .= rhs4
+# distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
+# priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
+priors_vec = stiff_priors
 println.(priors_vec[[11,12,21]])
 
 ### Main 
@@ -107,7 +108,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
         n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 100, 2; 
+    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; 
         progress=false)
 end
 display(gelmandiag(chain_dde))

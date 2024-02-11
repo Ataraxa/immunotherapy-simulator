@@ -40,7 +40,7 @@ function gen_priors(
     base::Vector{Float64}=christian_true_params
     )
 
-    return [truncated(distro((is_info ? log(par) : 0), std); lower=-7, upper=7)
+    return [truncated(distro((is_info ? log(par) : 0), std); lower=-6, upper=4)
          for par in base]
 end
 
@@ -53,3 +53,9 @@ info_p      = gen_priors(Normal,.3,true)
 tau = 0.5
 ridge  = gen_priors(Laplace, tau, false) # => L1 Regularisation
 lasso  = gen_priors(Normal , tau, false) # => L2 Regularisation
+
+# Misc 
+stiff_priors = gen_priors(Normal, 0.3, false)
+stiff_priors[11] = truncated(Normal(7, 0.2);lower=-100, upper=100)
+stiff_priors[12] = truncated(Normal(4, 0.2);lower=-100, upper=100)
+stiff_priors[21] = truncated(Normal(-2, 0.2);lower=-100, upper=100)
