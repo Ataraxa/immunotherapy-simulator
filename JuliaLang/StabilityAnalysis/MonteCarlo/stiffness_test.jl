@@ -22,11 +22,11 @@ function do_simulations(n_iters=1_000)
         max_day=27.0)
     
     params = copy(christian_true_params)
-    for k6 in exp10.(range(-1, stop=1, length=edge_len))
-        for d1 in exp10.(range(0, stop=2, length=edge_len))
-            for s2 in exp10.(range(-2, stop=0, length=edge_len))
+    for k6 in range(start=10, stop=40, length=edge_len)
+        for d1 in range(start=20, stop=50, length=edge_len)
+            for s2 in [2]
                 params[[11,12,21]] .= exp.([k6, d1, s2])
-                sol = solve(problem; p=p, saveat=0.1)
+                sol = solve(problem; p=params, saveat=0.1)
 
                 if size(sol)[2] < 271
                     push!(all_k6, k6)
@@ -51,9 +51,9 @@ function do_simulations(n_iters=1_000)
         ),
 
         scene=attr(
-            xaxis_type="log",
-            yaxis_type="log",
-            zaxis_type="log",
+            # xaxis_type="log",
+            # yaxis_type="log",
+            # zaxis_type="log",
 
             xaxis_title="k6",
             yaxis_title="d1",

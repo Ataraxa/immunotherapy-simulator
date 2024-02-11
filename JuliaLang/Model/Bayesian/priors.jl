@@ -1,5 +1,5 @@
 using Distributions
-
+# Should limit k6 to 20 and d1 to 43!!
 christian_true_params = [
     1.872824160505723, # t_d 
     0.487923336960266, # t_delay 
@@ -40,7 +40,7 @@ function gen_priors(
     base::Vector{Float64}=christian_true_params
     )
 
-    return [truncated(distro((is_info ? log(par) : 0), std); lower=-6, upper=4)
+    return [truncated(distro((is_info ? log(par) : 0), std); lower=-7, upper=3.4)
          for par in base]
 end
 
