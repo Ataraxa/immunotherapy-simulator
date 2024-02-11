@@ -21,7 +21,7 @@ include("../../Model/Bayesian/individual_restricted.jl")
 ### Script Settings
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
-n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
+n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 10_000
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
 model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "odeNnon"
@@ -107,7 +107,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
         n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; 
+    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 100, 2; 
         progress=false)
 end
 display(gelmandiag(chain_dde))

@@ -74,7 +74,8 @@ end
     end
     # Process data matrix
     data = transform.(data)
-        
+    params = copy(christian_true_params) 
+    
     # While-loop to avoi stiff paramert combinations
     pred = Array{Float64}(undef, 5, 10)
     while size(pred)[2] != 271
@@ -90,10 +91,13 @@ end
             float_p[i] = (typeof(param) <: Dual) ? param.value : param
         end
         ## Solve DDE model  
-        params = copy(christian_true_params)
+        
         params[var_params_index] .= float_p
     
         pred = solve(problem; p=params, saveat=s)
+        if size(pred)[2] != 271
+            println.(float)
+        end
     end
     v = sum(pred[4:end,:], dims=1)
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
