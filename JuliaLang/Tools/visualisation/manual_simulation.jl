@@ -9,7 +9,7 @@ include("../../Model/Bayesian/priors.jl")
 println("Starting")
 gr()
 params1 = christian_true_params
-params1[[11, 12, 21]] .= [0.009000285837441564, 0.07725984097955312, 1.4091407686470419]
+params1[[11, 12, 21]] .= [0.020288524984859394, 2.4268904158661764, 0.17571200638286913]
 # params1[[11, 12, 21]] .= ([0.6290015460402033, 14.545447608923281, 0.4329922695466099])
 
 problem = create_problem(; model="odeNfullyObs", max_day=27.0)

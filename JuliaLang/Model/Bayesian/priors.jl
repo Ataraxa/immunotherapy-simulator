@@ -50,7 +50,7 @@ function gen_priors(
     ub = ones(size(base)) * 3.4
     ub[12] = 5
 
-    return [truncated(distro((is_info ? log(par) : 0), std); lower=lb[i], upper=ub[i])
+    return [censored(distro((is_info ? log(par) : 0), std); lower=lb[i], upper=ub[i])
          for (i,par) in enumerate(base)]
 end
 
@@ -65,7 +65,20 @@ ridge  = gen_priors(Laplace, tau, false) # => L1 Regularisation
 lasso  = gen_priors(Normal , tau, false) # => L2 Regularisation
 
 # Misc 
-stiff_priors = gen_priors(Normal, 0.3, false)
-stiff_priors[11] = truncated(Normal(7, 0.2);lower=-100, upper=100)
-stiff_priors[12] = truncated(Normal(4, 0.2);lower=-100, upper=100)
-stiff_priors[21] = truncated(Normal(-2, 0.2);lower=-100, upper=100)
+function gen_censored(
+    distro,
+    base::Vector{Float64}=christian_true_params
+    )
+
+    # Lower Bounds (lb)
+    lb = ones(size(base)) * -7
+    lb[12] = .5
+
+    # Upper bounds (ub)
+    ub = ones(size(base)) * 3.4
+    ub[12] = 5
+
+    return [censored(distro((0.1), 0.3); lower=lb[i], upper=ub[i])
+         for (i,par) in enumerate(base)]
+end
+censored_priors = gen_censored(Normal)

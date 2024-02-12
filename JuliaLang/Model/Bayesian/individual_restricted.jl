@@ -80,7 +80,7 @@ end
     ln_k6 ~ distro[1] # Negative half-Cauchy
     ln_d1 ~ distro[2] # Positive half-Cauchy
     ln_s2 ~ distro[3]
-
+    # println(exp(ln_d1))
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6, ln_d1, ln_s2] .|> exp
     float_p = Vector{Float64}(undef, length(p))
@@ -91,10 +91,10 @@ end
     params[var_params_index] .= float_p
     pred = solve(problem; p=params, saveat=s)
 
-    if pred.t[end] != 27.0
-        println.(float_p)
-        println("___________________________")
-    end
+    # if pred.t[end] != 27.0
+    #     println.(float_p)
+    #     println("___________________________")
+    # end
     v = sum(pred[4:end,:], dims=1)
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     if size(combined_pred, 2) != 271

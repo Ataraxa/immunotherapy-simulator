@@ -73,7 +73,7 @@ base = christian_true_params
 base[var_idx] .= rhs4
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
 priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
-# priors_vec = stiff_priors
+# priors_vec = censored_priors
 println.(priors_vec[var_idx])
 
 ### Main 
