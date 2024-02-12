@@ -91,14 +91,11 @@ end
     params[var_params_index] .= float_p
     pred = solve(problem; p=params, saveat=s)
 
-    # if pred.t[end] != 27.0
-    #     println.(float_p)
-    #     println("___________________________")
-    # end
     v = sum(pred[4:end,:], dims=1)
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     if size(combined_pred, 2) != 271
-        println(float_p)
+        println.(p)
+        println("______________________")
     end
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
     
