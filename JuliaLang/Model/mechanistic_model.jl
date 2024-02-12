@@ -1,10 +1,11 @@
 using DifferentialEquations
 using Match
+using ForwardDiff
 
 include("./treatments_lib.jl")
 include("./Bayesian/priors.jl")
 
-function check_active(t::Float64, t_in_vector, delay::Float64, last::Float64, is_injected::Bool)
+function check_active(t::Union{Float64, ForwardDiff.Dual}, t_in_vector, delay::Float64, last::Float64, is_injected::Bool)
     is_active = false
     for t_in = t_in_vector
         if (t_in + delay) < t && t < (t_in + delay + last) && is_injected
@@ -161,7 +162,6 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
             immune_resp = function(du, u, h, p, t)
                 tr = treatment
                 p = p[1:21]
-                
                 # Model parameters.
                 t_d, t_delay, t_last, t_delay12, t_last12, # 5 params
                 k1, k2, k3, k4, k5, k6,

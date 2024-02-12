@@ -22,22 +22,22 @@ function do_simulations(n_iters=1_000)
         max_day=27.0)
     
     params = copy(christian_true_params)
-    for k6 in range(start=10, stop=40, length=edge_len)
-        for d1 in range(start=20, stop=50, length=edge_len)
-            for s2 in range(start=1, stop=50, length=edge_len)
-                params[[11,12,21]] .= exp.([k6, d1, s2])
+    for k6 in range(start=0.001, stop=10, length=edge_len)
+        for d1 in range(start=1, stop=2, length=edge_len)
+            for s2 in range(start=0.001, stop=10, length=edge_len)
+                params[[11,12,21]] .= [k6, d1, s2]
                 sol = solve(problem; p=params, saveat=0.1)
-
-                if size(sol)[2] < 271
+                # println(sol.t)
+                if sol.t[end] == 27.0
+                    push!(all_k6, k6)
+                    push!(all_d1, d1)
+                    push!(all_s2, s2)
+                    push!(colours, :green)
+                else
                     push!(all_k6, k6)
                     push!(all_d1, d1)
                     push!(all_s2, s2)
                     push!(colours, :red)
-                # else
-                #     push!(all_k6, k6)
-                #     push!(all_d1, d1)
-                #     push!(all_s2, s2)
-                #     push!(colours, :green)
                 end
             end
         end
@@ -59,9 +59,9 @@ function do_simulations(n_iters=1_000)
             yaxis_title="d1",
             zaxis_title="s2",
             
-            xaxis_tickvals=[0.1, 1,10,100],
-            yaxis_tickvals=[0.1, 1,10,100],
-            zaxis_tickvals=[0.01,0.1, 1,10,100],
+            # xaxis_tickvals=[0.1, 1,10,100],
+            # yaxis_tickvals=[0.1, 1,10,100],
+            # zaxis_tickvals=[0.01,0.1, 1,10,100],
             ),
         
         )

@@ -1,4 +1,6 @@
 using Distributions
+using Pipe
+
 # Should limit k6 to 20 and d1 to 43!!
 christian_true_params = [
     1.872824160505723, # t_d 
@@ -40,8 +42,16 @@ function gen_priors(
     base::Vector{Float64}=christian_true_params
     )
 
-    return [truncated(distro((is_info ? log(par) : 0), std); lower=-7, upper=3.4)
-         for par in base]
+    # Lower Bounds (lb)
+    lb = ones(size(base)) * -7
+    lb[12] = .5
+
+    # Upper bounds (ub)
+    ub = ones(size(base)) * 3.4
+    ub[12] = 5
+
+    return [truncated(distro((is_info ? log(par) : 0), std); lower=lb[i], upper=ub[i])
+         for (i,par) in enumerate(base)]
 end
 
 # Priors for standard inference
