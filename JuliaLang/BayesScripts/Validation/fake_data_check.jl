@@ -38,7 +38,7 @@ space_selection = Dict(
     "restr3" => [11, 12, 21],
     "full"   =>  [1:25]
 )
-
+var_idx = [11,12,21]
 ### Settings autoloading
 open("$path/log.txt") do f 
     lines = readlines(f)
@@ -70,11 +70,11 @@ open("Data/fakeDataNew/params.txt") do f
     end
 end
 base = christian_true_params
-base[[11,12,21]] .= rhs4
+base[var_idx] .= rhs4
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
 priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
 # priors_vec = stiff_priors
-println.(priors_vec[[11,12,21]])
+println.(priors_vec[var_idx])
 
 ### Main 
 # Data Extraction 
@@ -87,7 +87,7 @@ data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] #slice pred
 problem = create_problem(model=model)
 
 model_args = [data_mat, problem, selected_days, step_size, σ_err,
-    log_norm, priors_vec, [11, 12, 21]]
+    log_norm, priors_vec, var_idx]
 
 fitted_model = fit_individual_restricted3(model_args...; 
     num_experiments = num_experiments)

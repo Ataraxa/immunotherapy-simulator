@@ -6,10 +6,10 @@ using DelimitedFiles
 include("../../Model/mechanistic_model.jl")
 include("../../Model/treatments_lib.jl")
 include("../../Model/Bayesian/priors.jl")
-
+println("Starting")
 gr()
 params1 = christian_true_params
-params1[[11, 12, 21]] .= [2.365260481897181, 0.07775507746092729, 27.513526644902626]
+params1[[11, 12, 21]] .= [0.009000285837441564, 0.07725984097955312, 1.4091407686470419]
 # params1[[11, 12, 21]] .= ([0.6290015460402033, 14.545447608923281, 0.4329922695466099])
 
 problem = create_problem(; model="odeNfullyObs", max_day=27.0)

@@ -53,7 +53,7 @@ Inputs:
     sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
 
     ## Likelihoods
-    for exp in 1:num_experiments
+    for exp in 1:num_experiments    
         for i in eachindex(sliced_pred)
             data[exp, i] ~ (Normal(transform(sliced_pred[i]),  σ_err))
         end
@@ -77,9 +77,9 @@ end
     params = copy(christian_true_params) 
     
     ## Regular priors
-    ln_k6 ~ truncated(distro[1]; lower=-100, upper=7) # Negative half-Cauchy
-    ln_d1 ~ truncated(distro[2]; lower=-5,   upper=7) # Positive half-Cauchy
-    ln_s2 ~ truncated(distro[3]; lower=-100, upper=7)
+    ln_k6 ~ distro[1] # Negative half-Cauchy
+    ln_d1 ~ distro[2] # Positive half-Cauchy
+    ln_s2 ~ distro[3]
 
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6, ln_d1, ln_s2] .|> exp
