@@ -21,45 +21,6 @@ Inputs:
     - timestep: to solve the DDEProblem and synchronise with selected_days
     - σ_likelihood: standard deviation of the likelihood distribution
 """
-@model function fit_individual_restricted1(
-        data, problem, selected_days, s, σ_err, 
-        log_norm::SubString{String},
-        distro::Vector{T} where T <: ContinuousDistribution ; 
-        num_experiments = 1)
-
-    # Process the transform 
-    @match log_norm begin 
-        "norm_noise" => global transform = (x -> x)
-        "logn_noise" => global transform = (x -> log(x))
-    end
-    # Process data matrix
-    data = transform.(data)
-    
-    ## Regular priors
-    ln_k6 ~ truncated(distro[1]; lower=-100, upper=0)
-
-    ## Convert ForwardDiff to Float64 (bad type interface)
-    p = [ln_k6] .|> exp
-    float_p = Vector{Float64}(undef, length(p))
-    for (i, param) in enumerate(p) 
-        float_p[i] = (typeof(param) <: Dual) ? param.value : param
-    end
-
-    ## Solve DDE model  
-    params = copy(christian_true_params)
-    params
-    predictions = solve(problem; p=repacked_p[1], saveat=0.1)
-    pred_vol = predictions[4,:] + predictions[5,:]
-    sliced_pred = pred_vol[selected_days*trunc(Int, 1/s) .+ 1]
-
-    ## Likelihoods
-    for exp in 1:num_experiments    
-        for i in eachindex(sliced_pred)
-            data[exp, i] ~ (Normal(transform(sliced_pred[i]),  σ_err))
-        end
-    end 
-end
-
 @model function fit_individual_restricted3(
     data, problem, selected_days, s, σ_err, 
     log_norm::SubString{String},
@@ -80,13 +41,20 @@ end
     ln_k6 ~ distro[1] # Negative half-Cauchy
     ln_d1 ~ distro[2] # Positive half-Cauchy
     ln_s2 ~ distro[3]
-    # println(exp(ln_d1))
+
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6, ln_d1, ln_s2] .|> exp
+    # float_p = p
+
     float_p = Vector{Float64}(undef, length(p))
     for (i, param) in enumerate(p) 
-        float_p[i] = (typeof(param) <: Dual) ? param.value : param
+        if typeof(param) <: Dual
+            float_p[i] = param.value + sum([i for i in param.partials])
+        else
+            param
+        end
     end
+
     ## Solve DDE model  
     params[var_params_index] .= float_p
     pred = solve(problem; p=params, saveat=s)

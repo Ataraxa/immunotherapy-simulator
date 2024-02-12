@@ -17,7 +17,7 @@ problem = create_problem(; model="odeNfullyObs", max_day=27.0)
 pred = solve(problem, AutoTsit5(Rosenbrock23());p=params1, saveat=0.1)
 v = pred[4,:]
 combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
-pred.t
+# pred.t
 # my_plot = plot(pred.t, pred[4,:] + pred[5,:]; label="Posterior Prediction")
 # series = ["IFNγ", "CD8+", "PD-1", "Tumour volume"]
 # layout = plot(layout=(2,2))
