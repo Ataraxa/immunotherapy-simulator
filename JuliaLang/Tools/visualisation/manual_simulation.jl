@@ -14,7 +14,7 @@ params1[[11, 12, 21]] .= ([0.6290015460402033, 1.545447608923281, 0.432992269546
 
 problem = create_problem(; model="odeNfullyObs", max_day=27.0)
 
-pred = solve(problem, KenCarp5() ;p=params1)
+pred = solve(problem, KenCarp5(); p=params1)
 v = pred[4,:]
 combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
 # pred.t

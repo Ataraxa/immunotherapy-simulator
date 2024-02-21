@@ -11,11 +11,17 @@ using DifferentialEquations
 include("../../Model/mechanistic_model.jl")
 include("../../Model/Bayesian/priors.jl")
 
+# Parse external parameters
+param_space     = (length(ARGS) >= 1) ? (ARGS[1]) : "large"
+
 # ABC Settings
 DotEnv.config() # Loads content from .env file
 true_params = christian_true_params
 priors = gen_priors(Cauchy, 1., false)
-param_indices = [11,12,21]
+if param_space == "large"
+    param_indices = [1:21]
+else
+    param_indices = [11, 12, 21]
 s = 0.1
 selected_days = [0,7,8,9,11,14,17,20]
 priors = priors[param_indices]
