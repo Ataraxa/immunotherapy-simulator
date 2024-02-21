@@ -51,7 +51,7 @@ Inputs:
         if typeof(param) <: Dual
             float_p[i] = param.value + sum([i for i in param.partials])
         else
-            param
+            float_p[i] = param
         end
     end
 

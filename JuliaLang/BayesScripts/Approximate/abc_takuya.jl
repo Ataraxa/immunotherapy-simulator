@@ -19,10 +19,10 @@ param_indices = [11,12,21]
 s = 0.1
 selected_days = [0,7,8,9,11,14,17,20]
 priors = priors[param_indices]
-reference_data = load("Data/fakeDataNew/trajectories-0.jld", "M")
+reference_data = load("Data/fakeDataNew/trajectories-4.jld", "M")
 reference_data = reference_data[:, selected_days*trunc(Int, 1/s) .+ 1, 1]
 output_dir = "Results/abc"
-overwrite_last = true
+overwrite_last = false
 
 # Solver Settings ?
 dde_problem = create_problem(model="takuya")
@@ -52,13 +52,9 @@ end
 # Distance functions
 mse(x,y) = mean((x-y).^2)
 
-# s
-rectif_array(x, min) = (x < min) ? min : x 
-logOfAll(x) =  @pipe rectif_array.(x, 1e-6) |> vec(log.(_))
-
 # Simulation 
 n_particles = 500 # Design choice as well
-threshold_schedule = [1000, 500., 250., 100., 70., 40., 25., 5.] # Design choice!
+threshold_schedule = [1000, 500., 250.,175., 100., 75., 50., 25.] # Design choice!
 # threshold_schedule = [10., 5., 1., 0.5, 0.3, 0.15, 0.08] # Design choice!
 population_colors=["#FFCCD4","#FF667D","#FF2F4E", "#D0001F", "#A20018", 
     "#990017","#800013"]
@@ -71,7 +67,7 @@ sim_abcsmc_res = SimulatedABCSMC(
 
     summary_statistic = "keep_all", # Design choice!
     distance_function = euclidean, # Design choice!
-    max_iter=70*n_particles,
+    max_iter=50*n_particles,
     write_progress=true)
 
 # Save result object
@@ -87,5 +83,6 @@ if overwrite_last
 end
 
 save_object("$output_dir/$filename", sim_abcsmc_res)
+println("Results saved @ $output_dir/$filename")
 
 # plot(sim_abcsmc_res, population_colors=population_colors)

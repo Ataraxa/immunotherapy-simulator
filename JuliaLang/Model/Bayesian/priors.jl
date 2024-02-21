@@ -50,7 +50,7 @@ function gen_priors(
     ub = ones(size(base)) * 3.4
     ub[12] = 5
 
-    return [censored(distro((is_info ? log(par) : 0), std); lower=lb[i], upper=ub[i])
+    return [truncated(distro((is_info ? log(par) : 0), std); lower=lb[i], upper=ub[i])
          for (i,par) in enumerate(base)]
 end
 
