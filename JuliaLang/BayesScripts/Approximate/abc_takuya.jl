@@ -60,19 +60,19 @@ function simulator(var_params)
     v = pred[4,:]+pred[5,:]
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     if size(combined_pred, 2) != 271
+        println("Skipping sitff combination!")
         println(var_params)
+        println("______________________________")
+        return zeros(1,32)
     end
-    sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
 
+    sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
     return sliced_pred
 end
 
-# Distance functions
-mse(x,y) = mean((x-y).^2)
-
 # Simulation 
 n_particles = 500 # Design choice as well
-threshold_schedule = [1000, 500., 250.,175., 100., 75., 50., 25.] # Design choice!
+threshold_schedule = [1000, 500., 250.,175., 100., 75., 50., 25., 17.] # Design choice!
 # threshold_schedule = [10., 5., 1., 0.5, 0.3, 0.15, 0.08] # Design choice!
 population_colors=["#FFCCD4","#FF667D","#FF2F4E", "#D0001F", "#A20018", 
     "#990017","#800013"]
@@ -85,7 +85,7 @@ sim_abcsmc_res = SimulatedABCSMC(
 
     summary_statistic = "keep_all", # Design choice!
     distance_function = euclidean, # Design choice!
-    max_iter=50*n_particles,
+    max_iter=100*n_particles,
     write_progress=true)
 
 # Save result object

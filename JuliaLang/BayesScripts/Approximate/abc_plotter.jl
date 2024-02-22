@@ -10,22 +10,12 @@ using Statistics
 plotlyjs()
 
 # Input
-abc_results = load_object("Results/abc/ABC-hpc-1.jld2")
+abc_results = load_object("Results/abc/ABC-hpc-2.jld2")
 # true_values = [1.98814060169, 2.10643371507, 1.65262881505]
 # names = ["k₆", "d₁", "s₂"]
 
 # For large inference
-true_values = [1.872824160505723, # t_d 
-0.487923336960266, # t_delay 
-4.893475496158970, # t_last 
-3.697285769720824, # t_delay1 
-1.075411285414352, # t_last12
-# ⬇ index 6
-0.221936172352179,  #k1
-6.081963924603686,  #k2
-74.60149998881774,  #k3
-929.5659753695654,  #k4
-5.815052050675676,  #k5
+true_values = [
 0.539494697127057,  #k6
 # ⬇ index 12
 10.177238034144443, # d1 
@@ -45,8 +35,7 @@ true_values = [1.872824160505723, # t_d
 5.999229998549251, # p (PD-1)
 5.573047884761726  # v (Living tumour)
 ]
-names = ["t_d", "t_delay", "t_last", "t_delay12", "t_last12", # 5 params
-"k1", "k2", "k3", "k4", "k5", "k6",
+names = ["k6",
 "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8",
 "s1", "s2" ]
 
