@@ -1,6 +1,7 @@
 [deps]
 Blink = "ad839575-38b3-5650-b840-f874b8c74a25"
 CSVFiles = "5d742f6a-9f54-50ce-8119-2520741973ca"
+Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"

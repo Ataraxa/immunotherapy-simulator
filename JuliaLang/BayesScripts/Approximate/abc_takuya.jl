@@ -22,18 +22,14 @@ true_params = christian_true_params
 priors = gen_priors(Cauchy, 1., false)
 if param_space == "large"
     param_indices = collect(1:21)
-    println("Inference on large parameter space")
-    println(param_indices)
 elseif param_space == "medium"
     param_indices = collect(11:21)
-    println("Inference on medium parameter space")
-    println(param_indices)
-
-else
+elseif param_space == "eFAST"
     param_indices = [11, 12, 18, 21, 25]
-    println("Inference on small parameter space")
-    println(param_indices)
+else
+    param_indices = [11,12,21]
 end
+println(param_indices)
 
 s = 0.1
 selected_days = [0,7,8,9,11,14,17,20]

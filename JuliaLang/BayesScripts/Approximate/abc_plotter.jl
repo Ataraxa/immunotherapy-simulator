@@ -10,9 +10,9 @@ using Statistics
 plotlyjs()
 
 # INPUT
-abc_results = load_object("Results/abc/ABC-hpc-3.jld2")
-varidx = [11, 12,21]
-varidx = collect(11:21)
+abc_results = load_object("Results/abc/ABC-hpc-5.jld2")
+varidx = [11,12,18,21,25]
+# varidx = collect(11:21)
 
 # DO NOT CHANGE 
 # For large inference
@@ -50,7 +50,7 @@ true_values = [
 names = ["t_d", "t_delay", "t_last", "t_delay12", "t_last12", # 5 params
 "k1", "k2", "k3", "k4", "k5", "k6",
 "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8",
-"s1", "s2" ]
+"s1", "s2", "g0", "c0", "p0", "v0"]
 
 "Plots the evoluation of the estimations for each parameter"
 function plotAllEvolution()
@@ -102,7 +102,7 @@ function plotAllPost()
         xlabel!("Parameter Value")
         ylabel!("Number of Accepted Particles")
         title!("Approximate Posterior for ln($name)")
-        xlims!((-1., 2.5))
+        # xlims!((-1., 2.5))
         plot!(;legend=false)
         display(plothandle)
     end
@@ -110,21 +110,21 @@ end
 
 "Plots the scatter for each parameter pair"
 function plotAllCorr()
-    popn = 6
+    # popn = 6
     combinations = [(1,2), (1,3), (2,3)]
     colours = ["#FFCCD4","#FF667D","#FF2F4E", "#D0001F", "#A20018", 
     "#ab031d","#690110"]
 
     for (ci, comb) in enumerate(combinations)
         i = comb[1]; j = comb[2]
-        name1 = names[i]
-        name2 = names[j]
+        name1 = names[varidx][i]
+        name2 = names[varidx][j]
         
         plothandle = plot()
-        for pop_index in 1:6
+        for pop_index in 3:9
             pop1 = abc_results.population[pop_index][:,i]
             pop2 = abc_results.population[pop_index][:,j]
-        scatter!(pop1, pop2; color=colours[pop_index], markersize=5)
+            scatter!(pop1, pop2; color=colours[pop_index-2], markersize=5)
         end
         xlabel!("Parameter Value of ln($name1)")
         ylabel!("Parameter Value of ln($name2)")
@@ -134,6 +134,6 @@ function plotAllCorr()
     end
 end
 
-plotAllEvolution()
+# plotAllEvolution()
 # plotAllPost()
-# plotAllCorr()
+plotAllCorr()
