@@ -1,3 +1,7 @@
-using Pipe
+using Combinatorics
 
-arr = @pipe zeros(3) |> exp.(_[2])
+x = collect(1:9)
+comx = combinations(x, 2)
+for c in comx
+    println(c)
+end

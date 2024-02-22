@@ -2,5 +2,6 @@
 0 -> (3,) | 1.0 | none | odeNnon
 1 -> (3,) | 1.0 | none | odeNfullyObs
 2 -> (3,) | 1.0 | none | ddeNfullyObs
-3 -> (3,) | 1.0 | none | takuya (shitty dataset?)
+3 -> (3,) | 1.0 | none | takuya
 4 -> (3,) | 1.0 | none | takuya
+5 ->  N/A | 0.8 | none | Lotka-Volterra 

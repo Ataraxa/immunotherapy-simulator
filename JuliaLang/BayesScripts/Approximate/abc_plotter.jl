@@ -10,8 +10,8 @@ using Statistics
 plotlyjs()
 
 # INPUT
-abc_results = load_object("Results/abc/ABC-hpc-5.jld2")
-varidx = [11,12,18,21,25]
+abc_results = load_object("Results/abc/ABC-hpc-6.jld2")
+varidx = [11,12,21]
 # varidx = collect(11:21)
 
 # DO NOT CHANGE 
@@ -110,30 +110,32 @@ end
 
 "Plots the scatter for each parameter pair"
 function plotAllCorr()
-    # popn = 6
-    combinations = [(1,2), (1,3), (2,3)]
+    x = collect(1:length(varidx))
+    comx = combinations(x, 2)
+
     colours = ["#FFCCD4","#FF667D","#FF2F4E", "#D0001F", "#A20018", 
     "#ab031d","#690110"]
 
-    for (ci, comb) in enumerate(combinations)
+    for (ci, comb) in enumerate(comx)
         i = comb[1]; j = comb[2]
         name1 = names[varidx][i]
         name2 = names[varidx][j]
         
         plothandle = plot()
         for pop_index in 3:9
-            pop1 = abc_results.population[pop_index][:,i]
-            pop2 = abc_results.population[pop_index][:,j]
+            global pop1 = abc_results.population[pop_index][:,i]
+            global pop2 = abc_results.population[pop_index][:,j]
             scatter!(pop1, pop2; color=colours[pop_index-2], markersize=5)
         end
+        r_pearson = cor(pop1, pop2)
         xlabel!("Parameter Value of ln($name1)")
         ylabel!("Parameter Value of ln($name2)")
-        # title!("Correlation")
+        title!("Correlation: $(r_pearson)")
         plot!(;legend=false)
         display(plothandle)
     end
 end
 
-# plotAllEvolution()
+plotAllEvolution()
 # plotAllPost()
-plotAllCorr()
+# plotAllCorr()

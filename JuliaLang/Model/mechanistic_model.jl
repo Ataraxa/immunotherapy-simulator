@@ -186,6 +186,20 @@ function model_factory(; model="takuya", treatment::Treatment=CBD_IL_12_ver7)
                 return du
             end # closes function block
         end # closes specific case statement
+
+        "predatorPrey" => begin
+            immune_resp = function(du, u, p, t)
+                # Model parameters.
+                α, β, γ, δ = p
+                # Current state.
+                x, y = u
+            
+                # Evaluate differential equations.
+                du[1] = (α - β * y) * x # prey
+                du[2] = (δ * x - γ) * y # predator
+                return du
+            end
+        end # closes specific case statement
     end #closes match statement
 
     return immune_resp
@@ -210,6 +224,11 @@ function create_problem(;
         return ODEProblem(model_obj, u0[1:4], t_span, p) # no vd
     elseif model=="ddeNfullyObs"
         return DDEProblem(model_obj, u0[1:4], h, t_span, p)
+    elseif model=="predatorPrey"
+        u0 = [1.0, 1.0]
+        p = [1.5, 1.0, 3.0, 1.0]
+        tspan = (0.0, 10.0)
+        return ODEProblem(model_obj, u0, tspan, p)
     else
         return DDEProblem(model_obj, u0, h, t_span, p)
     end

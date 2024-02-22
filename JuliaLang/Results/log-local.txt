@@ -394,3 +394,19 @@ Summary for local-individual-1-17.h5:
  
     Transformation:        transform=none 
  
+Summary for local-individual-1-18.h5: 
+ 
+    MCMC parameters:       n_iters=1000 | n_threads=3 
+
+    Parameter space:       space=N/A  
+
+    Priors:                type=Normal | std=1.0 | isinform=0 
+
+    Likelihood parameters: model=predatorPrey | σ_noise=0.8 
+ 
+    Pooling:               n_exp=1 
+
+    Dataset:               set=5 
+ 
+    Transformation:        transform=none 
+ 

@@ -1,12 +1,13 @@
-using Pipe
-using JLD
-using JLD2
-using Plots
-using GpABC
-using DotEnv
+using Combinatorics
+using DifferentialEquations
 using Distances: euclidean, sqeuclidean, peuclidean
 using Distributions
-using DifferentialEquations
+using DotEnv
+using GpABC
+using JLD
+using JLD2
+using Pipe
+using Plots
 
 include("../../Model/mechanistic_model.jl")
 include("../../Model/Bayesian/priors.jl")

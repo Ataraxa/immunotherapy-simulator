@@ -44,41 +44,44 @@ function gen_priors(
 
     # Lower Bounds (lb)
     lb = ones(size(base)) * -7
-    lb[12] = .5
+    lb[12] = 1
+    # lb = [0.5,0,1,0]
+
 
     # Upper bounds (ub)
     ub = ones(size(base)) * 3.4
     ub[12] = 5
+    # ub = [2.5,2,4,2]
 
     return [truncated(distro((is_info ? log(par) : 0), std); lower=lb[i], upper=ub[i])
          for (i,par) in enumerate(base)]
 end
 
 # Priors for standard inference
-uninfo    = gen_priors(Cauchy,.3,false)
-part_info = gen_priors(Cauchy,.3,true)
-info_p      = gen_priors(Normal,.3,true)
+# uninfo    = gen_priors(Cauchy,.3,false)
+# part_info = gen_priors(Cauchy,.3,true)
+# info_p      = gen_priors(Normal,.3,true)
 
-# Regularisation priors
-tau = 0.5
-ridge  = gen_priors(Laplace, tau, false) # => L1 Regularisation
-lasso  = gen_priors(Normal , tau, false) # => L2 Regularisation
+# # Regularisation priors
+# tau = 0.5
+# ridge  = gen_priors(Laplace, tau, false) # => L1 Regularisation
+# lasso  = gen_priors(Normal , tau, false) # => L2 Regularisation
 
-# Misc 
-function gen_censored(
-    distro,
-    base::Vector{Float64}=christian_true_params
-    )
+# # Misc 
+# function gen_censored(
+#     distro,
+#     base::Vector{Float64}=christian_true_params
+#     )
 
-    # Lower Bounds (lb)
-    lb = ones(size(base)) * -7
-    lb[12] = .5
+#     # Lower Bounds (lb)
+#     lb = ones(size(base)) * -7
+#     lb[12] = .5
 
-    # Upper bounds (ub)
-    ub = ones(size(base)) * 3.4
-    ub[12] = 5
+#     # Upper bounds (ub)
+#     ub = ones(size(base)) * 3.4
+#     ub[12] = 5
 
-    return [censored(distro((0.1), 0.3); lower=lb[i], upper=ub[i])
-         for (i,par) in enumerate(base)]
-end
-censored_priors = gen_censored(Normal)
+#     return [censored(distro((0.1), 0.3); lower=lb[i], upper=ub[i])
+#          for (i,par) in enumerate(base)]
+# end
+# censored_priors = gen_censored(Normal)

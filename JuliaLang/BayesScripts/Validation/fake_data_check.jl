@@ -3,15 +3,15 @@
 This script is used to fit a Bayesian model to a set of manually-
 generated data. This is useful to check model identifiability. 
 =#
-using JLD
-using Pipe
-using HDF5
 using Dates
-using Match
-using DotEnv
-using MCMCChains
 using Distributions
+using DotEnv
+using HDF5
+using JLD
+using Match
+using MCMCChains
 using MCMCChainsStorage
+using Pipe
 
 include("../../CommonLibrary/data_extractor.jl")
 include("../../Model/mechanistic_model.jl")
@@ -21,24 +21,22 @@ include("../../Model/Bayesian/individual_restricted.jl")
 ### Script Settings
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
-n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 10_000
+n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 10
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
-model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "odeNnon"
+model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
 prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 0
-data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 0
+data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 4
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
 space           = (length(ARGS) >= 9) ?               (ARGS[9]) : "auto"
 
 # Manual settings
-path = "Data/fakeDataNew"
-space_selection = Dict(
-    "restr1" => [1],
-    "restr3" => [11, 12, 21],
-    "full"   =>  [1:25]
-)
-var_idx = [11,12,21]
+path = "Data/fake_data"
+var_idx = [11,12,21] # For immunotherapy
+# var_idx = [1,2,3,4] # For Lotka-Volterra check
+base = christian_true_params
+
 ### Settings autoloading
 open("$path/log.txt") do f 
     lines = readlines(f)
@@ -56,7 +54,7 @@ log_norm = unparsed_settings[3]
 println("σ=$(σ_err) | space=$(space) | transform=$(log_norm)")
 
 ### Generate priors 
-open("Data/fakeDataNew/params.txt") do f 
+open("Data/fake_data/params.txt") do f 
     lines = readlines(f)
     for line in lines 
         if string(line[1]) == string(data_set)
@@ -69,7 +67,6 @@ open("Data/fakeDataNew/params.txt") do f
         end
     end
 end
-base = christian_true_params
 base[var_idx] .= rhs4
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
 priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
@@ -81,13 +78,13 @@ println.(priors_vec[var_idx])
 # Please refer to convention file to understand the format of csv files
 selected_days = [0,7,8,9,11,14,17,20]
 data_mat = load("$path/trajectories-$data_set.jld", "M")
-data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] #slice pred
+# data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] #slice pred
 
 # Problem Definition 
 problem = create_problem(model=model)
 
 model_args = [data_mat, problem, selected_days, step_size, σ_err,
-    log_norm, priors_vec, var_idx]
+    base, log_norm, priors_vec, var_idx]
 
 fitted_model = fit_individual_restricted3(model_args...; 
     num_experiments = num_experiments)
@@ -108,8 +105,8 @@ if ENV["MACHINE_TYPE"] == "hpc"
         n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 20, 2; 
-        progress=false)
+    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), n_iters, 
+        n_threads; progress=false)
 end
 display(gelmandiag(chain_dde))
 

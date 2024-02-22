@@ -11,7 +11,7 @@ include("../../Model/Bayesian/priors.jl")
 # Settings
 var_params_idx = [11, 12, 21]
 noise_std = 1.
-noise = "none"
+noise_type = "none"
 model_name="takuya"
 
 do_overwrite_prev = false
@@ -34,7 +34,7 @@ combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
 stacked_pred = repeat(combined_pred, 1, 1, 10)
 
 # Add noise
-@match noise begin 
+@match noise_type begin 
     "additive" => begin
         noise = rand(Normal(0, 1)*noise_std, 4, size(stacked_pred)[2], 10)
         global noisy_growth = stacked_pred .+ noise
@@ -84,7 +84,7 @@ if do_overwrite_prev
 end
 save("$path/$filename", "M", noisy_growth)
 
-summary = "$(file_i) -> $(size(var_params_idx)) | $(noise_std) | $(noise) | $(model_name)\n"
+summary = "$(file_i) -> $(size(var_params_idx)) | $(noise_std) | $(noise_type) | $(model_name)\n"
 open("$path/log.txt", "a") do f 
     write(f, summary)
 end
