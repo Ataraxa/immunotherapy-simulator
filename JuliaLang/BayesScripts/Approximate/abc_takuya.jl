@@ -15,16 +15,22 @@ include("../../Model/Bayesian/priors.jl")
 param_space     = (length(ARGS) >= 1) ? (ARGS[1]) : "large"
 
 # ABC Settings
+println(param_space)
 DotEnv.config() # Loads content from .env file
 true_params = christian_true_params
 priors = gen_priors(Cauchy, 1., false)
 if param_space == "large"
     param_indices = [1:21]
+    println("Inference on large parameter space")
 elseif param_space == "medium"
     param_indices = [11:21]
+    println("Inference on medium parameter space")
+
 else
     param_indices = [11, 12, 21]
-    
+    println("Inference on small parameter space")
+
+
 s = 0.1
 selected_days = [0,7,8,9,11,14,17,20]
 priors = priors[param_indices]

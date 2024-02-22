@@ -10,16 +10,51 @@ using Statistics
 plotlyjs()
 
 # Input
-abc_results = load_object("Results/abc/ABC-local-2.jld2")
-true_values = [1.98814060169, 2.10643371507, 1.65262881505]
-# true_values = log.([0.4037028186937715, 16.470910037502286, 0.6457205405500415])
-names = ["k₆", "d₁", "s₂"]
+abc_results = load_object("Results/abc/ABC-hpc-1.jld2")
+# true_values = [1.98814060169, 2.10643371507, 1.65262881505]
+# names = ["k₆", "d₁", "s₂"]
+
+# For large inference
+true_values = [1.872824160505723, # t_d 
+0.487923336960266, # t_delay 
+4.893475496158970, # t_last 
+3.697285769720824, # t_delay1 
+1.075411285414352, # t_last12
+# ⬇ index 6
+0.221936172352179,  #k1
+6.081963924603686,  #k2
+74.60149998881774,  #k3
+929.5659753695654,  #k4
+5.815052050675676,  #k5
+0.539494697127057,  #k6
+# ⬇ index 12
+10.177238034144443, # d1 
+10.610875554141064, # d2 
+1.3262458309759877, # d3
+4.4860998573217170, # d4
+0.0160245808033653, # d5
+0.0341621446708329, # d6
+59.611074450040185, # d7
+0.5697851077620799, # d8
+# ⬇ index 20
+14.068450976326906, # s1
+0.4108126097661595, # s2
+# ⬇ index 22
+0.007911968983770, # g (IFNγ)
+8.851474387488993, # c (CD8+)
+5.999229998549251, # p (PD-1)
+5.573047884761726  # v (Living tumour)
+]
+names = ["t_d", "t_delay", "t_last", "t_delay12", "t_last12", # 5 params
+"k1", "k2", "k3", "k4", "k5", "k6",
+"d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8",
+"s1", "s2" ]
 
 "Plots the evoluation of the estimations for each parameter"
 function plotAllEvolution()
     for i in eachindex(names)
         name = names[i]
-        true_val = true_values[i]
+        # true_val = true_values[i]
         pops = abc_results.population[:]
 
         println(size.(pops))
