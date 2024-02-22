@@ -26,7 +26,7 @@ n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
 model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "odeNnon"
 prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
-inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 1
+inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 0
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 0
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
 space           = (length(ARGS) >= 9) ?               (ARGS[9]) : "auto"
@@ -108,7 +108,7 @@ if ENV["MACHINE_TYPE"] == "hpc"
         n_threads; progress=false)
 elseif ENV["MACHINE_TYPE"] == "local" 
     println("Going into the local computing branch")
-    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 10, 2; 
+    chain_dde = Turing.sample(fitted_model, NUTS(), MCMCThreads(), 20, 2; 
         progress=false)
 end
 display(gelmandiag(chain_dde))

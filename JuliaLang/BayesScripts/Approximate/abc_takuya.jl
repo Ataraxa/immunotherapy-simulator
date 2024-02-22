@@ -72,7 +72,7 @@ end
 
 # Simulation 
 n_particles = 500 # Design choice as well
-threshold_schedule = [1000, 500., 250.,175., 100., 75., 50., 25., 17.] # Design choice!
+threshold_schedule = [1000., 750., 500., 250.,175., 100., 75., 50., 25., 17.] # Design choice!
 # threshold_schedule = [10., 5., 1., 0.5, 0.3, 0.15, 0.08] # Design choice!
 population_colors=["#FFCCD4","#FF667D","#FF2F4E", "#D0001F", "#A20018", 
     "#990017","#800013"]

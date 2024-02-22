@@ -35,7 +35,8 @@ Inputs:
     end
     # Process data matrix
     data = transform.(data)
-    params = copy(christian_true_params) 
+    params = Vector{Any}(undef, 25)
+    params[:] = copy(christian_true_params) 
     
     ## Regular priors
     ln_k6 ~ distro[1] # Negative half-Cauchy
@@ -44,16 +45,16 @@ Inputs:
 
     ## Convert ForwardDiff to Float64 (bad type interface)
     p = [ln_k6, ln_d1, ln_s2] .|> exp
-    # float_p = p
+    float_p = p
 
-    float_p = Vector{Float64}(undef, length(p))
-    for (i, param) in enumerate(p) 
-        if typeof(param) <: Dual
-            float_p[i] = param.value + sum([i for i in param.partials])
-        else
-            float_p[i] = param
-        end
-    end
+    # float_p = Vector{Float64}(undef, length(p))
+    # for (i, param) in enumerate(p) 
+    #     if typeof(param) <: Dual
+    #         float_p[i] = param.value + sum([i for i in param.partials])
+    #     else
+    #         float_p[i] = param
+    #     end
+    # end
 
     ## Solve DDE model  
     params[var_params_index] .= float_p

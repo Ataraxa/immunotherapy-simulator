@@ -3,7 +3,7 @@ using Plots
 include("../../Model/mechanistic_model.jl")
 include("../../Model/Bayesian/priors.jl")
 plotlyjs()
-abc_results = load_object("Results/abc/ABC-local-2.jld2")
+abc_results = load_object("Results/abc/ABC-hpc-2.jld2")
 popu = abc_results.population[end]
 prob = create_problem(model="takuya")
 params = copy(christian_true_params)
