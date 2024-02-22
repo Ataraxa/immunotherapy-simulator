@@ -29,7 +29,7 @@ elseif param_space == "medium"
 else
     param_indices = [11, 12, 21]
     println("Inference on small parameter space")
-
+end
 
 s = 0.1
 selected_days = [0,7,8,9,11,14,17,20]
