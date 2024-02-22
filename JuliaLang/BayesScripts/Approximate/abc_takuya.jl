@@ -10,6 +10,7 @@ using DifferentialEquations
 
 include("../../Model/mechanistic_model.jl")
 include("../../Model/Bayesian/priors.jl")
+# include("")
 
 # Parse external parameters
 param_space     = (length(ARGS) >= 1) ? (ARGS[1]) : "large"
@@ -29,7 +30,7 @@ elseif param_space == "medium"
     println(param_indices)
 
 else
-    param_indices = [11, 12, 21]
+    param_indices = [11, 12, 18, 21, 25]
     println("Inference on small parameter space")
     println(param_indices)
 end
@@ -102,5 +103,6 @@ end
 
 save_object("$output_dir/$filename", sim_abcsmc_res)
 println("Results saved @ $output_dir/$filename")
+println("Space: $(param_indices)")
 
 # plot(sim_abcsmc_res, population_colors=population_colors)

@@ -6,22 +6,18 @@ using StatsPlots: groupedbar
 using Match
 using Plots.PlotMeasures
 include("../Model/treatments_lib.jl")
-include("../Model/Differential/ode_core.jl")
-include("../Model/Differential/ode_params.jl")
-include("../CommonLibrary/struct_manipulation.jl")
-
+include("../Model/mechanistic_model.jl")
+include("../Model/Bayesian/priors.jl")
 # Settings
-np = 22 # number of parameters to be analysed
+np = 25 # number of parameters to be analysed
 
 # Define the problem object
 global problem = create_problem(
     max_day=100.0,
     treatment=CBD_IL_12_ver7,
     model="takuya",
-    param_struct=christian
+    params=christian_true_params
 )
-
-_p, _u0 = struct_split(christian) # Default parameters
 
 # Function wrapper that outputs scalar metric from numerical approx
 function scalar_metric(num_approx, time_step, metric_type)
@@ -42,8 +38,8 @@ function scalar_metric(num_approx, time_step, metric_type)
 end 
 
 function wrapper(param_vector)
-    new_p = param_vector[1:end-1] 
-    new_u0 = [0.0084; 9.56; 4.95; param_vector[end]; 0]
+    new_p = param_vector[1:21] 
+    new_u0 = [param_vector[22:25]; 0]
 
     sim = solve(problem; p=new_p, u0=new_u0, saveat=0.1)
     tumour = sim[4,:] + sim[5,:]
@@ -52,7 +48,7 @@ function wrapper(param_vector)
 end
 
 # Lower and upper bounds of the solution 
-vector = [_p; _u0[4];]
+vector = christian_true_params
 width_factor = 0.5
 lb = (1-width_factor)*vector
 ub = (1+width_factor)*vector
@@ -62,7 +58,7 @@ labels = [
     "t_d", "t_delay", "t_last", "t_delay12", "t_last12",
     "k1", "k2", "k3", "k4", "k5", "k6",
     "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8",
-    "s1", "s2", "v0"
+    "s1", "s2", "g0", "c0", "p0", "v0"
     ]
 res_sens = gsa(wrapper, eFAST(),[[lb[i], ub[i]] for i=1:np], samples=2000)
 # print(size(res_sens.S1))

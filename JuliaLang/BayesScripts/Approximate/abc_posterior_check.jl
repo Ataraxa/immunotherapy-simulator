@@ -3,16 +3,17 @@ using Plots
 include("../../Model/mechanistic_model.jl")
 include("../../Model/Bayesian/priors.jl")
 plotlyjs()
-abc_results = load_object("Results/abc/ABC-hpc-2.jld2")
+abc_results = load_object("Results/abc/ABC-local-2.jld2")
 popu = abc_results.population[end]
 prob = create_problem(model="takuya")
 params = copy(christian_true_params)
 
+# varidx = collect(11:21)
+varidx = [11, 12, 21]
 layout = plot(layout=(2,2))
 N = size(popu)[1]
 for row = 1:N
-    
-    params[[11,12,21]] .= exp.(popu[row,:])
+    params[varidx] .= exp.(popu[row,:])
     # println.(popu[row,:])
     pred = solve(prob; p=params, saveat=0.1)
     v = pred[4,:] + pred[5,:]
