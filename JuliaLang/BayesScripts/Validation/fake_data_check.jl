@@ -24,7 +24,7 @@ step_size = parse(Float64, ENV["STEP_SIZE"])
 n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 10
 n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
-model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "takuya"
+model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "odeNfullyObs"
 prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 0
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 4
@@ -70,8 +70,9 @@ end
 base[var_idx] .= rhs4
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
 priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
+priors_vec = priors_vec[var_idx]
 # priors_vec = censored_priors
-println.(priors_vec[var_idx])
+println.(priors_vec)
 
 ### Main 
 # Data Extraction 

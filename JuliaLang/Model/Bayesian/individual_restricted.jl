@@ -42,7 +42,10 @@ Inputs:
     
     ## Regular priors
     ln_k6 ~ distro[1]
+    # println("Sampling for d1")
+    # println("From $(distro[2])")
     ln_d1 ~ distro[2]
+    # println("_________________")
     ln_s2 ~ distro[3]
 
     ## Convert ForwardDiff to Float64 (bad type interface)
