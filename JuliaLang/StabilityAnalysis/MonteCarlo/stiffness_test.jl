@@ -22,11 +22,16 @@ function do_simulations(n_iters=1_000)
         max_day=27.0)
     
     params = copy(christian_true_params)
-    for k6 in range(start=0.001, stop=10, length=edge_len)
+    for k6 in range(start=0.001, stop=2, length=edge_len)
         for d1 in range(start=1, stop=2, length=edge_len)
-            for s2 in range(start=0.001, stop=10, length=edge_len)
+            for s2 in range(start=0.001, stop=10, length=2)
                 params[[11,12,21]] .= [k6, d1, s2]
-                sol = solve(problem; p=params, saveat=0.1)
+                # sol = solve(problem; p=params, saveat=0.1)
+                sol = solve(problem, AutoTsit5(RadauIIA3(); 
+                            maxstiffstep=70, stifftol=1.4, # low stifftol -> everything is stiff
+                            maxnonstiffstep=1, nonstifftol=0.7, 
+                            stiffalgfirst=true); 
+                    p=params, saveat=0.1)
                 # println(sol.t)
                 if sol.t[end] == 27.0
                     push!(all_k6, k6)

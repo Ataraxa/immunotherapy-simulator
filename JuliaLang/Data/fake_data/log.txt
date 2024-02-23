@@ -4,4 +4,5 @@
 2 -> (3,) | 1.0 | none | ddeNfullyObs
 3 -> (3,) | 1.0 | none | takuya
 4 -> (3,) | 1.0 | none | takuya
-5 ->  N/A | 0.8 | none | Lotka-Volterra 
+5 ->  N/A | 0.8 | +(.) | Lotka-Volterra 
+6 -> Copy of 4 (with noise=1) 

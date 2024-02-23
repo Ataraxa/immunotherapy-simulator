@@ -1,21 +1,22 @@
 using JLD
 using Plots: plot, plot!, scatter
 # Settings
-# num_series = 3
-i = 5
+num_series = 3
+i = 6
 data_mat = load("Data/fake_data/trajectories-$i.jld", "M")
 
 # Plotting 
-# series = ["IFNγ", "CD8+", "PD-1", "Tumour volume"]
-# layout = plot(layout=(2,2))
-# for i in 1:4
-#     plot!(layout, 0:0.1:27, data_mat[i,:,1:num_series];
-#     sp=i,
-#     xlabel="Time (day)",
-#     title=series[i],
-#     frame=:box)
-# end
+series = ["IFNγ", "CD8+", "PD-1", "Tumour volume"]
+layout = plot(layout=(2,2))
+for i in 1:4
+    plot!(layout, 0:0.1:27, data_mat[i,:,1:num_series];
+    sp=i,
+    xlabel="Time (day)",
+    title=series[i],
+    frame=:box)
+end
+display(layout)
 
 # Plot simulation and noisy observationsf for Lotka-Volterra
-# plot(sol; alpha=0.3)
-scatter(data_mat'; color=[1 2], label="")
+# # plot(sol; alpha=0.3)
+# scatter(data_mat'; color=[1 2], label="")

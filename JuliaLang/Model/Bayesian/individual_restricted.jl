@@ -50,7 +50,12 @@ Inputs:
 
     ## Solve DDE model  
     params[var_params_index] .= p
-    pred = solve(problem; p=params, saveat=s)
+    # pred = solve(problem; p=params, saveat=s)
+    pred = solve(problem, AutoTsit5(RadauIIA3(); 
+                            maxstiffstep=70, stifftol=1.4, # low stifftol -> everything is stiff
+                            maxnonstiffstep=1, nonstifftol=0.7, 
+                            stiffalgfirst=true); 
+                    p=params, saveat=s)
 
     ## Process tumour data (sum + slice at active days)
     v = sum(pred[4:end,:], dims=1)

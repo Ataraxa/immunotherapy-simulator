@@ -17,7 +17,6 @@ include("../../Model/Bayesian/priors.jl")
 param_space     = (length(ARGS) >= 1) ? (ARGS[1]) : "large"
 
 # ABC Settings
-println(param_space)
 DotEnv.config() # Loads content from .env file
 true_params = christian_true_params
 priors = gen_priors(Cauchy, 1., false)
