@@ -44,14 +44,14 @@ function gen_priors(
 
     # Lower Bounds (lb)
     lb = ones(size(base)) * -7
-    lb[12] = 1
-    # lb = [0.5,0,1,0]
+    # lb[12] = 1
+    lb = [0.5,0,1,0]
 
 
     # Upper bounds (ub)
     ub = ones(size(base)) * 3.4
-    ub[12] = 5
-    # ub = [2.5,2,4,2]
+    # ub[12] = 5
+    ub = [2.5,2,4,2]
 
     return [truncated(distro((is_info ? log(par) : 0), std); lower=lb[i], upper=ub[i])
          for (i,par) in enumerate(base)]

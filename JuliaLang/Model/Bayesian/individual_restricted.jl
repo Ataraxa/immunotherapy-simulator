@@ -42,31 +42,27 @@ Inputs:
     
     ## Regular priors
     ln_k6 ~ distro[1]
-    # println("Sampling for d1")
-    # println("From $(distro[2])")
     ln_d1 ~ distro[2]
-    # println("_________________")
     ln_s2 ~ distro[3]
-
-    ## Convert ForwardDiff to Float64 (bad type interface)
-    p = [ln_k6, ln_d1, ln_s2] .|> exp
-
+        
     ## Solve DDE model  
+    p = [ln_k6, ln_d1, ln_s2] .|> exp
     params[var_params_index] .= p
-    # pred = solve(problem; p=params, saveat=s)
-    pred = solve(problem, AutoTsit5(RadauIIA3(); 
-                            maxstiffstep=70, stifftol=1.4, # low stifftol -> everything is stiff
-                            maxnonstiffstep=1, nonstifftol=0.7, 
-                            stiffalgfirst=true); 
-                    p=params, saveat=s)
+    pred = solve(problem; p=params, saveat=s)
+    # pred = solve(problem, AutoTsit5(RadauIIA3(); 
+    #                         maxstiffstep=70, stifftol=1.4, # low stifftol -> everything is stiff
+    #                         maxnonstiffstep=1, nonstifftol=0.7, 
+    #                         stiffalgfirst=true); 
+    #                 p=params, saveat=s)
+    if size(pred, 2) != 271
+        println.(p)
+        println("______________________")
+        global pred = solve(problem, RadauIIA5(); p=params, saveat=s)
+    end
 
     ## Process tumour data (sum + slice at active days)
     v = sum(pred[4:end,:], dims=1)
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
-    if size(combined_pred, 2) != 271
-        println.(p)
-        println("______________________")
-    end
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
     
     ## Likelihood
@@ -91,6 +87,7 @@ end
     # Process the transform 
     @match log_norm begin 
         "none" => global transform = (x -> x)
+        "+(.)" => global transform = (x -> x)
         "loga" => global transform = (x -> log(x)) # logan paul?
     end
     data = transform.(data)
@@ -111,7 +108,7 @@ end
     ## Solve DDE model  
     params[var_params_index] .= [α, β, γ, δ]
     pred = solve(problem; p=params, saveat=stepsize)
-    sliced_pred = pred
+    sliced_pred = pred[:,[1, 20, 30, 40, 50, 60, 70, 80]]
     ## Process tumour data (sum + slice at active days)
     # v = sum(pred[4:end,:], dims=1)
     # combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))

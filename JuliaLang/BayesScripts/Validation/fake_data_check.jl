@@ -21,21 +21,22 @@ include("../../Model/Bayesian/individual_restricted.jl")
 ### Script Settings
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
-n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 10
-n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 1
+n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
+n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 5
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
-model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "odeNfullyObs"
-prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Normal"
+model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "predatorPrey"
+prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Cauchy"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 0
-data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 4
+data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 5
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
 space           = (length(ARGS) >= 9) ?               (ARGS[9]) : "auto"
 
 # Manual settings
 path = "Data/fake_data"
 var_idx = [11,12,21] # For immunotherapy
-# var_idx = [1,2,3,4] # For Lotka-Volterra check
 base = christian_true_params
+# var_idx = [1,2,3,4] # For Lotka-Volterra check
+# base = [1.5, 1., 3., 1.]
 
 ### Settings autoloading
 open("$path/log.txt") do f 
@@ -62,7 +63,6 @@ open("Data/fake_data/params.txt") do f
             rhs2 = strip.(split(rhs, '|'))
             rhs3 = filter(x -> x != "N/A", rhs2) # List of parameters
             global rhs4 = parse.(Float64, rhs3)
-            # rhs = @pipe split(line, ':')[2] |> strip.(split(_, '|')) |> filter(x -> x != "N/A", _)
             break
         end
     end
@@ -71,14 +71,14 @@ base[var_idx] .= rhs4
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
 priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
 priors_vec = priors_vec[var_idx]
-# priors_vec = censored_priors
-println.(priors_vec)
+# println.(priors_vec)
 
 ### Main 
 # Data Extraction 
 # Please refer to convention file to understand the format of csv files
-selected_days = [0,7,8,9,11,14,17,20]
+# selected_days = [0,7,8,9,11,14,17,20]
 data_mat = load("$path/trajectories-$data_set.jld", "M")
+data_mat = data_mat[:,[1, 20, 30, 40, 50, 60, 70, 80]]
 # data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] #slice pred
 
 # Problem Definition 
@@ -86,17 +86,13 @@ problem = create_problem(model=model)
 
 model_args = [data_mat, problem, selected_days, step_size, σ_err,
     base, log_norm, priors_vec, var_idx]
+println.(model_args)
 
 fitted_model = fit_individual_restricted3(model_args...; 
     num_experiments = num_experiments)
 
-# @match space begin
-#     "full" => global fitted_model = fit_individual_full(model_args...)
-#     "restr1" => global fitted_model = fit_individual_restricted1(model_args...; 
-#         num_experiments = num_experiments)
-#     "restr3" => global fitted_model = fit_individual_restricted3(model_args...; 
-#         num_experiments = num_experiments)
-# end
+# fitted_model = fit_lotkaVolterra(model_args...; 
+#     num_experiments = num_experiments)
 
 # Sample from Posterior
 # println("HERE: $(length(parsed_vec))")
