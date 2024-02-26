@@ -29,23 +29,23 @@ Inputs:
     var_params_index; 
     num_experiments = 1)
 
-    # Process the transform 
+    # Process the transform [✓]
     @match log_norm begin 
         "none" => global transform = (x -> x)
         "loga" => global transform = (x -> log(x)) # logan paul?
     end
     data = transform.(data)
 
-    ## Baseline parameters
+    ## Baseline parameters [✓]
     params = Vector{Any}(undef, length(base_params))
     params[:] = copy(base_params) 
     
-    ## Regular priors
+    ## Regular priors [✓]
     ln_k6 ~ distro[1]
     ln_d1 ~ distro[2]
     ln_s2 ~ distro[3]
         
-    ## Solve DDE model  
+    ## Solve DDE model [no]
     p = [ln_k6, ln_d1, ln_s2] .|> exp
     params[var_params_index] .= p
     pred = solve(problem; p=params, saveat=s)
@@ -60,12 +60,12 @@ Inputs:
         global pred = solve(problem, RadauIIA5(); p=params, saveat=s)
     end
 
-    ## Process tumour data (sum + slice at active days)
+    ## Process tumour data (sum + slice at active days) [no]
     v = sum(pred[4:end,:], dims=1)
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]
     
-    ## Likelihood
+    ## Likelihood [✓]
     for exp in 1:num_experiments
         for qty in 1:4 # range g > c > p > v
             for i in eachindex(sliced_pred[1,:])

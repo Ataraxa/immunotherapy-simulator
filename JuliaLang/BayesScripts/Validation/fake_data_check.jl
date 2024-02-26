@@ -76,10 +76,10 @@ priors_vec = priors_vec[var_idx]
 ### Main 
 # Data Extraction 
 # Please refer to convention file to understand the format of csv files
-# selected_days = [0,7,8,9,11,14,17,20]
 data_mat = load("$path/trajectories-$data_set.jld", "M")
-data_mat = data_mat[:,[1, 20, 30, 40, 50, 60, 70, 80]]
-# data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] #slice pred
+# data_mat = data_mat[:,[1, 20, 30, 40, 50, 60, 70, 80]]
+selected_days = [0,7,8,9,11,14,17,20]
+data_mat = data_mat[:, selected_days*trunc(Int, 1/step_size) .+ 1,:] #slice pred
 
 # Problem Definition 
 problem = create_problem(model=model)
