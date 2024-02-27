@@ -31,6 +31,7 @@ data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 1
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
 log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "loga"
 σ_err          = (length(ARGS) >= 10) ? parse(Float64,(ARGS[10])) : 1.0
+
 # Manual settings
 path = "Data/fake_data"
 var_idx = [11,12,21] # For immunotherapy
@@ -39,17 +40,17 @@ base = christian_true_params
 # base = [1.5, 1., 3., 1.]
 
 ### Settings autoloading
-open("$path/log.txt") do f 
-    lines = readlines(f)
-    for line in lines
-        if string(line[1]) == string(data_set)
-            rhs = split(line, '>')[2]
-            global unparsed_settings = strip.(split(rhs, '|'))
-            break
-        end
-    end
-end
-space = unparsed_settings[1]
+# open("$path/log.txt") do f 
+#     lines = readlines(f)
+#     for line in lines
+#         if string(line[1]) == string(data_set)
+#             rhs = split(line, '>')[2]
+#             global unparsed_settings = strip.(split(rhs, '|'))
+#             break
+#         end
+#     end
+# end
+# space = unparsed_settings[1]
 # σ_err = 1. # We assume we know the noise level
 # log_norm = unparsed_settings[3]
 println("σ=$(σ_err) | space=$(space) | transform=$(log_norm)")
