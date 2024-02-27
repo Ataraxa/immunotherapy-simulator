@@ -29,7 +29,7 @@ prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Cauchy"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 0
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 5
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
-space           = (length(ARGS) >= 9) ?               (ARGS[9]) : "auto"
+log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "none"
 
 # Manual settings
 path = "Data/fake_data"
@@ -51,7 +51,7 @@ open("$path/log.txt") do f
 end
 space = unparsed_settings[1]
 σ_err = parse(Float64, unparsed_settings[2]) # We assume we know the noise level
-log_norm = unparsed_settings[3]
+# log_norm = unparsed_settings[3]
 println("σ=$(σ_err) | space=$(space) | transform=$(log_norm)")
 
 ### Generate priors 
@@ -71,7 +71,6 @@ base[var_idx] .= rhs4
 distro = @pipe Symbol(prior_distro) |> getfield(Main, _) # Convert str to distro
 priors_vec = gen_priors(distro, prior_acc, Bool(inform_priors); base)
 priors_vec = priors_vec[var_idx]
-# println.(priors_vec)
 
 ### Main 
 # Data Extraction 
