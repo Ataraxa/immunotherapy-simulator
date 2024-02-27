@@ -24,7 +24,7 @@ Inputs:
 @model function fit_individual_restricted3(
     data, problem, selected_days, s, σ_err, 
     base_params::Vector{Float64},
-    log_norm::SubString{String},
+    log_norm::String,
     distro::Vector{T} where T <: ContinuousDistribution,
     var_params_index; 
     num_experiments = 1)
