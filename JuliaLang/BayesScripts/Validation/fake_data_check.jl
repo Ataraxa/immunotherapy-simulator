@@ -30,7 +30,7 @@ inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 0
 data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 1
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
 log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "loga"
-
+σ_err          = (length(ARGS) >= 10) ? parse(Float64,(ARGS[10])) : 1.0
 # Manual settings
 path = "Data/fake_data"
 var_idx = [11,12,21] # For immunotherapy
@@ -50,7 +50,7 @@ open("$path/log.txt") do f
     end
 end
 space = unparsed_settings[1]
-σ_err = parse(Float64, unparsed_settings[2]) # We assume we know the noise level
+# σ_err = 1. # We assume we know the noise level
 # log_norm = unparsed_settings[3]
 println("σ=$(σ_err) | space=$(space) | transform=$(log_norm)")
 

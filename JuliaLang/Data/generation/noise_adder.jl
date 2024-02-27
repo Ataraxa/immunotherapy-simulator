@@ -20,7 +20,7 @@ end
 path = "Data/fake_data"
 
 # Load ref data 
-input = 4
+input = 3
 ref = load("$path/trajectories-$input.jld", "M")[:,:,1]
 
 # Add noise 
