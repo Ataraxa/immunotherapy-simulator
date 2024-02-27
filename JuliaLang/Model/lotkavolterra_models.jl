@@ -16,9 +16,7 @@ function LVmodel_factory(; model="dim2")
     
     @match model begin
         "dim2" => begin
-            immune_resp = function(du, u, p, t)
-                tr = treatment
-                p = p[1:21]
+        LV_model = function(du, u, p, t)
                 
                 # Model parameters.
                 t_d, t_delay, t_last, t_delay12, t_last12, # 5 params

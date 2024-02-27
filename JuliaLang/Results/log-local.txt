@@ -474,3 +474,35 @@ Summary for local-individual-1-4.h5:
  
     Transformation:        transform=+(.) 
  
+Summary for local-individual-1-5.h5: 
+ 
+    MCMC parameters:       n_iters=10 | n_threads=2 
+
+    Parameter space:       space=(3,)  
+
+    Priors:                type=Cauchy | std=1.0 | isinform=0 
+
+    Likelihood parameters: model=odeNfullyObs | σ_noise=1.0 
+ 
+    Pooling:               n_exp=1 
+
+    Dataset:               set=1 
+ 
+    Transformation:        transform=none 
+ 
+Summary for local-individual-1-6.h5: 
+ 
+    MCMC parameters:       n_iters=10 | n_threads=2 
+
+    Parameter space:       space=(3,)  
+
+    Priors:                type=Cauchy | std=1.0 | isinform=0 
+
+    Likelihood parameters: model=odeNfullyObs | σ_noise=1.0 
+ 
+    Pooling:               n_exp=1 
+
+    Dataset:               set=1 
+ 
+    Transformation:        transform=loga 
+ 

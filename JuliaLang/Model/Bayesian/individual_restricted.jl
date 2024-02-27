@@ -44,11 +44,18 @@ Inputs:
     ln_k6 ~ distro[1]
     ln_d1 ~ distro[2]
     ln_s2 ~ distro[3]
+
+    ## Rectifier for log data [?]
+    function data_rectifier(x, thresh)
+        rec_x = (x < thresh) ? thresh : x
+        return rec_x
+    end
         
     ## Solve DDE model [no]
     p = [ln_k6, ln_d1, ln_s2] .|> exp
     params[var_params_index] .= p
     pred = solve(problem; p=params, saveat=s)
+    pred = data_rectifier.(pred[:,:], 1e-6)
     # pred = solve(problem, AutoTsit5(RadauIIA3(); 
     #                         maxstiffstep=70, stifftol=1.4, # low stifftol -> everything is stiff
     #                         maxnonstiffstep=1, nonstifftol=0.7, 
@@ -58,9 +65,11 @@ Inputs:
         println.(p)
         println("______________________")
         global pred = solve(problem, RadauIIA5(); p=params, saveat=s)
+        global pred = data_rectifier.(pred[:,:], 1e-6)
     end
 
-    ## Process tumour data (sum + slice at active days) [no]
+    ## Process tumour data (sum + slice at active days) [?]
+    # println.(pred[4:end,:])
     v = sum(pred[4:end,:], dims=1)
     combined_pred = vcat(pred[1:3,:], reshape(v, 1, length(v)))
     sliced_pred = combined_pred[:,selected_days*trunc(Int, 1/s) .+ 1]

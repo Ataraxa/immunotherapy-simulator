@@ -21,15 +21,15 @@ include("../../Model/Bayesian/individual_restricted.jl")
 ### Script Settings
 DotEnv.config() # Loads content from .env file
 step_size = parse(Float64, ENV["STEP_SIZE"])
-n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 1000
-n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 5
+n_iters         = (length(ARGS) >= 1) ? parse(Int64,   ARGS[1]) : 10
+n_threads       = (length(ARGS) >= 2) ? parse(Int64,   ARGS[2]) : 2
 num_experiments = (length(ARGS) >= 3) ? parse(Int64,   ARGS[3]) : 1
-model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "predatorPrey"
+model           = (length(ARGS) >= 4) ?               (ARGS[4]) : "odeNfullyObs"
 prior_distro    = (length(ARGS) >= 5) ?               (ARGS[5]) : "Cauchy"
 inform_priors   = (length(ARGS) >= 6) ? parse(Int64,   ARGS[6]) : 0
-data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 5
+data_set        = (length(ARGS) >= 7) ? parse(Int64,   ARGS[7]) : 1
 prior_acc       = (length(ARGS) >= 8) ? parse(Float64,(ARGS[8])) : 1.0
-log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "none"
+log_norm        = (length(ARGS) >= 9) ?               (ARGS[9]) : "loga"
 
 # Manual settings
 path = "Data/fake_data"
